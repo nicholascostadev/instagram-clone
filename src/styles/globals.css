@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.dropdownMenuItem {
+  @apply hover:bg-gray-100 hover:border-none flex items-center gap-2 px-2 py-1 
+}
