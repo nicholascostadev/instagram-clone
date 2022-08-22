@@ -9,6 +9,7 @@ import { LoginPage } from '../components/LoginPage'
 const Home: NextPage = () => {
   const { status } = useSession()
 
+  // If user is logged in, render the Instagram Feed
   if (status !== 'loading' && status === 'authenticated') {
     return (
       <>
@@ -20,6 +21,7 @@ const Home: NextPage = () => {
       </>
     )
   }
+  // If the authentication status is "loading" render a loading page(Spinner)
   if (status === 'loading') {
     return (
       <>

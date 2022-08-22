@@ -16,6 +16,6 @@ export default defineNextConfig({
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ["instagram.com", "github.com", "lh3.googleusercontent.com"],
+    domains: ["instagram.com", "github.com", "lh3.googleusercontent.com", "instagram.fsdu6-1.fna.fbcdn.net", "instagram.fsdu7-1.fna.fbcdn.net"],
   },
 })

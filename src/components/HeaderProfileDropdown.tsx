@@ -21,7 +21,7 @@ export const HeaderProfileDropdown = () => {
 
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger className="outline-1 leading-none rounded-full">
+      <DropdownMenu.Trigger className="flex justify-center items-center outline-1 leading-none rounded-full">
         <Image
           src={
             data?.user?.image
