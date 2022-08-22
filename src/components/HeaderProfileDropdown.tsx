@@ -65,16 +65,20 @@ export const HeaderProfileDropdown = () => {
             </DropdownMenu.Item>
             <DropdownMenu.Item>
               <Link href="/feed" passHref>
-                <a className="dropdownMenuItem rounded-b-md">
+                <a className="dropdownMenuItem">
                   <UserCircle size={25} />
                   Perfil
                 </a>
               </Link>
             </DropdownMenu.Item>
-
+          </DropdownMenu.Group>
+          <DropdownMenu.Group>
+            <DropdownMenu.Separator>
+              <hr className="mt-2"></hr>
+            </DropdownMenu.Separator>
             <DropdownMenu.Item>
               <button
-                className="dropdownMenuItem rounded-b-md w-full text-md"
+                className="dropdownMenuItem rounded-b-md w-full text-md !p-2"
                 onClick={() => signOut()}
               >
                 Sair
@@ -82,24 +86,6 @@ export const HeaderProfileDropdown = () => {
             </DropdownMenu.Item>
           </DropdownMenu.Group>
 
-          <DropdownMenu.CheckboxItem>
-            <DropdownMenu.ItemIndicator />
-          </DropdownMenu.CheckboxItem>
-
-          <DropdownMenu.RadioGroup>
-            <DropdownMenu.RadioItem value="">
-              <DropdownMenu.ItemIndicator className="text-red bg-red " />
-            </DropdownMenu.RadioItem>
-          </DropdownMenu.RadioGroup>
-
-          <DropdownMenu.Sub>
-            <DropdownMenu.SubTrigger />
-            <DropdownMenu.Portal>
-              <DropdownMenu.SubContent />
-            </DropdownMenu.Portal>
-          </DropdownMenu.Sub>
-
-          <DropdownMenu.Separator />
           <DropdownMenu.Arrow />
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
