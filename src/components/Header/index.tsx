@@ -1,7 +1,14 @@
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { MagnifyingGlass } from 'phosphor-react'
+import {
+  ChatCircleText,
+  Compass,
+  Heart,
+  House,
+  MagnifyingGlass,
+  PlusCircle,
+} from 'phosphor-react'
 import { useState } from 'react'
 import { HeaderProfileDropdown } from './HeaderProfileDropdown'
 
@@ -35,7 +42,12 @@ export const Header = () => {
             className="absolute text-gray-200 top-2.5 left-1.5"
           />
         </div>
-        <div>
+        <div className="flex justify-center items-center gap-4">
+          <House className="cursor-pointer" size={30} weight="fill" />
+          <ChatCircleText className="cursor-pointer" size={30} />
+          <PlusCircle className="cursor-pointer" size={30} />
+          <Compass className="cursor-pointer" size={30} />
+          <Heart className="cursor-pointer" size={30} />
           <HeaderProfileDropdown />
         </div>
       </nav>
