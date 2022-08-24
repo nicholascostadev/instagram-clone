@@ -4,7 +4,8 @@ import Head from 'next/head'
 
 import { Spinner } from 'phosphor-react'
 import { Feed } from '../components/Feed'
-import { LoginPage } from '../components/LoginPage'
+import { Header } from '../components/Header'
+import { LoginPage } from '../components/Login/LoginPage'
 
 const Home: NextPage = () => {
   const { status } = useSession()
@@ -17,6 +18,7 @@ const Home: NextPage = () => {
           <title>Feed</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
+        <Header />
         <Feed />
       </>
     )
@@ -29,7 +31,9 @@ const Home: NextPage = () => {
           <title>Loading...</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <Spinner className="animate-spin" />
+        <div className="h-screen flex justify-center items-center">
+          <Spinner size={50} className="animate-spin text-gray-400" />
+        </div>
       </>
     )
   }
