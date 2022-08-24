@@ -15,28 +15,30 @@ export const Header = () => {
   }
 
   return (
-    <header className="flex justify-between items-center py-5 px-96 border-b shadow-sm sticky w-full bg-white">
-      <div>
-        <Link href="/feed" passHref>
-          <a className="text-xl">Instagram</a>
-        </Link>
-      </div>
-      <div className="relative">
-        <input
-          placeholder="Pesquisar"
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          className="bg-gray-100 pt-3 pb-1.5 rounded-lg text-sm w-64 pl-8 font-thin"
-        />
-        <MagnifyingGlass
-          size={20}
-          className="absolute text-gray-200 top-2.5 left-1.5"
-        />
-      </div>
-      <div>
-        <HeaderProfileDropdown />
-      </div>
+    <header className="py-5 border-b shadow-sm sticky w-full bg-white">
+      <nav className="flex justify-between items-center max-w-6xl mx-auto px-2">
+        <div>
+          <Link href="/feed" passHref>
+            <a className="text-xl">Instagram</a>
+          </Link>
+        </div>
+        <div className="relative">
+          <input
+            placeholder="Search"
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            className="bg-gray-100 pt-3 pb-1.5 rounded-lg text-sm w-32 sm:w-64 pl-8 font-thin"
+          />
+          <MagnifyingGlass
+            size={20}
+            className="absolute text-gray-200 top-2.5 left-1.5"
+          />
+        </div>
+        <div>
+          <HeaderProfileDropdown />
+        </div>
+      </nav>
     </header>
   )
 }
