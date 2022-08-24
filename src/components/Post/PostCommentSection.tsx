@@ -17,7 +17,7 @@ export const PostCommentSection = () => {
         className="disabled:text-blue-300 disabled:cursor-default text-blue-600 cursor-pointer"
         disabled
       >
-        Publicar
+        Publish
       </button>
     </div>
   )
