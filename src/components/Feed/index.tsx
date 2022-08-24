@@ -3,6 +3,7 @@ import { Stories } from '../Stories'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
+import { FeedFollowSuggestions } from './FollowSugestions'
 
 export const Feed = () => {
   const { data } = useSession()
@@ -17,26 +18,41 @@ export const Feed = () => {
           <div className="w-full h-[107px] flex items-center">
             <div className="flex items-center gap-4 w-full">
               <Link href={`/${data?.user?.name}`} passHref>
-                <a>
+                <a className="flex items-center border rounded-full">
                   <Image
                     src="https://github.com/nicholascostadev.png"
                     alt=""
                     layout="fixed"
-                    width={50}
-                    height={50}
+                    width={60}
+                    height={60}
                     className="rounded-full"
                   />
                 </a>
               </Link>
               <div>
-                <strong>nicholas_m_costa</strong>
-                <p>Nicholas M</p>
+                <Link href={`${data?.user?.name}`} passHref>
+                  <a className="font-bold text-sm">nicholas_m_costa</a>
+                </Link>
+                <p className="text-sm text-gray-400">Nicholas M</p>
               </div>
               <Link href="/" passHref>
-                <a className="text-blue-400 text-sm ml-auto">Switch</a>
+                <a className="text-blue-500 text-sm ml-auto font-bold">
+                  Switch
+                </a>
               </Link>
             </div>
           </div>
+
+          <div className="flex justify-between items-center">
+            <strong className="text-gray-400 text-sm">
+              Suggestions for you
+            </strong>
+            <a href="#" className="text-sm">
+              See All
+            </a>
+          </div>
+
+          <FeedFollowSuggestions />
         </div>
       </main>
     </>
