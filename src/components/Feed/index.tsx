@@ -3,7 +3,7 @@ import { Stories } from '../Stories'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
-import { FeedFollowSuggestions } from './FollowSugestions'
+import { FeedFollowSuggestions } from './FollowSuggestions'
 import useWindowSize from '../../hooks/useWindowSize'
 
 export const Feed = () => {
