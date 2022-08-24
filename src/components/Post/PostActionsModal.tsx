@@ -1,30 +1,45 @@
 import * as Dialog from '@radix-ui/react-dialog'
 
 export const PostActionModal = () => {
+  const PostActionModalButtonBaseStyles =
+    'hover:bg-gray-100 p-3 border-b border-solid border-gray-500/30'
+
   return (
     <Dialog.Portal>
       <Dialog.Overlay className="fixed h-screen inset-0 bg-black/40" />
 
       <Dialog.Content
-        className="w-96 rounded-lg bg-white border fixed top-[50%] right-[50%] translate-x-[-25%] translate-y-[-50%] grid
-
+        className="w-96 rounded-lg bg-white border fixed top-[55%] right-[50%] translate-x-[50%] lg:translate-x-[-20%] translate-y-[-50%] grid
       "
       >
-        <button className="hover:bg-gray-100 rounded-t-lg p-2 text-red-500 font-bold border-b border-gray-500/30">
-          Denunciar
+        <button
+          className={`${PostActionModalButtonBaseStyles} hover:bg-gray-100 rounded-t-lg p-3 text-red-500 font-bold`}
+        >
+          Report
         </button>
-        <button className="hover:bg-gray-100 p-2 text-red-500 font-bold border-b border-gray-500/30">
-          Deixar de seguir
+        <button
+          className={`${PostActionModalButtonBaseStyles} hover:bg-gray-100 p-3 text-red-500 font-bold`}
+        >
+          Unfollow
         </button>
-        <button className="hover:bg-gray-100 p-2 border-b border-gray-500/30">
-          Adicionar aos favoritos
+        <button className={`${PostActionModalButtonBaseStyles}`}>
+          Add to favorites
         </button>
-        <button className="hover:bg-gray-100 p-2 border-b border-gray-500/30">
-          Ir para a publicação
+        <button className={`${PostActionModalButtonBaseStyles}`}>
+          Go to post
         </button>
+        <button className={`${PostActionModalButtonBaseStyles}`}>
+          Share to...
+        </button>
+        <button className={`${PostActionModalButtonBaseStyles}`}>
+          Copy link
+        </button>
+        <button className={`${PostActionModalButtonBaseStyles}`}>Embed</button>
 
         <Dialog.Close asChild>
-          <button className="hover:bg-gray-100 rounded-b-lg p-2">
+          <button
+            className={`${PostActionModalButtonBaseStyles} border-b-0 rounded-b-lg`}
+          >
             Cancelar
           </button>
         </Dialog.Close>
