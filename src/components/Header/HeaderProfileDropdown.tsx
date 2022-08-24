@@ -2,7 +2,12 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Bookmark, UserCircle } from 'phosphor-react'
+import {
+  ArrowsCounterClockwise,
+  Bookmark,
+  Gear,
+  UserCircle,
+} from 'phosphor-react'
 
 export const HeaderProfileDropdown = () => {
   const { data } = useSession()
@@ -49,7 +54,7 @@ export const HeaderProfileDropdown = () => {
               <Link href={`${data?.user?.name}`} passHref>
                 <a href="#" className="dropdownMenuItem rounded-t-md">
                   <UserCircle size={25} />
-                  Perfil
+                  Profile
                 </a>
               </Link>
               <DropdownMenu.Separator />
@@ -58,16 +63,24 @@ export const HeaderProfileDropdown = () => {
               <Link href="/feed" passHref>
                 <a href="#" className="dropdownMenuItem">
                   <Bookmark size={25} />
-                  Salvos
+                  Saved
                 </a>
               </Link>
               <DropdownMenu.Separator />
             </DropdownMenu.Item>
             <DropdownMenu.Item>
-              <Link href="/feed" passHref>
+              <Link href="/" passHref>
                 <a className="dropdownMenuItem">
-                  <UserCircle size={25} />
-                  Perfil
+                  <Gear size={25} />
+                  Settings
+                </a>
+              </Link>
+            </DropdownMenu.Item>
+            <DropdownMenu.Item>
+              <Link href="/" passHref>
+                <a className="dropdownMenuItem">
+                  <ArrowsCounterClockwise size={25} />
+                  Change Account
                 </a>
               </Link>
             </DropdownMenu.Item>
