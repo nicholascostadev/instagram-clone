@@ -47,12 +47,24 @@ model Session {
 
 model User {
     id            String    @id @default(cuid())
+    username      String?   @unique
     name          String?
     email         String?   @unique
     emailVerified DateTime?
     image         String?
+    description   String?
+    website       String?
     accounts      Account[]
     sessions      Session[]
+    Post          Post[]
+}
+
+model Post {
+    id          Int     @id @default(autoincrement())
+    author      User    @relation(fields: [authorId], references: [id])
+    image       String?
+    description String?
+    authorId    String // relation scalar field  (used in the `@relation` attribute above)
 }
 
 model VerificationToken {
