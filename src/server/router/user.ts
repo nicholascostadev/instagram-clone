@@ -24,3 +24,18 @@ export const userRouter = createRouter()
       }
     },
   })
+  .query('getUserInfo', {
+    input: z.object({
+      username: z.string(),
+    }),
+    async resolve({ ctx, input: { username } }) {
+      return await ctx.prisma.user.findUnique({
+        where: {
+          username,
+        },
+        include: {
+          Post: true,
+        },
+      })
+    },
+  })
