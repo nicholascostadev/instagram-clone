@@ -14,10 +14,10 @@ import { HeaderProfileDropdown } from './HeaderProfileDropdown'
 
 export const Header = () => {
   const [input, setInput] = useState('')
-  const { data } = useSession()
+  const { status } = useSession()
   const router = useRouter()
 
-  if (!data) {
+  if (status === 'unauthenticated') {
     router.push('/')
   }
 
@@ -25,7 +25,7 @@ export const Header = () => {
     <header className="py-5 border-b shadow-sm sticky w-full bg-white">
       <nav className="flex justify-between items-center max-w-6xl mx-auto px-2">
         <div>
-          <Link href="/feed" passHref>
+          <Link href="/" passHref>
             <a className="text-xl">Instagram</a>
           </Link>
         </div>
