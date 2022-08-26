@@ -62,7 +62,7 @@ model User {
 model Post {
     id          Int     @id @default(autoincrement())
     author      User    @relation(fields: [authorId], references: [id])
-    image       String?
+    image       String
     description String?
     authorId    String // relation scalar field  (used in the `@relation` attribute above)
 }
