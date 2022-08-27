@@ -39,7 +39,7 @@ export const ProfileContent = ({ posts }: ProfileContentProps) => {
                 image={post.image}
                 commentsAmount={post.comments.length}
                 likesAmount={post.likes.length}
-                postId="1"
+                postId={post.id}
               />
             ))}
           </div>

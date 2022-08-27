@@ -6,7 +6,7 @@ interface ProfilePostProps {
   likesAmount: number
   commentsAmount: number
   image: string
-  postId: string
+  postId: number
 }
 
 export const ProfilePost = ({
@@ -22,7 +22,7 @@ export const ProfilePost = ({
         <div
           className="absolute inset-0 z-10 leading-none opacity-0
                      hover:opacity-100 hover:bg-black/50 transition-all
-                    flex justify-center items-center gap-6 text-white
+                     flex justify-center items-center gap-6 text-white
                     "
         >
           <div className="flex gap-2">
