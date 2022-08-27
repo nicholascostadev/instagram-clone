@@ -1,18 +1,26 @@
-import { User } from '@prisma/client'
 import { Session } from 'next-auth'
 import Image from 'next/image'
 import Link from 'next/link'
 import { DotsThree, Gear, User as UserIcon } from 'phosphor-react'
 
+type UserInfoProps = {
+  id: string | null
+  username: string | null
+  name: string | null
+  image: string | null
+  description: string | null
+  website: string | null
+}
+
 interface ProfileHeaderProps {
-  userInfo: User
+  userInfo: UserInfoProps
   sessionData: Session | null
 }
 
 interface ProfileHeaderDescriptionProps {
   websiteURL: string | null
   description: string | null
-  userInfo: User
+  userInfo: UserInfoProps
 }
 
 const ProfileHeaderMainInfo = ({

@@ -1,6 +1,7 @@
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { Header } from '../components/Header'
+import { ProfileContent } from '../components/Profile/ProfileContent'
 import { ProfileHeader } from '../components/Profile/ProfileHeader'
 import { trpc } from '../utils/trpc'
 
@@ -38,6 +39,7 @@ const Profile = () => {
       <Header />
       <div className="max-w-6xl mx-auto px-2 mt-10 ">
         <ProfileHeader userInfo={userInfo} sessionData={loggedUser} />
+        <ProfileContent posts={userInfo.posts} />
       </div>
     </>
   )

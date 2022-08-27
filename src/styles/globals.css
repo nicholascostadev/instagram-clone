@@ -2,8 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-.dropdownMenuItem {
-  @apply hover:bg-gray-100 hover:border-none flex items-center gap-2 px-2 py-1 
+@layer components {
+  .dropdownMenuItem {
+    @apply hover:bg-gray-100 hover:border-none flex items-center gap-2 px-2 py-1 
+  }
+
+  .profile-tab {
+    @apply flex justify-center items-center gap-1 pt-4 text-sm px-7
+  }
+}
+
+.profile-tab[data-state="active"] {
+  @apply border-t-black/25 border-t
 }
 
 body {

@@ -34,7 +34,12 @@ export const userRouter = createRouter()
           username,
         },
         include: {
-          Post: true,
+          posts: {
+            include: {
+              comments: true,
+              likes: true,
+            },
+          },
         },
       })
     },
