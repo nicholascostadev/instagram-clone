@@ -46,11 +46,22 @@ model User {
   image         String?
   description   String?
   website       String?
+  followers     Follows[] @relation("following")
+  following     Follows[] @relation("follower")
   accounts      Account[]
   posts         Post[]
   sessions      Session[]
   likes         Like[]
   comments      Comment[]
+}
+
+model Follows {
+  follower    User   @relation("follower", fields: [followerId], references: [id])
+  followerId  String
+  following   User   @relation("following", fields: [followingId], references: [id])
+  followingId String
+
+  @@id([followerId, followingId])
 }
 
 model Comment {
@@ -80,6 +91,7 @@ model Post {
   comments    Comment[]
   likes       Like[]
   createdAt   DateTime  @default(now())
+  updatedAt   DateTime?
 }
 
 model VerificationToken {
