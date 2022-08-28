@@ -26,21 +26,44 @@ export const userRouter = createRouter()
   })
   .query('getUserInfo', {
     input: z.object({
-      username: z.string(),
+      username: z.string().optional(),
+      id: z.string().optional(),
     }),
-    async resolve({ ctx, input: { username } }) {
-      return await ctx.prisma.user.findUnique({
-        where: {
-          username,
-        },
-        include: {
-          posts: {
-            include: {
-              comments: true,
-              likes: true,
+    async resolve({ ctx, input: { username, id } }) {
+      if (username) {
+        return await ctx.prisma.user.findUnique({
+          where: {
+            username,
+          },
+          include: {
+            followers: true,
+            following: true,
+            posts: {
+              include: {
+                comments: true,
+                likes: true,
+                author: true,
+              },
             },
           },
-        },
-      })
+        })
+      } else {
+        return await ctx.prisma.user.findUnique({
+          where: {
+            id,
+          },
+          include: {
+            followers: true,
+            following: true,
+            posts: {
+              include: {
+                comments: true,
+                likes: true,
+                author: true,
+              },
+            },
+          },
+        })
+      }
     },
   })

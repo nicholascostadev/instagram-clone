@@ -1,6 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog'
 
-export const PostActionModal = () => {
+export const FeedPostActionModal = () => {
   const PostActionModalButtonBaseStyles =
     'hover:bg-gray-100 p-3 border-b border-solid border-gray-500/30'
 

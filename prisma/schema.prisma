@@ -65,21 +65,24 @@ model Follows {
 }
 
 model Comment {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   text      String
+  postId    Int?
+  user      User?     @relation(fields: [userId], references: [id])
+  userId    String?
+  Post      Post?     @relation(fields: [postId], references: [id])
+  createdAt DateTime? @default(now())
+  likes     Like[]
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
   postId    Int?
   user      User?    @relation(fields: [userId], references: [id])
   userId    String?
   Post      Post?    @relation(fields: [postId], references: [id])
-  createdAt DateTime @default(now())
-}
-
-model Like {
-  id     Int     @id @default(autoincrement())
-  postId Int?
-  user   User?   @relation(fields: [userId], references: [id])
-  userId String?
-  Post   Post?   @relation(fields: [postId], references: [id])
+  Comment   Comment? @relation(fields: [commentId], references: [id])
+  commentId Int?
 }
 
 model Post {

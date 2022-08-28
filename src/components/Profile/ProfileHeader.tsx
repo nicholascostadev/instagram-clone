@@ -1,16 +1,21 @@
+import { Comment, Follows, Like, Post, User } from '@prisma/client'
 import { Session } from 'next-auth'
 import Image from 'next/image'
 import Link from 'next/link'
 import { DotsThree, Gear, User as UserIcon } from 'phosphor-react'
 
-type UserInfoProps = {
-  id: string | null
-  username: string | null
-  name: string | null
-  image: string | null
-  description: string | null
-  website: string | null
-}
+type UserInfoProps =
+  | (User & {
+      posts: (Post & {
+        author: User
+        likes: Like[]
+        comments: Comment[]
+      })[]
+      followers: Follows[]
+      following: Follows[]
+    })
+  | null
+  | undefined
 
 interface ProfileHeaderProps {
   userInfo: UserInfoProps
@@ -18,8 +23,8 @@ interface ProfileHeaderProps {
 }
 
 interface ProfileHeaderDescriptionProps {
-  websiteURL: string | null
-  description: string | null
+  websiteURL?: string | null
+  description?: string | null
   userInfo: UserInfoProps
 }
 
@@ -31,7 +36,7 @@ const ProfileHeaderMainInfo = ({
   if (!websiteURL) {
     return (
       <div>
-        <strong className="text-bold">{userInfo.name}</strong>
+        <strong className="font-bold">{userInfo?.name}</strong>
         {description && <p className="w-full">{description}</p>}
       </div>
     )
@@ -39,7 +44,7 @@ const ProfileHeaderMainInfo = ({
   const formattedWebsiteURL = websiteURL.split('https://')[1]
   return (
     <div>
-      <strong className="text-bold">{userInfo.name}</strong>
+      <strong className="font-bold">{userInfo?.name}</strong>
       {description && <p className="w-full">{description}</p>}
 
       {websiteURL && (
@@ -124,9 +129,9 @@ export const ProfileHeader = ({
   return (
     <header className="grid grid-cols-1 md:grid-cols-2 max-w-3xl">
       <div className="w-96 h-48 flex justify-center items-center">
-        {userInfo.image ? (
+        {userInfo?.image ? (
           <Image
-            src={userInfo.image}
+            src={userInfo?.image}
             alt=""
             width={150}
             height={150}
@@ -145,8 +150,8 @@ export const ProfileHeader = ({
       </div>
       <div className="flex flex-col flex-1 gap-6">
         <div className="flex gap-2 items-end justify-between">
-          <p className="text-xl">{userInfo.username}</p>
-          {userInfo.id === sessionData?.user?.id ? (
+          <p className="text-xl">{userInfo?.username}</p>
+          {userInfo?.id === sessionData?.user?.id ? (
             <div className="flex justify-center items-center gap-3">
               <button className="border px-2 py-1 rounded-md text-sm font-bold">
                 Edit Profile
@@ -164,19 +169,21 @@ export const ProfileHeader = ({
         </div>
         <div className="flex justify-between">
           <p className="text-sm">
-            <span className="font-bold">8</span> posts
+            <span className="font-bold">{userInfo?.posts.length}</span> posts
           </p>
           <p className="text-sm">
-            <span className="font-bold">8</span> followers
+            <span className="font-bold">{userInfo?.followers.length}</span>{' '}
+            followers
           </p>
           <p className="text-sm">
-            <span className="font-bold">8</span> following
+            <span className="font-bold">{userInfo?.following.length}</span>{' '}
+            following
           </p>
         </div>
 
         <ProfileHeaderMainInfo
-          websiteURL={userInfo.website}
-          description={userInfo.description}
+          websiteURL={userInfo?.website}
+          description={userInfo?.description}
           userInfo={userInfo}
         />
       </div>

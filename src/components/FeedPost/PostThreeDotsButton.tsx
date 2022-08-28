@@ -1,6 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { DotsThree } from 'phosphor-react'
-import { PostActionModal } from './PostActionsModal'
+import { FeedPostActionModal } from './PostActionsModal'
 
 export const PostThreeDotsButton = () => {
   return (
@@ -10,7 +10,7 @@ export const PostThreeDotsButton = () => {
           <DotsThree size={20} className="cursor-pointer" />
         </button>
       </Dialog.Trigger>
-      <PostActionModal />
+      <FeedPostActionModal />
     </Dialog.Root>
   )
 }

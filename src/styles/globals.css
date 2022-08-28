@@ -10,6 +10,8 @@
   .profile-tab {
     @apply flex justify-center items-center gap-1 pt-4 text-sm px-7
   }
+
+ 
 }
 
 .profile-tab[data-state="active"] {
@@ -19,3 +21,4 @@
 body {
   @apply bg-gray-100
 }
+

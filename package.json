@@ -21,6 +21,7 @@
     "@trpc/next": "^9.27.1",
     "@trpc/react": "^9.27.1",
     "@trpc/server": "^9.27.1",
+    "date-fns": "^2.29.2",
     "next": "12.2.5",
     "next-auth": "^4.10.3",
     "phosphor-react": "^1.4.1",

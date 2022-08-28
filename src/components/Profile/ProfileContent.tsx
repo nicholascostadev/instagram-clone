@@ -9,7 +9,7 @@ type TPost = Post & {
 }
 
 interface ProfileContentProps {
-  posts: TPost[]
+  posts: TPost[] | undefined
 }
 
 export const ProfileContent = ({ posts }: ProfileContentProps) => {
