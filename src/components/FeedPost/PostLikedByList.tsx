@@ -24,10 +24,8 @@ export const PostLikedByList = ({ post }: PostLikedByListProps) => {
           className="rounded-full "
         />
       </div>
-      {post.likes.length > 0 && (
-        <p className="text-sm">Liked by <span className='font-bold'>{post.likes[0]?.user?.username}</span> {post.likes.length > 1 ? <span className='font-bold'>and {post.likes.length - 1} others</span> : ""}</p>
-      )
-      }
+
+      <p className="text-sm">Liked by <span className='font-bold'>{post.likes[0]?.user?.username}</span> {post.likes.length > 1 ? <span className='font-bold'>and {post.likes.length - 1} others</span> : ""}</p>
     </div >
   )
 }

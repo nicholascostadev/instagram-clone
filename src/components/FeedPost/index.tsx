@@ -49,7 +49,10 @@ export const Post = ({ isLoading, userId, post }: PostProps) => {
       </div>
       <div className="p-2 flex flex-col gap-2 border-b pb-5">
         <PostActions post={post} />
-        <PostLikedByList post={post} />
+        {post.likes.length > 0 && <PostLikedByList post={post} />}
+        <div>
+          <p className='text-sm'><span className='font-bold'>{post?.author?.username}</span> {post?.description}</p>
+        </div>
         <div>
           <Link href={`/p/${post?.id}`} passHref>
             <a className="text-gray-400 text-sm">
