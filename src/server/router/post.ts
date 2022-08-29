@@ -56,8 +56,36 @@ export const postsRouter = createRouter()
         include: {
           author: true,
           comments: true,
-          likes: true,
+          likes: {
+            include: {
+              user: true
+            }
+          },
         },
       })
+    },
+  })
+  .mutation('toggleLike', {
+    input: z.object({
+      userId: z.string(),
+      postId: z.number(),
+      likeId: z.number().optional(),
+      action: z.enum(['remove', 'add']),
+    }),
+    async resolve({ ctx, input: { userId, postId, action, likeId } }) {
+      if (action === 'add') {
+        return await ctx.prisma.like.create({
+          data: {
+            userId,
+            postId,
+          },
+        })
+      } else {
+        return await ctx.prisma.like.delete({
+          where: {
+            id: likeId,
+          },
+        })
+      }
     },
   })
