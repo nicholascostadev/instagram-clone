@@ -89,7 +89,7 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
         <PostThreeDotsButton postData={postData} />
       </div>
 
-      <div className="h-[367px] overflow-y-auto">
+      <div className="h-[366px] overflow-y-auto">
         <div className="flex gap-2 p-4">
           <Image
             src={postData?.author.image ?? ''}
