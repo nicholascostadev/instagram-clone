@@ -14,7 +14,7 @@ import { HeaderProfileDropdown } from './HeaderProfileDropdown'
 
 export const Header = () => {
   const [input, setInput] = useState('')
-  const { status } = useSession()
+  const { status, data } = useSession()
   const router = useRouter()
 
   if (status === 'unauthenticated') {
@@ -43,12 +43,12 @@ export const Header = () => {
           />
         </div>
         <div className="flex justify-center items-center gap-4">
-          <House className="cursor-pointer" size={30} weight="fill" />
+          <House className="cursor-pointer" size={30} weight="fill" onClick={() => router.push("/")} />
           <ChatCircleText className="cursor-pointer" size={30} />
           <PlusCircle className="cursor-pointer" size={30} />
           <Compass className="cursor-pointer" size={30} />
           <Heart className="cursor-pointer" size={30} />
-          <HeaderProfileDropdown />
+          <HeaderProfileDropdown data={data} />
         </div>
       </nav>
     </header>

@@ -1,4 +1,5 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import { Session } from 'next-auth'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -9,8 +10,11 @@ import {
   UserCircle,
 } from 'phosphor-react'
 
-export const HeaderProfileDropdown = () => {
-  const { data } = useSession()
+interface HeaderProfileDropdownProps {
+  data: Session | null
+}
+
+export const HeaderProfileDropdown = ({ data }: HeaderProfileDropdownProps) => {
   if (!data) {
     return (
       <div className="container flex justify-center items-center gap-2 text-gray-400 py-3">
