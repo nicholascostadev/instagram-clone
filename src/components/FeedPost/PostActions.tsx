@@ -1,9 +1,11 @@
+import { useRouter } from 'next/router'
 import { BookmarkSimple, Chat, Heart, PaperPlaneTilt } from 'phosphor-react'
 import { useState } from 'react'
 
-export const PostActions = () => {
+export const PostActions = ({ postId }: { postId: number }) => {
   const [liked, setLiked] = useState(false)
   const [saved, setSaved] = useState(false)
+  const router = useRouter()
 
   return (
     <div className="flex justify-between items-center mb-2">
@@ -18,7 +20,11 @@ export const PostActions = () => {
           />
         </button>
         <button>
-          <Chat size={30} className="hover:text-gray-400" />
+          <Chat
+            size={30}
+            className="hover:text-gray-400"
+            onClick={() => router.push(`/p/${postId}`)}
+          />
         </button>
         <button>
           <PaperPlaneTilt size={30} className="hover:text-gray-400" />

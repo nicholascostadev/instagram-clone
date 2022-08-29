@@ -1,7 +1,7 @@
 import { createRouter } from './context'
 import { z } from 'zod'
 
-export const postRouter = createRouter()
+export const postsRouter = createRouter()
   .query('getSpecificPost', {
     input: z.object({
       id: z.number(),
@@ -46,6 +46,17 @@ export const postRouter = createRouter()
               userId,
             },
           },
+        },
+      })
+    },
+  })
+  .query('getAll', {
+    async resolve({ ctx }) {
+      return await ctx.prisma.post.findMany({
+        include: {
+          author: true,
+          comments: true,
+          likes: true,
         },
       })
     },

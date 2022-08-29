@@ -93,9 +93,8 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
       },
       {
         onError: (e) => console.log(e.message),
-        onSuccess: (addedComment) => {
+        onSuccess: () => {
           setInput('')
-          console.log(addedComment)
           utils.invalidateQueries()
         },
       },
