@@ -1,23 +1,33 @@
-import { Comment, Follows, Like, Post, User } from '@prisma/client';
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { signIn, signOut } from 'next-auth/react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { ArrowsCounterClockwise, Bookmark, Gear, UserCircle } from 'phosphor-react';
+import { Comment, Follows, Like, Post, User } from '@prisma/client'
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import { signIn, signOut } from 'next-auth/react'
+import Image from 'next/image'
+import Link from 'next/link'
+import {
+  ArrowsCounterClockwise,
+  Bookmark,
+  Gear,
+  UserCircle,
+} from 'phosphor-react'
 
 interface HeaderProfileDropdownProps {
-  userInfo: (User & {
-    followers: Follows[];
-    following: Follows[];
-    posts: (Post & {
-      author: User;
-      likes: Like[];
-      comments: Comment[];
-    })[];
-  }) | null | undefined
+  userInfo:
+    | (User & {
+        followers: Follows[]
+        following: Follows[]
+        posts: (Post & {
+          author: User
+          likes: Like[]
+          comments: Comment[]
+        })[]
+      })
+    | null
+    | undefined
 }
 
-export const HeaderProfileDropdown = ({ userInfo }: HeaderProfileDropdownProps) => {
+export const HeaderProfileDropdown = ({
+  userInfo,
+}: HeaderProfileDropdownProps) => {
   if (!userInfo) {
     return (
       <div className="container flex justify-center items-center gap-2 text-gray-400 py-3">

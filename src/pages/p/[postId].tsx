@@ -14,7 +14,7 @@ const Post = () => {
     data: postData,
     isError,
     isLoading,
-  } = trpc.useQuery(['post.getSpecificPost', { id: Number(postId) }], { refetchOnWindowFocus: false })
+  } = trpc.useQuery(['post.getSpecificPost', { id: Number(postId) }])
 
   if ((!postData && !isLoading) || isError) return <NotFound />
 

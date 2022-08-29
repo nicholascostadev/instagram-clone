@@ -10,13 +10,13 @@ import { PostLikedByList } from './PostLikedByList'
 
 interface PostProps {
   // optional just for testing
-  post: (TPost & {
-    author: User;
-    comments: Comment[];
+  post: TPost & {
+    author: User
+    comments: Comment[]
     likes: (Like & {
-      user: User | null;
-    })[];
-  })
+      user: User | null
+    })[]
+  }
   isLoading: boolean
   userId: string
 }
@@ -51,7 +51,10 @@ export const Post = ({ isLoading, userId, post }: PostProps) => {
         <PostActions post={post} />
         {post.likes.length > 0 && <PostLikedByList post={post} />}
         <div>
-          <p className='text-sm'><span className='font-bold'>{post?.author?.username}</span> {post?.description}</p>
+          <p className="text-sm">
+            <span className="font-bold">{post?.author?.username}</span>{' '}
+            {post?.description}
+          </p>
         </div>
         <div>
           <Link href={`/p/${post?.id}`} passHref>
@@ -63,9 +66,12 @@ export const Post = ({ isLoading, userId, post }: PostProps) => {
         </div>
         <div>
           <p className="text-gray-400 text-xs uppercase cursor-pointer">
-            {formatDistanceToNow(new Date(String(post.updatedAt || post.createdAt)), {
-              addSuffix: true
-            })}
+            {formatDistanceToNow(
+              new Date(String(post.updatedAt || post.createdAt)),
+              {
+                addSuffix: true,
+              },
+            )}
           </p>
         </div>
       </div>

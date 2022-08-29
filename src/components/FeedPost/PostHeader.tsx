@@ -1,8 +1,8 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { SpinnerGap } from 'phosphor-react';
+import Image from 'next/image'
+import Link from 'next/link'
+import { SpinnerGap } from 'phosphor-react'
 
-import { PostThreeDotsButton } from './PostThreeDotsButton';
+import { PostThreeDotsButton } from './PostThreeDotsButton'
 
 interface PostHeaderProps {
   postOwnerImage: string
@@ -16,12 +16,10 @@ export const PostHeader = ({ postOwner, postOwnerImage }: PostHeaderProps) => {
       <div className="flex items-center gap-2">
         {postOwnerImage ? (
           <Link href={`/${postOwner}`} passHref>
-            <a >
+            <a>
               <div className="flex rounded-full border-2 border-purple-300">
                 <Image
-                  src={
-                    postOwnerImage ?? ''
-                  }
+                  src={postOwnerImage ?? ''}
                   alt=""
                   layout="fixed"
                   width={40}
@@ -36,7 +34,9 @@ export const PostHeader = ({ postOwner, postOwnerImage }: PostHeaderProps) => {
         )}
         <Link href={`/${postOwner}`} passHref>
           <a href="">
-            <p>{postOwner ?? 'nicholascostadev'}</p>
+            <p className="text-sm font-bold">
+              {postOwner ?? 'nicholascostadev'}
+            </p>
           </a>
         </Link>
       </div>

@@ -58,8 +58,8 @@ export const postsRouter = createRouter()
           comments: true,
           likes: {
             include: {
-              user: true
-            }
+              user: true,
+            },
           },
         },
       })

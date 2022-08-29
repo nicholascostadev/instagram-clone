@@ -1,13 +1,13 @@
-import { Comment, Like, Post as TPost, User } from '@prisma/client';
-import Image from 'next/image';
+import { Comment, Like, Post as TPost, User } from '@prisma/client'
+import Image from 'next/image'
 
 interface PostLikedByListProps {
   post: TPost & {
-    author: User;
-    comments: Comment[];
+    author: User
+    comments: Comment[]
     likes: (Like & {
-      user: User | null;
-    })[];
+      user: User | null
+    })[]
   }
 }
 
@@ -16,7 +16,7 @@ export const PostLikedByList = ({ post }: PostLikedByListProps) => {
     <div className="flex items-center gap-2">
       <div className="flex rounded-full">
         <Image
-          src={post.likes[0]?.user?.image || ""}
+          src={post.likes[0]?.user?.image || ''}
           layout="fixed"
           alt=""
           height={20}
@@ -25,7 +25,15 @@ export const PostLikedByList = ({ post }: PostLikedByListProps) => {
         />
       </div>
 
-      <p className="text-sm">Liked by <span className='font-bold'>{post.likes[0]?.user?.username}</span> {post.likes.length > 1 ? <span className='font-bold'>and {post.likes.length - 1} others</span> : ""}</p>
-    </div >
+      <p className="text-sm">
+        Liked by{' '}
+        <span className="font-bold">{post.likes[0]?.user?.username}</span>{' '}
+        {post.likes.length > 1 ? (
+          <span className="font-bold">and {post.likes.length - 1} others</span>
+        ) : (
+          ''
+        )}
+      </p>
+    </div>
   )
 }

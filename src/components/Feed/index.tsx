@@ -1,19 +1,24 @@
-import { useSession } from 'next-auth/react';
-import Image from 'next/image';
-import Link from 'next/link';
+import { useSession } from 'next-auth/react'
+import Image from 'next/image'
+import Link from 'next/link'
 
-import useWindowSize from '../../hooks/useWindowSize';
-import { trpc } from '../../utils/trpc';
-import { Stories } from '../Stories';
-import { FeedPosts } from './FeedPosts';
-import { FeedFollowSuggestions } from './FollowSuggestions';
+import useWindowSize from '../../hooks/useWindowSize'
+import { trpc } from '../../utils/trpc'
+import { Stories } from '../Stories'
+import { FeedPosts } from './FeedPosts'
+import { FeedFollowSuggestions } from './FollowSuggestions'
 
 export const Feed = () => {
   const { data } = useSession()
-  const { data: userInfo } = trpc.useQuery(['user.getUserInfo', {
-    id: data?.user?.id,
-
-  }], { refetchOnWindowFocus: false })
+  const { data: userInfo } = trpc.useQuery(
+    [
+      'user.getUserInfo',
+      {
+        id: data?.user?.id,
+      },
+    ],
+    { refetchOnWindowFocus: false },
+  )
   const { width } = useWindowSize()
 
   return (
@@ -30,7 +35,7 @@ export const Feed = () => {
                 <Link href={`/${userInfo?.username}`} passHref>
                   <a className="flex items-center border rounded-full">
                     <Image
-                      src={userInfo?.image || ""}
+                      src={userInfo?.image || ''}
                       alt=""
                       layout="fixed"
                       width={60}

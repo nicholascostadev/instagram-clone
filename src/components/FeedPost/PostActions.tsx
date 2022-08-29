@@ -7,11 +7,11 @@ import { trpc } from '../../utils/trpc'
 
 interface PostActionsProps {
   post: TPost & {
-    author: User;
-    comments: Comment[];
+    author: User
+    comments: Comment[]
     likes: (Like & {
-      user: User | null;
-    })[];
+      user: User | null
+    })[]
   }
 }
 
@@ -62,10 +62,11 @@ export const PostActions = ({ post }: PostActionsProps) => {
           <Heart
             weight={userHasLiked ? 'fill' : 'regular'}
             size={30}
-            className={`${userHasLiked
+            className={`${
+              userHasLiked
                 ? 'text-red-600 transition-colors'
                 : 'hover:text-gray-400'
-              }`}
+            }`}
           />
         </button>
         <button>

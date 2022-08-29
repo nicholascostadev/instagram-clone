@@ -9,7 +9,7 @@ import {
   Heart,
   House,
   MagnifyingGlass,
-  PlusCircle
+  PlusCircle,
 } from 'phosphor-react'
 import { useState } from 'react'
 import { trpc } from '../../utils/trpc'
@@ -19,9 +19,15 @@ import { HeaderProfileDropdown } from './HeaderProfileDropdown'
 export const Header = () => {
   const [input, setInput] = useState('')
   const { status, data } = useSession()
-  const { data: userInfo } = trpc.useQuery(['user.getUserInfo', {
-    id: data?.user?.id
-  }], { refetchOnWindowFocus: false })
+  const { data: userInfo } = trpc.useQuery(
+    [
+      'user.getUserInfo',
+      {
+        id: data?.user?.id,
+      },
+    ],
+    { refetchOnWindowFocus: false },
+  )
   const router = useRouter()
 
   if (status === 'unauthenticated') {
@@ -35,7 +41,7 @@ export const Header = () => {
           <Link href="/" passHref>
             <a className="text-xl">Instagram</a>
           </Link>
-          <CaretDown size={15} weight="bold" className='cursor-pointer' />
+          <CaretDown size={15} weight="bold" className="cursor-pointer" />
         </div>
         <div className="relative">
           <input
@@ -51,7 +57,12 @@ export const Header = () => {
           />
         </div>
         <div className="flex justify-center items-center gap-4">
-          <House className="cursor-pointer" size={30} weight={router.pathname === "/" ? "fill" : "regular"} onClick={() => router.push("/")} />
+          <House
+            className="cursor-pointer"
+            size={30}
+            weight={router.pathname === '/' ? 'fill' : 'regular'}
+            onClick={() => router.push('/')}
+          />
           <ChatCircleText className="cursor-pointer" size={30} />
           <Dialog.Root>
             <Dialog.Trigger asChild>
