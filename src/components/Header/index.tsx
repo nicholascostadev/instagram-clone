@@ -18,7 +18,7 @@ export const Header = () => {
   const { status, data } = useSession()
   const { data: userInfo } = trpc.useQuery(['user.getUserInfo', {
     id: data?.user?.id
-  }])
+  }], { refetchOnWindowFocus: false })
   const router = useRouter()
 
   if (status === 'unauthenticated') {

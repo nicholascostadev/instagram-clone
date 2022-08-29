@@ -12,7 +12,8 @@ export const Feed = () => {
   const { data } = useSession()
   const { data: userInfo } = trpc.useQuery(['user.getUserInfo', {
     id: data?.user?.id,
-  }])
+
+  }], { refetchOnWindowFocus: false })
   const { width } = useWindowSize()
 
   return (

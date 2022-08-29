@@ -3,7 +3,7 @@ import { trpc } from '../../utils/trpc'
 import { Post } from '../FeedPost'
 
 export const FeedPosts = () => {
-  const { data: posts, isLoading } = trpc.useQuery(['post.getAll'])
+  const { data: posts, isLoading } = trpc.useQuery(['post.getAll'], { refetchOnWindowFocus: false, })
   const { data: userSession } = useSession()
   const userId = userSession?.user?.id
   return (
