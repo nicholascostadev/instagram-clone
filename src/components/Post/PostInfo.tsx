@@ -21,24 +21,24 @@ interface PostInfoProps {
   // this interface is a copy-paste from
   // postData's type in [postId].tsx file
   postData:
-    | (TPost & {
-        author: User
-        comments: (Comment & {
-          user: User | null
-          likes: Like[]
-        })[]
-        likes: (Like & {
-          user: User | null
-        })[]
-      })
-    | null
-    | undefined
+  | (TPost & {
+    author: User
+    comments: (Comment & {
+      user: User | null
+      likes: Like[]
+    })[]
+    likes: (Like & {
+      user: User | null
+    })[]
+  })
+  | null
+  | undefined
 }
 
 type TLikes =
   | (Like & {
-      user: User | null
-    })[]
+    user: User | null
+  })[]
   | undefined
 
 export const PostInfo = ({ postData }: PostInfoProps) => {
@@ -78,7 +78,7 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
     } else return ''
   }
 
-  const handleLikeComment = (commendId: number) => {
+  const handleLikeComment = (commentId: number) => {
     // call api
   }
 

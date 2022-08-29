@@ -1,21 +1,24 @@
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-import { Session } from 'next-auth'
-import { signIn, signOut, useSession } from 'next-auth/react'
-import Image from 'next/image'
-import Link from 'next/link'
-import {
-  ArrowsCounterClockwise,
-  Bookmark,
-  Gear,
-  UserCircle,
-} from 'phosphor-react'
+import { Comment, Follows, Like, Post, User } from '@prisma/client';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { signIn, signOut } from 'next-auth/react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowsCounterClockwise, Bookmark, Gear, UserCircle } from 'phosphor-react';
 
 interface HeaderProfileDropdownProps {
-  data: Session | null
+  userInfo: (User & {
+    followers: Follows[];
+    following: Follows[];
+    posts: (Post & {
+      author: User;
+      likes: Like[];
+      comments: Comment[];
+    })[];
+  }) | null | undefined
 }
 
-export const HeaderProfileDropdown = ({ data }: HeaderProfileDropdownProps) => {
-  if (!data) {
+export const HeaderProfileDropdown = ({ userInfo }: HeaderProfileDropdownProps) => {
+  if (!userInfo) {
     return (
       <div className="container flex justify-center items-center gap-2 text-gray-400 py-3">
         <button
@@ -33,8 +36,8 @@ export const HeaderProfileDropdown = ({ data }: HeaderProfileDropdownProps) => {
       <DropdownMenu.Trigger className="flex justify-center items-center outline-1 leading-none rounded-full">
         <Image
           src={
-            data?.user?.image
-              ? String(data.user.image)
+            userInfo?.image
+              ? String(userInfo.image)
               : 'https://github.com/nicholascostadev.png'
           }
           className="rounded-full h-12 w-12"
@@ -55,7 +58,7 @@ export const HeaderProfileDropdown = ({ data }: HeaderProfileDropdownProps) => {
 
           <DropdownMenu.Group className="w-64 text-sm">
             <DropdownMenu.Item>
-              <Link href={`${data?.user?.name}`} passHref>
+              <Link href={`${userInfo?.username}`} passHref>
                 <a href="#" className="dropdownMenuItem rounded-t-md">
                   <UserCircle size={25} />
                   Profile
