@@ -1,14 +1,18 @@
-import { getSession, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import useWindowSize from '../../hooks/useWindowSize';
+import { trpc } from '../../utils/trpc';
 import { Stories } from '../Stories';
 import { FeedPosts } from './FeedPosts';
 import { FeedFollowSuggestions } from './FollowSuggestions';
 
 export const Feed = () => {
   const { data } = useSession()
+  const { data: userInfo } = trpc.useQuery(['user.getUserInfo', {
+    id: data?.user?.id,
+  }])
   const { width } = useWindowSize()
 
   return (
@@ -22,10 +26,10 @@ export const Feed = () => {
           <div className="max-w-xs">
             <div className="w-full h-[107px] flex items-center">
               <div className="flex items-center gap-4 w-full">
-                <Link href={`/${data?.user?.name}`} passHref>
+                <Link href={`/${userInfo?.username}`} passHref>
                   <a className="flex items-center border rounded-full">
                     <Image
-                      src="https://github.com/nicholascostadev.png"
+                      src={userInfo?.image || ""}
                       alt=""
                       layout="fixed"
                       width={60}
@@ -35,10 +39,10 @@ export const Feed = () => {
                   </a>
                 </Link>
                 <div>
-                  <Link href={`${data?.user?.name}`} passHref>
-                    <a className="font-bold text-sm">nicholas_m_costa</a>
+                  <Link href={`${userInfo?.username}`} passHref>
+                    <a className="font-bold text-sm">{userInfo?.username}</a>
                   </Link>
-                  <p className="text-sm text-gray-400">Nicholas M</p>
+                  <p className="text-sm text-gray-400">{userInfo?.name}</p>
                 </div>
                 <Link href="/" passHref>
                   <a className="text-blue-500 text-sm ml-auto font-bold">
