@@ -86,7 +86,7 @@ export const HeaderProfileDropdown = ({
               <DropdownMenu.Separator />
             </DropdownMenu.Item>
             <DropdownMenu.Item>
-              <Link href="/" passHref>
+              <Link href="/accounts/edit" passHref>
                 <a className="dropdownMenuItem">
                   <Gear size={25} />
                   Settings
