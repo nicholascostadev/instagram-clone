@@ -1,5 +1,6 @@
 import { createRouter } from './context'
 import { z } from 'zod'
+import { TRPCError } from '@trpc/server'
 
 export const userRouter = createRouter()
   .query('getAll', {
@@ -73,9 +74,27 @@ export const userRouter = createRouter()
       newUsername: z.string(),
     }),
     async resolve({ ctx, input: { oldUsername, newUsername } }) {
-      if (newUsername.trim() === oldUsername || newUsername.trim() === '') {
-        return new Error('Invalid username')
-      }
+      if (newUsername.trim() === oldUsername)
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Username must be different than last one',
+          cause: newUsername,
+        })
+
+      if (newUsername.trim() === '')
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Invalid username',
+          cause: newUsername,
+        })
+
+      if (newUsername.length > 20)
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Username must have less than 20 characters',
+          cause: newUsername,
+        })
+
       return await ctx.prisma.user.update({
         where: {
           username: oldUsername,
