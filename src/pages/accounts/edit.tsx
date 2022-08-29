@@ -23,15 +23,9 @@ const Edit = () => {
         newUsername: String(input),
       },
       {
-        onError: (e) => {
-          console.log(e)
-          utils.invalidateQueries()
-        },
-        onSuccess: (s) => {
-          setLastUsername(String(s.username))
-          console.log(s.username)
-          utils.invalidateQueries()
-        },
+        onError: (e) => console.log(e),
+        onSuccess: (s) => setLastUsername(String(s.username)),
+        onSettled: () => utils.invalidateQueries('user.getUserInfo'),
       },
     )
   }
@@ -75,6 +69,7 @@ const Edit = () => {
                     ? 'bg-red-400 edit-profile-base-submit-button'
                     : 'bg-blue-400 edit-profile-base-submit-button'
                 }
+                disabled={invalidNewUsername}
               >
                 {user.isLoading ? (
                   <SpinnerGap size={24} className="animate-spin" />
