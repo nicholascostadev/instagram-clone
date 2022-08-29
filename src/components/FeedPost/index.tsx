@@ -1,4 +1,5 @@
 import { Comment, Like, Post as TPost, User } from '@prisma/client'
+import { formatDistanceToNow } from 'date-fns'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Spinner } from 'phosphor-react'
@@ -9,11 +10,13 @@ import { PostLikedByList } from './PostLikedByList'
 
 interface PostProps {
   // optional just for testing
-  post: TPost & {
-    author: User
-    likes: Like[]
-    comments: Comment[]
-  }
+  post: (TPost & {
+    author: User;
+    comments: Comment[];
+    likes: (Like & {
+      user: User | null;
+    })[];
+  })
   isLoading: boolean
   userId: string
 }
@@ -45,8 +48,8 @@ export const Post = ({ isLoading, userId, post }: PostProps) => {
         )}
       </div>
       <div className="p-2 flex flex-col gap-2 border-b pb-5">
-        <PostActions postId={post.id} />
-        <PostLikedByList />
+        <PostActions post={post} />
+        <PostLikedByList post={post} />
         <div>
           <Link href={`/p/${post?.id}`} passHref>
             <a className="text-gray-400 text-sm">
@@ -57,7 +60,9 @@ export const Post = ({ isLoading, userId, post }: PostProps) => {
         </div>
         <div>
           <p className="text-gray-400 text-xs uppercase cursor-pointer">
-            32 minutes ago
+            {formatDistanceToNow(new Date(String(post.updatedAt || post.createdAt)), {
+              addSuffix: true
+            })}
           </p>
         </div>
       </div>

@@ -1,14 +1,16 @@
-import { FeedPosts } from './FeedPosts'
-import { Stories } from '../Stories'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useSession } from 'next-auth/react'
-import { FeedFollowSuggestions } from './FollowSuggestions'
-import useWindowSize from '../../hooks/useWindowSize'
+import { getSession, useSession } from 'next-auth/react';
+import Image from 'next/image';
+import Link from 'next/link';
+
+import useWindowSize from '../../hooks/useWindowSize';
+import { Stories } from '../Stories';
+import { FeedPosts } from './FeedPosts';
+import { FeedFollowSuggestions } from './FollowSuggestions';
 
 export const Feed = () => {
   const { data } = useSession()
   const { width } = useWindowSize()
+
   return (
     <>
       <main className="max-w-5xl xl:max-w-5xl mx-auto px-2 h-screen grid grid-cols-1 lg:grid-cols-2 gap-10 pt-10">
