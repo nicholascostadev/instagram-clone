@@ -68,7 +68,7 @@ export const HeaderProfileDropdown = ({
 
           <DropdownMenu.Group className="w-64 text-sm">
             <DropdownMenu.Item>
-              <Link href={`${userInfo?.username}`} passHref>
+              <Link href={`/${userInfo?.username}`} passHref>
                 <a href="#" className="dropdownMenuItem rounded-t-md">
                   <UserCircle size={25} />
                   Profile

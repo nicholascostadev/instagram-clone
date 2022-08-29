@@ -67,3 +67,22 @@ export const userRouter = createRouter()
       }
     },
   })
+  .mutation('changeUsername', {
+    input: z.object({
+      oldUsername: z.string(),
+      newUsername: z.string(),
+    }),
+    async resolve({ ctx, input: { oldUsername, newUsername } }) {
+      if (newUsername.trim() === oldUsername || newUsername.trim() === '') {
+        return new Error('Invalid username')
+      }
+      return await ctx.prisma.user.update({
+        where: {
+          username: oldUsername,
+        },
+        data: {
+          username: newUsername,
+        },
+      })
+    },
+  })

@@ -1,7 +1,6 @@
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
-
 import useWindowSize from '../../hooks/useWindowSize'
 import { trpc } from '../../utils/trpc'
 import { Stories } from '../Stories'
@@ -10,6 +9,7 @@ import { FeedFollowSuggestions } from './FollowSuggestions'
 
 export const Feed = () => {
   const { data } = useSession()
+
   const { data: userInfo } = trpc.useQuery(
     [
       'user.getUserInfo',

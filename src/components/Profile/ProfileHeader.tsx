@@ -2,6 +2,7 @@ import { Comment, Follows, Like, Post, User } from '@prisma/client'
 import { Session } from 'next-auth'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { DotsThree, Gear, User as UserIcon } from 'phosphor-react'
 
 type UserInfoProps =
@@ -126,6 +127,8 @@ export const ProfileHeader = ({
   userInfo,
   sessionData,
 }: ProfileHeaderProps) => {
+  const router = useRouter()
+
   return (
     <header className="grid grid-cols-1 md:grid-cols-2 max-w-3xl">
       <div className="w-96 h-48 flex justify-center items-center">
@@ -153,7 +156,10 @@ export const ProfileHeader = ({
           <p className="text-xl">{userInfo?.username}</p>
           {userInfo?.id === sessionData?.user?.id ? (
             <div className="flex justify-center items-center gap-3">
-              <button className="border px-2 py-1 rounded-md text-sm font-bold">
+              <button
+                className="border px-2 py-1 rounded-md text-sm font-bold"
+                onClick={() => router.push('/accounts/edit')}
+              >
                 Edit Profile
               </button>
               <Gear size={25} className="cursor-pointer" />
