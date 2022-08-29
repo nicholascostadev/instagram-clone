@@ -1,16 +1,19 @@
+import * as Dialog from '@radix-ui/react-dialog'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import {
+  CaretDown,
   ChatCircleText,
   Compass,
   Heart,
   House,
   MagnifyingGlass,
-  PlusCircle,
+  PlusCircle
 } from 'phosphor-react'
 import { useState } from 'react'
 import { trpc } from '../../utils/trpc'
+import { CreatePostModal } from './CreatePostModal'
 import { HeaderProfileDropdown } from './HeaderProfileDropdown'
 
 export const Header = () => {
@@ -28,10 +31,11 @@ export const Header = () => {
   return (
     <header className="py-5 border-b shadow-sm sticky w-full bg-white">
       <nav className="flex justify-between items-center max-w-6xl mx-auto px-2">
-        <div>
+        <div className="flex justify-center items-center gap-2">
           <Link href="/" passHref>
             <a className="text-xl">Instagram</a>
           </Link>
+          <CaretDown size={15} weight="bold" className='cursor-pointer' />
         </div>
         <div className="relative">
           <input
@@ -47,9 +51,17 @@ export const Header = () => {
           />
         </div>
         <div className="flex justify-center items-center gap-4">
-          <House className="cursor-pointer" size={30} weight="fill" onClick={() => router.push("/")} />
+          <House className="cursor-pointer" size={30} weight={router.pathname === "/" ? "fill" : "regular"} onClick={() => router.push("/")} />
           <ChatCircleText className="cursor-pointer" size={30} />
-          <PlusCircle className="cursor-pointer" size={30} />
+          <Dialog.Root>
+            <Dialog.Trigger asChild>
+              <button className="flex justify-center items-center">
+                <PlusCircle className="cursor-pointer" size={30} />
+              </button>
+            </Dialog.Trigger>
+            <CreatePostModal />
+          </Dialog.Root>
+
           <Compass className="cursor-pointer" size={30} />
           <Heart className="cursor-pointer" size={30} />
           <HeaderProfileDropdown userInfo={userInfo} />
