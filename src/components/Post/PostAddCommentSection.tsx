@@ -29,7 +29,6 @@ export const PostAddCommentSection = ({
         userId: String(userSession?.user?.id),
       },
       {
-        onError: (e) => console.error(e.message),
         onSuccess: () => {
           setInput('')
           utils.invalidateQueries()

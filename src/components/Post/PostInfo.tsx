@@ -45,13 +45,12 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
     if (userHasLiked) {
       like.mutate(
         {
-          action: 'remove',
           likeId: Number(userHasLiked?.id),
           postId: Number(postData?.id),
           userId: String(userSession?.user?.id),
         },
         {
-          onError: (e) => console.error(e.message),
+          onSettled: () => utils.invalidateQueries('post.getSpecificPost'),
         },
       )
 
@@ -59,13 +58,10 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
     } else {
       like.mutate(
         {
-          action: 'add',
           postId: Number(postData?.id),
           userId: String(userSession?.user?.id),
         },
-        {
-          onError: (e) => console.error(e.message),
-        },
+        {},
       )
 
       utils.invalidateQueries()

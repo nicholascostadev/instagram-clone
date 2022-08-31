@@ -10,7 +10,6 @@ interface PostHeaderProps {
 }
 
 export const PostHeader = ({ postOwner, postOwnerImage }: PostHeaderProps) => {
-  console.log(postOwner)
   return (
     <header className="flex items-center justify-between border-gray-200 w-full pb-2">
       <div className="flex items-center gap-2">

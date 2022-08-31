@@ -2,8 +2,10 @@ import { Comment, Like, Post as TPost, User } from '@prisma/client'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { BookmarkSimple, Chat, Heart, PaperPlaneTilt } from 'phosphor-react'
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { trpc } from '../../utils/trpc'
+import { v4 as uuidv4 } from 'uuid'
+import { UserHasLiked } from '.'
 
 interface PostActionsProps {
   post: TPost & {
@@ -13,45 +15,88 @@ interface PostActionsProps {
       user: User | null
     })[]
   }
+  setPostState: Dispatch<
+    SetStateAction<
+      TPost & {
+        author: User
+        comments: Comment[]
+        likes: (Like & {
+          user: User | null
+        })[]
+      }
+    >
+  >
+  setUserHasLiked: Dispatch<SetStateAction<UserHasLiked>>
+  userHasLiked: UserHasLiked
 }
 
-export const PostActions = ({ post }: PostActionsProps) => {
+export const PostActions = ({
+  post,
+  setPostState,
+  setUserHasLiked,
+  userHasLiked,
+}: PostActionsProps) => {
   const [saved, setSaved] = useState(false)
-  const like = trpc.useMutation(['post.toggleLike'])
-  const { data } = useSession()
-  const utils = trpc.useContext()
-  const router = useRouter()
+  const likeMutation = trpc.useMutation(['post.toggleLike'])
 
-  const userHasLiked = post.likes.find((like) => like.userId === data?.user?.id)
+  const { data } = useSession()
+
+  useEffect(() => {
+    setUserHasLiked(post?.likes.find((like) => like?.userId === data?.user?.id))
+  }, [data, setUserHasLiked, post])
+
+  const router = useRouter()
 
   const handleToggleLikeOnPost = () => {
     if (userHasLiked) {
-      like.mutate(
+      likeMutation.mutate(
         {
-          action: 'remove',
           likeId: Number(userHasLiked?.id),
-          postId: post?.id,
+          postId: Number(post?.id),
           userId: String(data?.user?.id),
         },
         {
-          onError: (e) => console.error(e.message),
+          onSettled: () => {
+            setPostState((prev) => {
+              const newLikes = prev?.likes.filter(
+                (like) => like.userId !== data?.user?.id,
+              )
+
+              return {
+                ...prev,
+                likes: newLikes,
+              }
+            })
+          },
         },
       )
-
-      utils.invalidateQueries('post.getAll')
     } else {
-      like.mutate(
+      likeMutation.mutate(
         {
-          action: 'add',
-          postId: post?.id,
+          postId: Number(post?.id),
           userId: String(data?.user?.id),
+          likeId: Math.floor(Math.random() * 20),
         },
         {
-          onError: (e) => console.error(e.message),
+          onSettled: () => {
+            setPostState((prev) => {
+              return {
+                ...prev,
+                likes: [
+                  ...prev.likes,
+                  {
+                    postId: post?.id,
+                    user: data?.user as User,
+                    id: Number(Math.floor(Math.random() * 10)),
+                    commentId: Number(uuidv4()),
+                    userId: String(data?.user?.id),
+                  },
+                ],
+              }
+            })
+          },
         },
       )
-
-      utils.invalidateQueries('post.getAll')
     }
   }
 
@@ -65,7 +110,7 @@ export const PostActions = ({ post }: PostActionsProps) => {
             className={`${
               userHasLiked
                 ? 'text-red-600 transition-colors'
-                : 'hover:text-gray-400'
+                : 'hover:text-gray-400 transition-colors'
             }`}
           />
         </button>

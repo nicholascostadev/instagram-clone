@@ -68,6 +68,49 @@ export const userRouter = createRouter()
       }
     },
   })
+  .mutation('getUserInfo', {
+    input: z.object({
+      username: z.string().optional(),
+      id: z.string().optional(),
+    }),
+    async resolve({ ctx, input: { username, id } }) {
+      if (username) {
+        return await ctx.prisma.user.findUnique({
+          where: {
+            username,
+          },
+          include: {
+            followers: true,
+            following: true,
+            posts: {
+              include: {
+                comments: true,
+                likes: true,
+                author: true,
+              },
+            },
+          },
+        })
+      } else {
+        return await ctx.prisma.user.findUnique({
+          where: {
+            id,
+          },
+          include: {
+            followers: true,
+            following: true,
+            posts: {
+              include: {
+                comments: true,
+                likes: true,
+                author: true,
+              },
+            },
+          },
+        })
+      }
+    },
+  })
   .mutation('changeUsername', {
     input: z.object({
       oldUsername: z.string(),

@@ -23,7 +23,6 @@ const Edit = () => {
         newUsername: String(input),
       },
       {
-        onError: (e) => console.log(e),
         onSuccess: (s) => setLastUsername(String(s.username)),
         onSettled: () => utils.invalidateQueries('user.getUserInfo'),
       },
