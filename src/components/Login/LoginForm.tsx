@@ -1,6 +1,8 @@
 import { signIn } from 'next-auth/react'
+import Image from 'next/image'
 import { FacebookLogo } from 'phosphor-react'
 import { FormEvent } from 'react'
+import InstagramLogo from '../../assets/instagram-logo.png'
 
 export const LoginForm = () => {
   // const hello = trpc.useQuery(['example.hello', { text: 'from tRPC' }])
@@ -14,9 +16,17 @@ export const LoginForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white border flex flex-col pt-12 px-12 pb-5 gap-2 rounded-sm"
+      className="bg-transparent md:bg-white md:border flex flex-col pt-12 px-12 pb-5 gap-2 rounded-sm"
     >
-      <h1 className="text-3xl text-center mb-5">Instagram</h1>
+      <div className="flex justify-center mb-5">
+        <Image
+          src={InstagramLogo}
+          alt="logo"
+          layout="fixed"
+          height={51}
+          width={175}
+        />
+      </div>
       <input
         type="text"
         placeholder="Phone number, username, or email"
