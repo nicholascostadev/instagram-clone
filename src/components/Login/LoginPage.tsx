@@ -17,14 +17,14 @@ export const LoginPage = () => {
           <div className="container h-96 w-96 m-auto">
             <LoginForm />
             <div className="bg-white border mt-2 p-5 flex justify-center gap-1">
-              <p>Não tem uma conta?</p>
+              <p>Don&apos;t have an account?</p>
               <a href="#" className="text-blue-500 hover:underline">
-                Cadastre-se
+                Sign up
               </a>
             </div>
 
             <div>
-              <p className="text-xs text-center m-5">Obtenha o aplicativo.</p>
+              <p className="text-xs text-center m-5">Get the app.</p>
               <div className="flex justify-center gap-2">
                 <Image
                   src="https://instagram.com/static/images/appstore-install-badges/badge_ios_portuguese-brazilian-pt_br.png/68006a2bb372.png"

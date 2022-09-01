@@ -1,5 +1,5 @@
 # TODO
-- [ ] Translate Login page to English
+- [x] Translate Login page to English
 - [x] Create Profile Page
 - [x] Create Post Page
 - [ ] Make 'Tab' change between options in Header Dropdown

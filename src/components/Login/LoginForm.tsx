@@ -19,20 +19,20 @@ export const LoginForm = () => {
       <h1 className="text-3xl text-center mb-5">Instagram</h1>
       <input
         type="text"
-        placeholder="Telefone, nome de usuário ou email"
+        placeholder="Phone number, username, or email"
         className={inputClasses}
       />
-      <input placeholder="Senha" type="text" className={inputClasses} />
+      <input placeholder="Password" type="text" className={inputClasses} />
       <button
         className="bg-blue-500 hover:bg-blue-600 text-white p-1 rounded-md mt-2"
         onClick={() => signIn('google')}
       >
-        Entrar
+        Log in
       </button>
 
       <div className="flex justify-between items-center gap-5 text-gray-400 py-3">
         <hr className="border flex-1" />
-        OU
+        OR
         <hr className="border flex-1" />
       </div>
 
@@ -41,14 +41,14 @@ export const LoginForm = () => {
         className="text-blue-800 text-sm hover:underline flex justify-center items-center gap-2"
       >
         <FacebookLogo size={20} />
-        Entrar com o Facebook
+        Log in with Facebook
       </a>
 
       <a
         href="#"
         className="text-blue-900 text-xs hover:underline flex justify-center items-center gap-2 mt-2"
       >
-        Esqueceu a senha?
+        Forgot password?
       </a>
     </form>
   )
