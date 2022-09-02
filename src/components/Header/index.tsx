@@ -15,6 +15,8 @@ import { useState } from 'react'
 import { trpc } from '../../utils/trpc'
 import { CreatePostModal } from './CreatePostModal'
 import { HeaderProfileDropdown } from './HeaderProfileDropdown'
+import InstagramLogo from '../../assets/instagram-logo.png'
+import Image from 'next/image'
 
 export const Header = () => {
   const [input, setInput] = useState('')
@@ -38,7 +40,15 @@ export const Header = () => {
       <nav className="flex justify-between items-center max-w-6xl mx-auto px-2">
         <div className="flex justify-center items-center gap-2">
           <Link href="/" passHref>
-            <a className="text-xl">Instagram</a>
+            <a className="text-xl flex justify-center items-center mt-2">
+              <Image
+                src={InstagramLogo}
+                alt=""
+                layout="fixed"
+                width={100}
+                height={30}
+              />
+            </a>
           </Link>
           <CaretDown size={15} weight="bold" className="cursor-pointer" />
         </div>
