@@ -35,7 +35,7 @@ const Post = () => {
       <div className="flex flex-col w-full justify-center items-center mt-10 ">
         <div className="flex border w-[933px]">
           <Image
-            src={postData?.image || ''}
+            src={postData?.image ?? ''}
             alt=""
             layout="fixed"
             width={598}
