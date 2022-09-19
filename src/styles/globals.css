@@ -24,6 +24,11 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+
+  /* All buttons need this */
+  button {
+    @apply cursor-pointer;
+  }
 }
 
 .profile-tab[data-state="active"] {

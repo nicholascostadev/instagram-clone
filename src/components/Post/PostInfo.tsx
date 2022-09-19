@@ -14,18 +14,18 @@ export interface PostInfoProps {
   // this interface is a copy-paste from
   // postData's type in [postId].tsx file
   postData:
-    | (TPost & {
-        author: User
-        comments: (Comment & {
-          user: User | null
-          likes: Like[]
-        })[]
-        likes: (Like & {
-          user: User | null
-        })[]
-      })
-    | null
-    | undefined
+  | (TPost & {
+    author: User
+    comments: (Comment & {
+      user: User | null
+      likes: Like[]
+    })[]
+    likes: (Like & {
+      user: User | null
+    })[]
+  })
+  | null
+  | undefined
 }
 
 export const PostInfo = ({ postData }: PostInfoProps) => {
@@ -60,6 +60,7 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
         {
           postId: Number(postData?.id),
           userId: String(userSession?.user?.id),
+          likeId: Math.random() * 143719481623,
         },
         {},
       )
@@ -122,11 +123,10 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
               <Heart
                 size={25}
                 weight={userHasLiked ? 'fill' : 'regular'}
-                className={`${
-                  userHasLiked
+                className={`${userHasLiked
                     ? 'text-red-600 transition-colors'
                     : 'hover:text-gray-400'
-                }`}
+                  }`}
               />
             </button>
             <Chat size={25} className="cursor-pointer" />

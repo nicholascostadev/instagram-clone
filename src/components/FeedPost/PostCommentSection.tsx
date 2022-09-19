@@ -48,7 +48,7 @@ export const PostCommentSection = ({
           onChange={(e) => setInput(e.target.value)}
         />
         <button
-          className="disabled:text-blue-300 disabled:cursor-default text-blue-600 cursor-pointer"
+          className="disabled:text-blue-300 disabled:cursor-default text-blue-600"
           disabled={disabled}
           type="submit"
         >

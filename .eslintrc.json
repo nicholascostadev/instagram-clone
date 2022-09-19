@@ -10,5 +10,8 @@
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended",
     "@rocketseat/eslint-config/react"
-  ]
+  ],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off"
+  }
 }

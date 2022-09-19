@@ -1,8 +1,8 @@
 import { TRPCError } from '@trpc/server'
-import { createRouter } from './context'
 import { z } from 'zod'
+import { createProtectedRouter } from './protected-router'
 
-export const postsRouter = createRouter()
+export const postsRouter = createProtectedRouter()
   .query('getSpecificPost', {
     input: z.object({
       id: z.number(),
@@ -54,6 +54,9 @@ export const postsRouter = createRouter()
   .query('getAll', {
     async resolve({ ctx }) {
       return await ctx.prisma.post.findMany({
+        orderBy: {
+          createdAt: 'desc',
+        },
         include: {
           author: true,
           comments: true,
@@ -113,5 +116,21 @@ export const postsRouter = createRouter()
           },
         })
       }
+    },
+  })
+  .mutation('create', {
+    input: z.object({
+      imageUrl: z.string(),
+      description: z.string(),
+      userId: z.string(),
+    }),
+    async resolve({ input, ctx }) {
+      return await ctx.prisma.post.create({
+        data: {
+          image: input.imageUrl,
+          authorId: input.userId,
+          description: input.description,
+        },
+      })
     },
   })
