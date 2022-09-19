@@ -44,7 +44,7 @@ export const PostCommentSection = ({
         <input
           type="text"
           placeholder="Add a comment..."
-          className="flex-1"
+          className="flex-1 outline-none"
           onChange={(e) => setInput(e.target.value)}
         />
         <button
