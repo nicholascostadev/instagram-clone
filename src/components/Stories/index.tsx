@@ -1,4 +1,5 @@
 import { CaretRight } from 'phosphor-react'
+
 import { Storie } from './Storie'
 
 export const Stories = () => {
@@ -15,10 +16,12 @@ export const Stories = () => {
       <Storie />
       <Storie />
       <Storie />
-      <CaretRight
-        size={24}
-        className="absolute right-2 top-[50%] -translate-y-[50%] text-black border rounded-full bg-white"
-      />
+      <div className="sticky right-2 flex justify-center items-center cursor-pointer">
+        <CaretRight
+          size={24}
+          className="text-black border rounded-full bg-white"
+        />
+      </div>
     </div>
   )
 }
