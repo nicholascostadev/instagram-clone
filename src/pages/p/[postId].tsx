@@ -16,6 +16,8 @@ const Post = () => {
     isLoading,
   } = trpc.useQuery(['post.getSpecificPost', { id: Number(postId) }])
 
+  const postToShow = { ...postData } as typeof postData
+
   if ((!postData && !isLoading) || isError) return <NotFound />
 
   if (isLoading && !postData) {
@@ -41,7 +43,7 @@ const Post = () => {
             width={598}
             height={598}
           />
-          <PostInfo postData={postData} />
+          <PostInfo postData={postToShow} />
         </div>
       </div>
     </>
