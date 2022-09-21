@@ -51,7 +51,6 @@ export const PostActions = ({
     if (userHasLiked) {
       likeMutation.mutate(
         {
-          likeId: Number(userHasLiked?.id),
           postId: Number(post?.id),
           userId: String(data?.user?.id),
         },
