@@ -74,7 +74,6 @@ export const PostActions = ({
         {
           postId: Number(post?.id),
           userId: String(data?.user?.id),
-          likeId: Math.floor(Math.random() * 20),
         },
         {
           onSettled: () => {
