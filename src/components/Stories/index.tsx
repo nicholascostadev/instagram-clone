@@ -17,7 +17,6 @@ export const Stories = () => {
       <Storie />
       <Storie />
       <div className="sticky right-2 flex justify-center items-center cursor-pointer">
-        <div>Teste</div>
         <CaretRight
           size={24}
           className="text-black border rounded-full bg-white"

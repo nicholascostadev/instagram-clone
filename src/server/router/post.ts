@@ -1,4 +1,3 @@
-import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import { createProtectedRouter } from './protected-router'
 
@@ -73,46 +72,26 @@ export const postsRouter = createProtectedRouter()
     input: z.object({
       userId: z.string(),
       postId: z.number(),
-      likeId: z.number(),
     }),
-    async resolve({ ctx, input: { userId, postId, likeId } }) {
+    async resolve({ ctx, input: { userId, postId } }) {
       const userHasLiked = await ctx.prisma.like.findFirst({
         where: {
-          id: likeId,
           userId,
           postId,
         },
       })
 
       if (!userHasLiked) {
-        const hasRepeatedUser = await ctx.prisma.post.findMany({
-          where: {
-            id: postId,
-            likes: {
-              some: {
-                userId,
-              },
-            },
+        return await ctx.prisma.like.create({
+          data: {
+            userId,
+            postId,
           },
         })
-
-        if (hasRepeatedUser.length === 0) {
-          return await ctx.prisma.like.create({
-            data: {
-              userId,
-              postId,
-            },
-          })
-        } else {
-          throw new TRPCError({
-            code: 'BAD_REQUEST',
-            message: 'User has already liked this post',
-          })
-        }
       } else {
         return await ctx.prisma.like.delete({
           where: {
-            id: likeId,
+            id: userHasLiked.id,
           },
         })
       }
