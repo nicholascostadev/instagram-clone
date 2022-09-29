@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { DotsThree, Gear, User as UserIcon } from 'phosphor-react'
 
+import { trpc } from '../../utils/trpc'
+
 type UserInfoProps =
   | (User & {
       posts: (Post & {
@@ -12,7 +14,12 @@ type UserInfoProps =
         likes: Like[]
         comments: Comment[]
       })[]
-      followers: Follows[]
+      followers: (Follows & {
+        follower: {
+          id: string
+          username: string | null
+        }
+      })[]
       following: Follows[]
     })
   | null
@@ -21,6 +28,8 @@ type UserInfoProps =
 interface ProfileHeaderProps {
   userInfo: UserInfoProps
   sessionData: Session | null
+  userFollows: boolean
+  toggleUserFollows: () => void
 }
 
 interface ProfileHeaderDescriptionProps {
@@ -100,23 +109,27 @@ const ProfileHighlights = () => {
         <ProfileHighlight
           highlightId=""
           highlightImage=""
-          highlightName="Olá"
-        />
-        <ProfileHighlight highlightId="" highlightImage="" highlightName="A" />
-        <ProfileHighlight
-          highlightId=""
-          highlightImage=""
-          highlightName="aaaaaaaaaaaaaaaaaaaaaa"
+          highlightName="Highlight 1"
         />
         <ProfileHighlight
           highlightId=""
           highlightImage=""
-          highlightName="aaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          highlightName="Highlight 2"
         />
         <ProfileHighlight
           highlightId=""
           highlightImage=""
-          highlightName="aaaaaaaaaaaaa"
+          highlightName="Highlight 3"
+        />
+        <ProfileHighlight
+          highlightId=""
+          highlightImage=""
+          highlightName="Highlight 4"
+        />
+        <ProfileHighlight
+          highlightId=""
+          highlightImage=""
+          highlightName="Highlight 5"
         />
       </div>
     </div>
@@ -126,8 +139,36 @@ const ProfileHighlights = () => {
 export const ProfileHeader = ({
   userInfo,
   sessionData,
+  userFollows,
+  toggleUserFollows,
 }: ProfileHeaderProps) => {
   const router = useRouter()
+
+  const followMutation = trpc.useMutation(['user.toggleFollow'])
+
+  const toggleFollow = () => {
+    if (!sessionData || !sessionData.user || !sessionData?.user.id) return
+
+    followMutation.mutate(
+      {
+        followerId: sessionData?.user.id,
+        followingId: userInfo?.id as string,
+        action: userFollows ? 'unfollow' : 'follow',
+      },
+      {
+        onError: () => {
+          toggleUserFollows()
+        },
+        onSettled: () => {
+          toggleUserFollows()
+        },
+      },
+    )
+  }
+
+  const followButtonStyles = userFollows
+    ? 'px-3 py-1 rounded-md bg-transparent text-gray-600 font-bold border'
+    : 'px-3 py-1 rounded-md bg-blue-600 text-white font-bold'
 
   return (
     <header className="grid grid-cols-1 md:grid-cols-2 max-w-3xl">
@@ -166,8 +207,8 @@ export const ProfileHeader = ({
             </div>
           ) : (
             <div className="flex justify-center items-center gap-3">
-              <button className="px-3 py-1 rounded-md bg-blue-600 text-white font-bold">
-                Follow
+              <button className={followButtonStyles} onClick={toggleFollow}>
+                {userFollows ? 'Unfollow' : 'Follow'}
               </button>
               <DotsThree size={25} />
             </div>
@@ -175,14 +216,14 @@ export const ProfileHeader = ({
         </div>
         <div className="flex justify-between">
           <p className="text-sm">
-            <span className="font-bold">{userInfo?.posts.length}</span> posts
+            <span className="font-bold">{userInfo?.posts?.length}</span> posts
           </p>
           <p className="text-sm">
-            <span className="font-bold">{userInfo?.followers.length}</span>{' '}
+            <span className="font-bold">{userInfo?.followers?.length}</span>{' '}
             followers
           </p>
           <p className="text-sm">
-            <span className="font-bold">{userInfo?.following.length}</span>{' '}
+            <span className="font-bold">{userInfo?.following?.length}</span>{' '}
             following
           </p>
         </div>

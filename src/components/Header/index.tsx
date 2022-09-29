@@ -28,7 +28,7 @@ export const Header = () => {
         id: data?.user?.id,
       },
     ],
-    { refetchOnWindowFocus: false },
+    { refetchOnWindowFocus: true },
   )
   const router = useRouter()
   if (status === 'unauthenticated') {
@@ -66,24 +66,26 @@ export const Header = () => {
           />
         </div>
         <div className="flex justify-center items-center gap-4">
-          <House
-            className="cursor-pointer"
-            size={30}
-            weight={router.pathname === '/' ? 'fill' : 'regular'}
-            onClick={() => router.push('/')}
-          />
-          <ChatCircleText className="cursor-pointer" size={30} />
-          <Dialog.Root>
-            <Dialog.Trigger asChild>
-              <button className="flex justify-center items-center">
-                <PlusCircle className="cursor-pointer" size={30} />
-              </button>
-            </Dialog.Trigger>
-            <CreatePostModal />
-          </Dialog.Root>
+          <div className="hidden lg:flex justify-center items-center gap-4 ">
+            <House
+              className="cursor-pointer"
+              size={30}
+              weight={router.pathname === '/' ? 'fill' : 'regular'}
+              onClick={() => router.push('/')}
+            />
+            <ChatCircleText className="cursor-pointer" size={30} />
+            <Dialog.Root>
+              <Dialog.Trigger asChild>
+                <button className="flex justify-center items-center">
+                  <PlusCircle className="cursor-pointer" size={30} />
+                </button>
+              </Dialog.Trigger>
+              <CreatePostModal />
+            </Dialog.Root>
 
-          <Compass className="cursor-pointer" size={30} />
-          <Heart className="cursor-pointer" size={30} />
+            <Compass className="cursor-pointer" size={30} />
+            <Heart className="cursor-pointer" size={30} />
+          </div>
           <HeaderProfileDropdown userInfo={userInfo} />
         </div>
       </nav>
