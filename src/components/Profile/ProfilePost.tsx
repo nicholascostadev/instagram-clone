@@ -16,9 +16,15 @@ export const ProfilePost = ({
   image,
 }: ProfilePostProps) => {
   return (
-    <Link href={`/p/${postId}`} passHref className="w-[250px] h-[250px]">
-      <a className="relative block">
-        <Image src={image} alt="" layout="fixed" width={257} height={257} />
+    <Link
+      href={`/p/${postId}`}
+      passHref
+      className="w-auto md:w-[250px] md:h-[250px]"
+    >
+      <a className="relative block w-full">
+        <div className="relative w-[150px] h-[150px] sm:w-[250px] sm:h-[250px]">
+          <Image src={image} alt="" layout="fill" className="w-auto" />
+        </div>
         <div
           className="absolute inset-0 z-10 leading-none opacity-0
                      hover:opacity-100 hover:bg-black/50 transition-all
