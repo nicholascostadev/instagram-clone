@@ -52,7 +52,7 @@ export const Header = () => {
           </Link>
           <CaretDown size={15} weight="bold" className="cursor-pointer" />
         </div>
-        <div className="relative">
+        <div className="relative hidden lg:flex justify-center items-center gap-4 ">
           <input
             placeholder="Search"
             type="text"
@@ -66,26 +66,24 @@ export const Header = () => {
           />
         </div>
         <div className="flex justify-center items-center gap-4">
-          <div className="hidden lg:flex justify-center items-center gap-4 ">
-            <House
-              className="cursor-pointer"
-              size={30}
-              weight={router.pathname === '/' ? 'fill' : 'regular'}
-              onClick={() => router.push('/')}
-            />
-            <ChatCircleText className="cursor-pointer" size={30} />
-            <Dialog.Root>
-              <Dialog.Trigger asChild>
-                <button className="flex justify-center items-center">
-                  <PlusCircle className="cursor-pointer" size={30} />
-                </button>
-              </Dialog.Trigger>
-              <CreatePostModal />
-            </Dialog.Root>
+          <House
+            className="cursor-pointer"
+            size={30}
+            weight={router.pathname === '/' ? 'fill' : 'regular'}
+            onClick={() => router.push('/')}
+          />
+          <ChatCircleText className="cursor-pointer" size={30} />
+          <Dialog.Root>
+            <Dialog.Trigger asChild>
+              <button className="flex justify-center items-center">
+                <PlusCircle className="cursor-pointer" size={30} />
+              </button>
+            </Dialog.Trigger>
+            <CreatePostModal />
+          </Dialog.Root>
 
-            <Compass className="cursor-pointer" size={30} />
-            <Heart className="cursor-pointer" size={30} />
-          </div>
+          <Compass className="cursor-pointer" size={30} />
+          <Heart className="cursor-pointer" size={30} />
           <HeaderProfileDropdown userInfo={userInfo} />
         </div>
       </nav>
