@@ -1,4 +1,5 @@
 import { useSession } from 'next-auth/react'
+import Head from 'next/head'
 import { CheckCircle, SpinnerGap, X } from 'phosphor-react'
 import { FormEvent, useState } from 'react'
 import { Header } from '../../components/Header'
@@ -33,9 +34,12 @@ const Edit = () => {
 
   return (
     <>
+      <Head>
+        <title>Settings</title>
+      </Head>
       <Header />
-      <div className="w-full h-[calc(100vh-120px)] flex justify-center items-center">
-        <div className="border bg-white rounded-md w-[60rem] h-[30rem]">
+      <div className="w-full h-[calc(100vh-7.5rem)] flex justify-center items-center">
+        <div className="border bg-white rounded-md w-[960px] h-[480px]">
           <form
             onSubmit={handleUsernameChange}
             className="flex flex-col items-center p-8"

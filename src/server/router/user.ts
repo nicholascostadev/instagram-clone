@@ -37,7 +37,16 @@ export const userRouter = createRouter()
             username,
           },
           include: {
-            followers: true,
+            followers: {
+              include: {
+                follower: {
+                  select: {
+                    id: true,
+                    username: true,
+                  },
+                },
+              },
+            },
             following: true,
             posts: {
               include: {
@@ -54,7 +63,16 @@ export const userRouter = createRouter()
             id,
           },
           include: {
-            followers: true,
+            followers: {
+              include: {
+                follower: {
+                  select: {
+                    id: true,
+                    username: true,
+                  },
+                },
+              },
+            },
             following: true,
             posts: {
               include: {
@@ -146,5 +164,32 @@ export const userRouter = createRouter()
           username: newUsername,
         },
       })
+    },
+  })
+  .mutation('toggleFollow', {
+    input: z.object({
+      followingId: z.string(),
+      followerId: z.string(),
+      action: z.enum(['follow', 'unfollow']),
+    }),
+    async resolve({ input, ctx }) {
+      switch (input.action) {
+        case 'follow':
+          return await ctx.prisma.follows.create({
+            data: {
+              followerId: input.followerId,
+              followingId: input.followingId,
+            },
+          })
+        case 'unfollow':
+          return await ctx.prisma.follows.delete({
+            where: {
+              followerId_followingId: {
+                followerId: input.followerId,
+                followingId: input.followingId,
+              },
+            },
+          })
+      }
     },
   })

@@ -32,7 +32,7 @@ export const ProfileContent = ({ posts }: ProfileContentProps) => {
           </div>
         </Tabs.List>
         <Tabs.Content value="POSTS">
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-6 mt-4">
             {posts?.map((post) => (
               <ProfilePost
                 key={post.id}

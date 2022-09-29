@@ -21,8 +21,8 @@ export const Feed = () => {
 
   return (
     <>
-      <main className="max-w-5xl xl:max-w-5xl mx-auto px-2 h-screen grid grid-cols-1 lg:grid-cols-2 gap-10 pt-10">
-        <div className="max-w-lg lg:max-w-full mx-auto">
+      <main className="max-w-full xl:max-w-5xl mx-auto px-2 h-screen grid grid-cols-1 lg:grid-cols-2 gap-10 pt-10">
+        <div className="max-w-full lg:max-w-full mx-auto">
           <Stories />
           <FeedPosts />
         </div>

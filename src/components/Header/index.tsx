@@ -28,7 +28,7 @@ export const Header = () => {
         id: data?.user?.id,
       },
     ],
-    { refetchOnWindowFocus: false },
+    { refetchOnWindowFocus: true },
   )
   const router = useRouter()
   if (status === 'unauthenticated') {
@@ -36,7 +36,7 @@ export const Header = () => {
   }
 
   return (
-    <header className="py-5 border-b shadow-sm sticky w-full bg-white">
+    <header className="py-5 border-b shadow-sm sticky w-full bg-white overflow-hidden">
       <nav className="flex justify-between items-center max-w-6xl mx-auto px-2">
         <div className="flex justify-center items-center gap-2">
           <Link href="/" passHref>
@@ -52,7 +52,7 @@ export const Header = () => {
           </Link>
           <CaretDown size={15} weight="bold" className="cursor-pointer" />
         </div>
-        <div className="relative">
+        <div className="relative hidden lg:flex justify-center items-center gap-4 ">
           <input
             placeholder="Search"
             type="text"

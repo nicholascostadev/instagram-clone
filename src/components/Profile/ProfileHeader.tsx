@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { DotsThree, Gear, User as UserIcon } from 'phosphor-react'
 
+import { trpc } from '../../utils/trpc'
+
 type UserInfoProps =
   | (User & {
       posts: (Post & {
@@ -12,7 +14,12 @@ type UserInfoProps =
         likes: Like[]
         comments: Comment[]
       })[]
-      followers: Follows[]
+      followers: (Follows & {
+        follower: {
+          id: string
+          username: string | null
+        }
+      })[]
       following: Follows[]
     })
   | null
@@ -21,6 +28,8 @@ type UserInfoProps =
 interface ProfileHeaderProps {
   userInfo: UserInfoProps
   sessionData: Session | null
+  userFollows: boolean
+  toggleUserFollows: () => void
 }
 
 interface ProfileHeaderDescriptionProps {
@@ -37,14 +46,16 @@ const ProfileHeaderMainInfo = ({
   if (!websiteURL) {
     return (
       <div>
-        <strong className="font-bold">{userInfo?.name}</strong>
+        <strong className="font-bold text-sm md:text-base">
+          {userInfo?.name}
+        </strong>
         {description && <p className="w-full">{description}</p>}
       </div>
     )
   }
   const formattedWebsiteURL = websiteURL.split('https://')[1]
   return (
-    <div>
+    <div className="text-sm md:text-base">
       <strong className="font-bold">{userInfo?.name}</strong>
       {description && <p className="w-full">{description}</p>}
 
@@ -95,28 +106,32 @@ const ProfileHighlight = ({
 
 const ProfileHighlights = () => {
   return (
-    <div className="flex items-center gap-4 mt-20 col-span-full">
-      <div className="flex justify-center items-center gap-12 max-w-full overflow-x-auto mx-auto md:ml-28">
+    <div className="flex items-center gap-4 mt-20 col-span-full ">
+      <div className="flex justify-start items-center gap-12 max-w-full overflow-x-auto mx-auto md:ml-28 scrollbar-hide">
         <ProfileHighlight
           highlightId=""
           highlightImage=""
-          highlightName="Olá"
-        />
-        <ProfileHighlight highlightId="" highlightImage="" highlightName="A" />
-        <ProfileHighlight
-          highlightId=""
-          highlightImage=""
-          highlightName="aaaaaaaaaaaaaaaaaaaaaa"
+          highlightName="Highlight 1"
         />
         <ProfileHighlight
           highlightId=""
           highlightImage=""
-          highlightName="aaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          highlightName="Highlight 2"
         />
         <ProfileHighlight
           highlightId=""
           highlightImage=""
-          highlightName="aaaaaaaaaaaaa"
+          highlightName="Highlight 3"
+        />
+        <ProfileHighlight
+          highlightId=""
+          highlightImage=""
+          highlightName="Highlight 4"
+        />
+        <ProfileHighlight
+          highlightId=""
+          highlightImage=""
+          highlightName="Highlight 5"
         />
       </div>
     </div>
@@ -126,72 +141,105 @@ const ProfileHighlights = () => {
 export const ProfileHeader = ({
   userInfo,
   sessionData,
+  userFollows,
+  toggleUserFollows,
 }: ProfileHeaderProps) => {
   const router = useRouter()
 
+  const followMutation = trpc.useMutation(['user.toggleFollow'])
+
+  const toggleFollow = () => {
+    if (!sessionData || !sessionData.user || !sessionData?.user.id) return
+
+    followMutation.mutate(
+      {
+        followerId: sessionData?.user.id,
+        followingId: userInfo?.id as string,
+        action: userFollows ? 'unfollow' : 'follow',
+      },
+      {
+        onError: () => {
+          toggleUserFollows()
+        },
+        onSettled: () => {
+          toggleUserFollows()
+        },
+      },
+    )
+  }
+
+  const followButtonStyles = userFollows
+    ? 'px-3 py-1 rounded-md bg-transparent text-gray-600 font-bold border'
+    : 'px-3 py-1 rounded-md bg-blue-600 text-white font-bold'
+
   return (
-    <header className="grid grid-cols-1 md:grid-cols-2 max-w-3xl">
-      <div className="w-96 h-48 flex justify-center items-center">
-        {userInfo?.image ? (
-          <Image
-            src={userInfo?.image}
-            alt=""
-            width={150}
-            height={150}
-            layout="fixed"
-            className="rounded-full"
-          />
-        ) : (
-          <div className="bg-gray-300 rounded-full">
-            <UserIcon
-              size={150}
-              className="rounded-full"
-              color="rgb(156 163 175)"
-            />
-          </div>
-        )}
-      </div>
-      <div className="flex flex-col flex-1 gap-6">
-        <div className="flex gap-2 items-end justify-between">
-          <p className="text-xl">{userInfo?.username}</p>
-          {userInfo?.id === sessionData?.user?.id ? (
-            <div className="flex justify-center items-center gap-3">
-              <button
-                className="border px-2 py-1 rounded-md text-sm font-bold"
-                onClick={() => router.push('/accounts/edit')}
-              >
-                Edit Profile
-              </button>
-              <Gear size={25} className="cursor-pointer" />
+    <header className="flex flex-col max-w-4xl">
+      <div className="flex">
+        <div className="w-32 md:w-96 max-w-full h-48 flex justify-start items-start md:justify-center md:items-center">
+          {userInfo?.image ? (
+            <div className="relative w-[100px] h-[100px] md:w-[150px] md:h-[150px]">
+              <Image
+                src={userInfo?.image}
+                alt=""
+                layout="fill"
+                className="rounded-full"
+              />
             </div>
           ) : (
-            <div className="flex justify-center items-center gap-3">
-              <button className="px-3 py-1 rounded-md bg-blue-600 text-white font-bold">
-                Follow
-              </button>
-              <DotsThree size={25} />
+            <div className="bg-gray-300 rounded-full">
+              <UserIcon
+                size={150}
+                className="rounded-full"
+                color="rgb(156 163 175)"
+              />
             </div>
           )}
         </div>
-        <div className="flex justify-between">
-          <p className="text-sm">
-            <span className="font-bold">{userInfo?.posts.length}</span> posts
-          </p>
-          <p className="text-sm">
-            <span className="font-bold">{userInfo?.followers.length}</span>{' '}
-            followers
-          </p>
-          <p className="text-sm">
-            <span className="font-bold">{userInfo?.following.length}</span>{' '}
-            following
-          </p>
-        </div>
+        <div className="flex flex-col flex-1 gap-6">
+          <div className="flex gap-2 items-end justify-between">
+            <p className="text-xl">{userInfo?.username}</p>
+            {userInfo?.id === sessionData?.user?.id ? (
+              <div className="flex justify-center items-center gap-3">
+                <button
+                  className="border px-2 py-1 rounded-md text-sm font-bold"
+                  onClick={() => router.push('/accounts/edit')}
+                >
+                  Edit Profile
+                </button>
+                <Gear size={25} className="cursor-pointer" />
+              </div>
+            ) : (
+              <div className="flex justify-center items-center gap-3">
+                <button
+                  className={`${followButtonStyles} hidden md:flex`}
+                  onClick={toggleFollow}
+                >
+                  {userFollows ? 'Unfollow' : 'Follow'}
+                </button>
+                <DotsThree size={25} />
+              </div>
+            )}
+          </div>
+          <div className="flex gap-8">
+            <p className="text-sm">
+              <span className="font-bold">{userInfo?.posts?.length}</span> posts
+            </p>
+            <p className="text-sm">
+              <span className="font-bold">{userInfo?.followers?.length}</span>{' '}
+              followers
+            </p>
+            <p className="text-sm">
+              <span className="font-bold">{userInfo?.following?.length}</span>{' '}
+              following
+            </p>
+          </div>
 
-        <ProfileHeaderMainInfo
-          websiteURL={userInfo?.website}
-          description={userInfo?.description}
-          userInfo={userInfo}
-        />
+          <ProfileHeaderMainInfo
+            websiteURL={userInfo?.website}
+            description={userInfo?.description}
+            userInfo={userInfo}
+          />
+        </div>
       </div>
       <ProfileHighlights />
     </header>

@@ -6,7 +6,7 @@ import { exampleRouter } from './example'
 import { protectedExampleRouter } from './protected-example-router'
 import { userRouter } from './user'
 import { postsRouter } from './post'
-import { suggestionsRouter } from './getSuggestions'
+import { suggestionsRouter } from './suggestionsRouter'
 
 export const appRouter = createRouter()
   .transformer(superjson)
