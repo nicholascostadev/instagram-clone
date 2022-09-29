@@ -36,7 +36,7 @@ export const Header = () => {
   }
 
   return (
-    <header className="py-5 border-b shadow-sm sticky w-full bg-white">
+    <header className="py-5 border-b shadow-sm sticky w-full bg-white overflow-hidden">
       <nav className="flex justify-between items-center max-w-6xl mx-auto px-2">
         <div className="flex justify-center items-center gap-2">
           <Link href="/" passHref>
