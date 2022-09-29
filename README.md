@@ -26,23 +26,23 @@
   <li><a href="#portugues">Portugues</a>
     <ol>
     <li>
-      <a href="#about-the-project">Sobre o projeto</a>
+      <a href="#sobre-o-projeto">Sobre o projeto</a>
       <ul>
-        <li><a href="#built-with">Feito com</a></li>
+        <li><a href="#feito-com">Feito com</a></li>
       </ul>
     </li>
     <li>
-      <a href="#getting-started">Como começar</a>
+      <a href="#como-rodar-o-projeto-localmente">Como começar</a>
       <ul>
-        <li><a href="#prerequisites">Pré-requisitos</a></li>
-        <li><a href="#installation">Instalação</a></li>
+        <li><a href="#pré-requisitos">Pré-requisitos</a></li>
+        <li><a href="#instalação">Instalação</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usos</a></li>
-    <li><a href="#contributing">Como contribuir</a></li>
-    <li><a href="#license">Licença</a></li>
-    <li><a href="#contact">Contato</a></li>
-    <li><a href="#acknowledgments">Aprendizados</a></li>
+    <li><a href="#como-você-pode-usar">Usos</a></li>
+    <li><a href="#contribuição">Como contribuir</a></li>
+    <li><a href="#licença">Licença</a></li>
+    <li><a href="#contato">Contato</a></li>
+    <li><a href="#reconhecimentos">Reconhecimentos</a></li>
   </ol>
   </li>
   <li><a href="#english">English</a>
@@ -179,9 +179,9 @@ Project Link: [https://github.com/nicholascostadev/instagram-clone](https://gith
 
 <!-- ACKNOWLEDGMENTS -->
 
-## Conhecimentos
+## Reconhecimentos
 
-Conhecimentos encontrados a partir da criação desse projeto
+Recursos que eu achei útil fazendo esse projeto.
 
 - [Prisma many to many relation](https://www.prisma.io/docs/concepts/components/prisma-schema/relations/many-to-many-relations)
 - [Choose an Open Source License](https://choosealicense.com)
@@ -309,7 +309,7 @@ Project Link: [https://github.com/nicholascostadev/instagram-clone](https://gith
 
 ## Acknowledgments
 
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
+Resources I found helpfull when doing this project.
 
 - [Prisma many to many relation](https://www.prisma.io/docs/concepts/components/prisma-schema/relations/many-to-many-relations)
 - [Choose an Open Source License](https://choosealicense.com)
