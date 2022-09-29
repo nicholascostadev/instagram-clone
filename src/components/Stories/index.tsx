@@ -4,7 +4,7 @@ import { Storie } from './Storie'
 
 export const Stories = () => {
   return (
-    <div className="relative border pl-2 py-2 bg-white rounded-lg flex gap-4 overflow-x-scroll scrollbar-hide">
+    <div className="scrollbar-hide relative flex gap-4 overflow-x-scroll rounded-lg border bg-white py-2 pl-2">
       <Storie />
       <Storie />
       <Storie />
@@ -16,10 +16,10 @@ export const Stories = () => {
       <Storie />
       <Storie />
       <Storie />
-      <div className="sticky right-2 flex justify-center items-center cursor-pointer">
+      <div className="sticky right-2 flex cursor-pointer items-center justify-center">
         <CaretRight
           size={24}
-          className="text-black border rounded-full bg-white"
+          className="rounded-full border bg-white text-black"
         />
       </div>
     </div>

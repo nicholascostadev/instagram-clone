@@ -14,9 +14,9 @@ interface ProfileContentProps {
 
 export const ProfileContent = ({ posts }: ProfileContentProps) => {
   return (
-    <div className="border-t w-full mt-20">
+    <div className="mt-20 w-full border-t">
       <Tabs.Root
-        className="flex flex-col justify-center items-center"
+        className="flex flex-col items-center justify-center"
         defaultValue="POSTS"
       >
         <Tabs.List>
@@ -32,7 +32,7 @@ export const ProfileContent = ({ posts }: ProfileContentProps) => {
           </div>
         </Tabs.List>
         <Tabs.Content value="POSTS">
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-6 mt-4">
+          <div className="mt-4 grid grid-cols-2 gap-1 md:grid-cols-3 md:gap-6">
             {posts?.map((post) => (
               <ProfilePost
                 key={post.id}

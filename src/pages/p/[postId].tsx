@@ -24,7 +24,7 @@ const Post = () => {
     return (
       <>
         <Header />
-        <div className="flex justify-center items-center h-[calc(100vh-79px)]">
+        <div className="flex h-[calc(100vh-79px)] items-center justify-center">
           <SpinnerGap size={25} className="animate-spin" />
         </div>
       </>
@@ -34,8 +34,8 @@ const Post = () => {
   return (
     <>
       <Header />
-      <div className="flex flex-col w-full justify-center items-center mt-10 ">
-        <div className="flex border w-[933px]">
+      <div className="mt-10 flex w-full flex-col items-center justify-center ">
+        <div className="flex w-[933px] border">
           <Image
             src={postData?.image ?? ''}
             alt=""

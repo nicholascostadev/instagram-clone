@@ -38,22 +38,22 @@ export const PostAddCommentSection = ({
   }
 
   return (
-    <div className="border-t flex justify-between justify-self-end self-end py-6 p-4 items-center text-sm">
+    <div className="flex items-center justify-between self-end justify-self-end border-t p-4 py-6 text-sm">
       <Smiley size={25} className="cursor-pointer" />
       <form
         onSubmit={handleAddComment}
-        className="flex flex-1 justify-between mx-2"
+        className="mx-2 flex flex-1 justify-between"
       >
         <input
           type="text"
           placeholder="Add a comment..."
           onChange={(e) => setInput(e.target.value)}
           value={input}
-          className="flex-1 mr-2"
+          className="mr-2 flex-1"
         />
         <button
           type="submit"
-          className="text-blue-500 disabled:text-blue-200 font-bold"
+          className="font-bold text-blue-500 disabled:text-blue-200"
           disabled={disabled}
         >
           {isLoading ? (

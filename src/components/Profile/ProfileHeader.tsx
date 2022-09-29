@@ -46,7 +46,7 @@ const ProfileHeaderMainInfo = ({
   if (!websiteURL) {
     return (
       <div>
-        <strong className="font-bold text-sm md:text-base">
+        <strong className="text-sm font-bold md:text-base">
           {userInfo?.name}
         </strong>
         {description && <p className="w-full">{description}</p>}
@@ -83,8 +83,8 @@ const ProfileHighlight = ({
       passHref
       className="max-w-[119px]"
     >
-      <a className="flex flex-col justify-center items-center gap-2 w-full">
-        <div className="flex justify-center items-center border border-red-500 p-1 rounded-full">
+      <a className="flex w-full flex-col items-center justify-center gap-2">
+        <div className="flex items-center justify-center rounded-full border border-red-500 p-1">
           <Image
             src={highlightImage || 'https://github.com/nicholascostadev.png'}
             alt=""
@@ -106,8 +106,8 @@ const ProfileHighlight = ({
 
 const ProfileHighlights = () => {
   return (
-    <div className="flex items-center gap-4 mt-20 col-span-full ">
-      <div className="flex justify-start items-center gap-12 max-w-full overflow-x-auto mx-auto md:ml-28 scrollbar-hide">
+    <div className="col-span-full mt-20 flex items-center gap-4 ">
+      <div className="scrollbar-hide mx-auto flex max-w-full items-center justify-start gap-12 overflow-x-auto md:ml-28">
         <ProfileHighlight
           highlightId=""
           highlightImage=""
@@ -173,11 +173,11 @@ export const ProfileHeader = ({
     : 'px-3 py-1 rounded-md bg-blue-600 text-white font-bold'
 
   return (
-    <header className="flex flex-col max-w-4xl">
+    <header className="flex max-w-4xl flex-col">
       <div className="flex">
-        <div className="w-32 md:w-96 max-w-full h-48 flex justify-start items-start md:justify-center md:items-center">
+        <div className="flex h-48 w-32 max-w-full items-start justify-start md:w-96 md:items-center md:justify-center">
           {userInfo?.image ? (
-            <div className="relative w-[100px] h-[100px] md:w-[150px] md:h-[150px]">
+            <div className="relative h-[100px] w-[100px] md:h-[150px] md:w-[150px]">
               <Image
                 src={userInfo?.image}
                 alt=""
@@ -186,7 +186,7 @@ export const ProfileHeader = ({
               />
             </div>
           ) : (
-            <div className="bg-gray-300 rounded-full">
+            <div className="rounded-full bg-gray-300">
               <UserIcon
                 size={150}
                 className="rounded-full"
@@ -195,13 +195,13 @@ export const ProfileHeader = ({
             </div>
           )}
         </div>
-        <div className="flex flex-col flex-1 gap-6">
-          <div className="flex gap-2 items-end justify-between">
+        <div className="flex flex-1 flex-col gap-6">
+          <div className="flex items-end justify-between gap-2">
             <p className="text-xl">{userInfo?.username}</p>
             {userInfo?.id === sessionData?.user?.id ? (
-              <div className="flex justify-center items-center gap-3">
+              <div className="flex items-center justify-center gap-3">
                 <button
-                  className="border px-2 py-1 rounded-md text-sm font-bold"
+                  className="rounded-md border px-2 py-1 text-sm font-bold"
                   onClick={() => router.push('/accounts/edit')}
                 >
                   Edit Profile
@@ -209,7 +209,7 @@ export const ProfileHeader = ({
                 <Gear size={25} className="cursor-pointer" />
               </div>
             ) : (
-              <div className="flex justify-center items-center gap-3">
+              <div className="flex items-center justify-center gap-3">
                 <button
                   className={`${followButtonStyles} hidden md:flex`}
                   onClick={toggleFollow}

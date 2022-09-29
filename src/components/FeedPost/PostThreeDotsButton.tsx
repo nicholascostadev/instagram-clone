@@ -6,7 +6,7 @@ export const PostThreeDotsButton = () => {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <button className="flex justify-center items-center">
+        <button className="flex items-center justify-center">
           <DotsThree size={20} className="cursor-pointer" />
         </button>
       </Dialog.Trigger>

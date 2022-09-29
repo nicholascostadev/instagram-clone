@@ -12,7 +12,7 @@ export const FeedFollowSuggestions = () => {
   ])
 
   return (
-    <div className="flex flex-col gap-2 mt-4">
+    <div className="mt-4 flex flex-col gap-2">
       {feedSuggestions?.map((suggestion) => (
         <FeedSuggestion
           key={suggestion.username}

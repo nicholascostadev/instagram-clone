@@ -40,16 +40,17 @@ export const Post = ({ isLoading, userId, post }: PostProps) => {
   )
 
   return (
-    <div className="border bg-white rounded-lg relative flex flex-col">
-      <div className="flex justify-between items-center px-3 pt-3 pb-1">
+    <div className="relative flex flex-col rounded-lg border bg-white">
+      <div className="flex items-center justify-between px-3 pt-3 pb-1">
         <PostHeader
           postOwner={String(postState?.author.username)}
           postOwnerImage={String(postState?.author.image)}
         />
       </div>
-      <div className="relative w-full h-[470px] border-y">
+      <div className="relative h-[470px] w-full border-y">
         {postState?.image && (
           <Image
+            objectFit="contain"
             layout="fill"
             src={
               postState?.image ??
@@ -59,12 +60,12 @@ export const Post = ({ isLoading, userId, post }: PostProps) => {
           />
         )}
         {(!postState?.image || isLoading) && (
-          <div className="w-full h-full flex justify-center items-center">
+          <div className="flex h-full w-full items-center justify-center">
             <Spinner size={40} className="animate-spin text-gray-400" />
           </div>
         )}
       </div>
-      <div className="p-2 flex flex-col gap-2 border-b pb-5">
+      <div className="flex flex-col gap-2 border-b p-2 pb-5">
         <PostActions
           setPostState={setPostState}
           post={postState}
@@ -82,14 +83,14 @@ export const Post = ({ isLoading, userId, post }: PostProps) => {
         </div>
         <div>
           <Link href={`/p/${postState?.id}`} passHref>
-            <a className="text-gray-400 text-sm">
+            <a className="text-sm text-gray-400">
               {postState?.comments.length > 0 &&
                 `See all ${postState?.comments.length} comments`}
             </a>
           </Link>
         </div>
         <div>
-          <p className="text-gray-400 text-xs uppercase cursor-pointer">
+          <p className="cursor-pointer text-xs uppercase text-gray-400">
             {formatDistanceToNow(
               new Date(String(postState.updatedAt || postState.createdAt)),
               {

@@ -3,24 +3,14 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": [
-    "@typescript-eslint"
-  ],
+  "plugins": ["@typescript-eslint"],
   "extends": [
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended",
-    "@rocketseat/eslint-config/react"
+    "@rocketseat/eslint-config/react",
+    "prettier"
   ],
   "rules": {
-    "@typescript-eslint/no-explicit-any": "off",
-    "prettier/prettier": ["error", {
-      "printWidth": 80,
-      "tabWidth": 2,
-      "singleQuote": true,
-      "trailingComma": "all",
-      "arrowParens": "always",
-      "semi": false,
-      "endOfLine": "auto"
-    }]
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }

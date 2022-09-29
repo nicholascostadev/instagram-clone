@@ -27,7 +27,6 @@ export const CreatePostModal = () => {
         onError: (error) => console.log(error),
         onSuccess: (data) => {
           clearAllInfo()
-          console.log(data)
         },
       },
     )
@@ -61,10 +60,10 @@ export const CreatePostModal = () => {
 
   return (
     <Dialog.Portal>
-      <Dialog.Overlay className="fixed h-screen inset-0 bg-black/70" />
+      <Dialog.Overlay className="fixed inset-0 h-screen bg-black/70" />
       <Dialog.Close
         asChild
-        className="absolute top-5 right-5 text-white cursor-pointer"
+        className="absolute top-5 right-5 cursor-pointer text-white"
       >
         <X size={25} className="cursor-pointer" />
       </Dialog.Close>
@@ -72,14 +71,14 @@ export const CreatePostModal = () => {
       <Dialog.Content
         className={`${
           imageSrc ? 'w-2/3' : 'w-1/3'
-        }  h-3/4 rounded-2xl bg-white border fixed top-[15%] right-[50%] -translate-x-[-50%] 
+        }  fixed top-[15%] right-[50%] h-3/4 -translate-x-[-50%] rounded-2xl border bg-white 
         `}
       >
-        <div className="border-b p-2 text-center flex relative justify-center">
+        <div className="relative flex justify-center border-b p-2 text-center">
           <h1>Create new Post</h1>
           {imageSrc && (
             <button
-              className="absolute text-blue-600 right-4"
+              className="absolute right-4 text-blue-600"
               onClick={handleCreatePost}
             >
               Share
@@ -88,9 +87,9 @@ export const CreatePostModal = () => {
         </div>
 
         <form
-          className={`relative w-full h-full flex ${
+          className={`relative flex h-full w-full ${
             imageSrc ? 'flex-row' : 'flex-col'
-          } gap-4 justify-center items-center`}
+          } items-center justify-center gap-4`}
         >
           {!imageSrc && (
             <>
@@ -98,7 +97,7 @@ export const CreatePostModal = () => {
               <h1 className="text-xl">Drag Photos and videos here</h1>
               <label
                 htmlFor="file-upload"
-                className="bg-blue-400 text-white p-1 rounded-sm cursor-pointer"
+                className="cursor-pointer rounded-sm bg-blue-400 p-1 text-white"
               >
                 Select from computer
               </label>
@@ -114,7 +113,7 @@ export const CreatePostModal = () => {
           )}
           {imageSrc && (
             <>
-              <div className="h-[calc(100%-40px)] w-[70%] absolute left-0 top-0 rounded-lg">
+              <div className="absolute left-0 top-0 h-[calc(100%-40px)] w-[70%] rounded-lg">
                 {' '}
                 <NextImage
                   src={imageSrc}
@@ -124,8 +123,8 @@ export const CreatePostModal = () => {
                   className="rounded-xl"
                 />
               </div>
-              <div className="h-[calc(100%-40px)] absolute top-0 right-0 w-[30%]">
-                <div className="flex items-center p-4 gap-2">
+              <div className="absolute top-0 right-0 h-[calc(100%-40px)] w-[30%]">
+                <div className="flex items-center gap-2 p-4">
                   <NextImage
                     src={data?.user?.image ?? ''}
                     className="rounded-full"
@@ -141,10 +140,10 @@ export const CreatePostModal = () => {
                   rows={10}
                   onChange={(e) => setPostDescription(e.target.value)}
                   maxLength={2000}
-                  className="w-full px-4 resize-none outline-none text-sm scrollbar-hide"
+                  className="scrollbar-hide w-full resize-none px-4 text-sm outline-none"
                   placeholder="Write a caption..."
                 />
-                <div className="flex justify-between items-center border-b py-2 px-4">
+                <div className="flex items-center justify-between border-b py-2 px-4">
                   <Smiley size={20} />
                   <p className="text-sm">{postDescription.length}/2,000</p>
                 </div>

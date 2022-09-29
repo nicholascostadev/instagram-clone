@@ -12,14 +12,14 @@ export const LoginPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="mx-auto flex flex-col items-center justify-center max-h-min bg-slate-100">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pb-8">
-          <div className="bg-slate-700 text-white shadow-md rounded-3xl h-[40rem] w-80 mt-[3rem] font-bold hidden md:flex justify-center items-center">
+      <main className="mx-auto flex max-h-min flex-col items-center justify-center bg-slate-100">
+        <div className="grid grid-cols-1 gap-8 pb-8 md:grid-cols-2">
+          <div className="mt-[3rem] hidden h-[40rem] w-80 items-center justify-center rounded-3xl bg-slate-700 font-bold text-white shadow-md md:flex">
             NO MOCKUP PHONE YET
           </div>
-          <div className="container w-[21.875rem] mx-auto mt-[6rem]">
+          <div className="container mx-auto mt-[6rem] w-[21.875rem]">
             <LoginForm />
-            <div className="bg-transparent md:bg-white md:border mt-2 p-5 flex justify-center gap-1 text-sm md:text-md">
+            <div className="md:text-md mt-2 flex justify-center gap-1 bg-transparent p-5 text-sm md:border md:bg-white">
               <p>Don&apos;t have an account?</p>
               <a href="#" className="text-blue-500 hover:underline">
                 Sign up
@@ -27,7 +27,7 @@ export const LoginPage = () => {
             </div>
 
             <div>
-              <p className="text-sm text-center m-5">Get the app.</p>
+              <p className="m-5 text-center text-sm">Get the app.</p>
               <div className="flex justify-center gap-2">
                 <Image
                   src="https://instagram.com/static/images/appstore-install-badges/badge_ios_portuguese-brazilian-pt_br.png/68006a2bb372.png"
@@ -48,8 +48,8 @@ export const LoginPage = () => {
           </div>
         </div>
       </main>
-      <footer className="w-full md:w-1/2 mx-auto justify-center items-center text-xs text-gray-500 ">
-        <div className="flex flex-wrap justify-center mt-6 [&>*]:px-1 [&>*]:mx-1 [&>*]:mb-3">
+      <footer className="mx-auto w-full items-center justify-center text-xs text-gray-500 md:w-1/2 ">
+        <div className="mt-6 flex flex-wrap justify-center [&>*]:mx-1 [&>*]:mb-3 [&>*]:px-1">
           <a href="#">Meta</a>
           <a href="#">About</a>
           <a href="#">Blog</a>
@@ -69,7 +69,7 @@ export const LoginPage = () => {
           <a href="#">Music</a>
           <a href="#">Visual Arts</a>
         </div>
-        <div className="my-4 text-gray-500 flex justify-center gap-[11px]">
+        <div className="my-4 flex justify-center gap-[11px] text-gray-500">
           <p>
             English{' '}
             <span className="inline-flex">

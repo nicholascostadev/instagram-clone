@@ -11,7 +11,7 @@ interface PostHeaderProps {
 
 export const PostHeader = ({ postOwner, postOwnerImage }: PostHeaderProps) => {
   return (
-    <header className="flex items-center justify-between border-gray-200 w-full pb-2">
+    <header className="flex w-full items-center justify-between border-gray-200 pb-2">
       <div className="flex items-center gap-2">
         {postOwnerImage ? (
           <Link href={`/${postOwner}`} passHref>

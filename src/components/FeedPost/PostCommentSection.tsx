@@ -38,9 +38,9 @@ export const PostCommentSection = ({
     router.push(`/p/${postId}`)
   }
   return (
-    <div className="flex justify-between items-center gap-2 py-3 pl-2 pr-6">
+    <div className="flex items-center justify-between gap-2 py-3 pl-2 pr-6">
       <Smiley className="cursor-pointer" size={30} />
-      <form onSubmit={handleAddComment} className="flex-1 flex text-sm gap-2">
+      <form onSubmit={handleAddComment} className="flex flex-1 gap-2 text-sm">
         <input
           type="text"
           placeholder="Add a comment..."
@@ -48,7 +48,7 @@ export const PostCommentSection = ({
           onChange={(e) => setInput(e.target.value)}
         />
         <button
-          className="disabled:text-blue-300 disabled:cursor-default text-blue-600"
+          className="text-blue-600 disabled:cursor-default disabled:text-blue-300"
           disabled={disabled}
           type="submit"
         >

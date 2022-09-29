@@ -4,15 +4,15 @@
 
 @layer components {
   .dropdownMenuItem {
-    @apply hover:bg-gray-100 hover:border-none flex items-center gap-2 px-2 py-1;
+    @apply flex items-center gap-2 px-2 py-1 hover:border-none hover:bg-gray-100;
   }
 
   .profile-tab {
-    @apply flex justify-center items-center gap-1 pt-4 text-sm px-7;
+    @apply flex items-center justify-center gap-1 px-7 pt-4 text-sm;
   }
 
   .edit-profile-base-submit-button {
-    @apply text-white rounded-sm px-2 py-1 ml-2;
+    @apply ml-2 rounded-sm px-2 py-1 text-white;
   }
 
   .scrollbar-hide::-webkit-scrollbar {
@@ -31,8 +31,8 @@
   }
 }
 
-.profile-tab[data-state="active"] {
-  @apply border-t-black/25 border-t;
+.profile-tab[data-state='active'] {
+  @apply border-t border-t-black/25;
 }
 
 body {

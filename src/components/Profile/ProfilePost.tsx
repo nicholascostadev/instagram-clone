@@ -19,16 +19,16 @@ export const ProfilePost = ({
     <Link
       href={`/p/${postId}`}
       passHref
-      className="w-auto md:w-[250px] md:h-[250px]"
+      className="w-auto md:h-[250px] md:w-[250px]"
     >
       <a className="relative block w-full">
-        <div className="relative w-[150px] h-[150px] sm:w-[250px] sm:h-[250px]">
+        <div className="relative h-[150px] w-[150px] sm:h-[250px] sm:w-[250px]">
           <Image src={image} alt="" layout="fill" className="w-auto" />
         </div>
         <div
-          className="absolute inset-0 z-10 leading-none opacity-0
-                     hover:opacity-100 hover:bg-black/50 transition-all
-                     flex justify-center items-center gap-6 text-white
+          className="absolute inset-0 z-10 flex items-center
+                     justify-center gap-6 leading-none
+                     text-white opacity-0 transition-all hover:bg-black/50 hover:opacity-100
                     "
         >
           <div className="flex gap-2">

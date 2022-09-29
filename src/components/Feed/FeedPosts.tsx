@@ -8,7 +8,7 @@ export const FeedPosts = () => {
   const { data: userSession } = useSession()
   const userId = userSession?.user?.id
   return (
-    <div className="mt-4 flex flex-col gap-3">
+    <div className="mt-4  flex flex-col gap-3 ">
       {feedPosts?.map((post) => {
         return (
           <Post

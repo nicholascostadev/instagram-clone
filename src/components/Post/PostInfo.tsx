@@ -60,9 +60,9 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
   }
 
   return (
-    <div className="flex-1 bg-white relative">
-      <div className="flex items-center p-4 gap-10 border-b">
-        <div className="flex items-center gap-3 w-full">
+    <div className="relative flex-1 bg-white">
+      <div className="flex items-center gap-10 border-b p-4">
+        <div className="flex w-full items-center gap-3">
           <Image
             alt=""
             src={postData?.author.image || ''}
@@ -86,11 +86,11 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
             height={32}
             className="rounded-full"
           />
-          <div className="text-xs flex-1">
+          <div className="flex-1 text-xs">
             <strong>{postData?.author.username}</strong>
             <span className="ml-1 md:ml-2 ">{postData?.description}</span>
             <div className="flex gap-2">
-              <span className="text-xs text-gray-400 text-bold">
+              <span className="text-bold text-xs text-gray-400">
                 {formatDistanceToNow(new Date(String(postData?.createdAt)), {
                   locale: enUS,
                   includeSeconds: true,
@@ -107,7 +107,7 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
       </div>
 
       <div>
-        <div className="flex justify-between items-center px-4 py-2">
+        <div className="flex items-center justify-between px-4 py-2">
           <div className="flex gap-2">
             <button onClick={handleToggleLikeOnPost}>
               <Heart
@@ -138,7 +138,7 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
             {formatPostLikes(postData?.likes, postData)}
           </div>
         )}
-        <span className="text-xs block text-gray-400 px-4 pt-2">
+        <span className="block px-4 pt-2 text-xs text-gray-400">
           {format(new Date(String(postData?.createdAt)), 'MMMM dd, yyyy')}
         </span>
       </div>

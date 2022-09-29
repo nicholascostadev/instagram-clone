@@ -16,9 +16,9 @@ export const LoginForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-transparent md:bg-white md:border flex flex-col pt-12 px-12 pb-5 gap-2 rounded-sm"
+      className="flex flex-col gap-2 rounded-sm bg-transparent px-12 pt-12 pb-5 md:border md:bg-white"
     >
-      <div className="flex justify-center mb-5">
+      <div className="mb-5 flex justify-center">
         <Image
           src={InstagramLogo}
           alt="logo"
@@ -34,21 +34,21 @@ export const LoginForm = () => {
       />
       <input placeholder="Password" type="text" className={inputClasses} />
       <button
-        className="bg-blue-500 hover:bg-blue-600 text-white p-1 rounded-md mt-2"
+        className="mt-2 rounded-md bg-blue-500 p-1 text-white hover:bg-blue-600"
         onClick={() => signIn('google')}
       >
         Log in
       </button>
 
-      <div className="flex justify-between items-center gap-5 text-gray-400 py-3">
-        <hr className="border flex-1" />
+      <div className="flex items-center justify-between gap-5 py-3 text-gray-400">
+        <hr className="flex-1 border" />
         OR
-        <hr className="border flex-1" />
+        <hr className="flex-1 border" />
       </div>
 
       <a
         href="#"
-        className="text-blue-800 text-sm hover:underline flex justify-center items-center gap-2"
+        className="flex items-center justify-center gap-2 text-sm text-blue-800 hover:underline"
       >
         <FacebookLogo size={20} />
         Log in with Facebook
@@ -56,7 +56,7 @@ export const LoginForm = () => {
 
       <a
         href="#"
-        className="text-blue-900 text-xs hover:underline flex justify-center items-center gap-2 mt-2"
+        className="mt-2 flex items-center justify-center gap-2 text-xs text-blue-900 hover:underline"
       >
         Forgot password?
       </a>

@@ -21,17 +21,17 @@ export const Feed = () => {
 
   return (
     <>
-      <main className="max-w-full xl:max-w-5xl mx-auto px-2 h-screen grid grid-cols-1 lg:grid-cols-2 gap-10 pt-10">
-        <div className="max-w-full lg:max-w-full mx-auto">
+      <main className="mx-auto grid h-screen max-w-full grid-cols-1 gap-10 px-2 pt-10 lg:grid-cols-2 xl:max-w-5xl">
+        <div className="mx-auto max-w-full lg:max-w-full">
           <Stories />
           <FeedPosts />
         </div>
 
-        <div className="max-w-xs hidden lg:block">
-          <div className="w-full h-[107px] flex items-center">
-            <div className="flex items-center gap-4 w-full">
+        <div className="hidden max-w-xs lg:block">
+          <div className="flex h-[107px] w-full items-center">
+            <div className="flex w-full items-center gap-4">
               <Link href={`/${userInfo?.username}`} passHref>
-                <a className="flex items-center border rounded-full">
+                <a className="flex items-center rounded-full border">
                   <Image
                     src={userInfo?.image || ''}
                     alt=""
@@ -44,20 +44,20 @@ export const Feed = () => {
               </Link>
               <div>
                 <Link href={`${userInfo?.username}`} passHref>
-                  <a className="font-bold text-sm">{userInfo?.username}</a>
+                  <a className="text-sm font-bold">{userInfo?.username}</a>
                 </Link>
                 <p className="text-sm text-gray-400">{userInfo?.name}</p>
               </div>
               <Link href="/" passHref>
-                <a className="text-blue-500 text-sm ml-auto font-bold">
+                <a className="ml-auto text-sm font-bold text-blue-500">
                   Switch
                 </a>
               </Link>
             </div>
           </div>
 
-          <div className="flex justify-between items-center">
-            <strong className="text-gray-400 text-sm">
+          <div className="flex items-center justify-between">
+            <strong className="text-sm text-gray-400">
               Suggestions for you
             </strong>
             <a href="#" className="text-sm">

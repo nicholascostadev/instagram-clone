@@ -99,8 +99,8 @@ export const PostActions = ({
   }
 
   return (
-    <div className="flex justify-between items-center mb-2">
-      <div className="flex justify-between items-center gap-5">
+    <div className="mb-2 flex items-center justify-between">
+      <div className="flex items-center justify-between gap-5">
         <button onClick={handleToggleLikeOnPost}>
           <Heart
             weight={userHasLiked ? 'fill' : 'regular'}
@@ -108,7 +108,7 @@ export const PostActions = ({
             className={`${
               userHasLiked
                 ? 'text-red-600 transition-colors'
-                : 'hover:text-gray-400 transition-colors'
+                : 'transition-colors hover:text-gray-400'
             }`}
           />
         </button>

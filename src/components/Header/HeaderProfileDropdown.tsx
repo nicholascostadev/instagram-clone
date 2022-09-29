@@ -30,9 +30,9 @@ export const HeaderProfileDropdown = ({
 }: HeaderProfileDropdownProps) => {
   if (!userInfo) {
     return (
-      <div className="container flex justify-center items-center gap-2 text-gray-400 py-3">
+      <div className="container flex items-center justify-center gap-2 py-3 text-gray-400">
         <button
-          className="bg-blue-500 hover:bg-blue-600 text-white p-1 rounded-md mt-2"
+          className="mt-2 rounded-md bg-blue-500 p-1 text-white hover:bg-blue-600"
           onClick={() => signIn('google')}
         >
           Entrar
@@ -43,14 +43,14 @@ export const HeaderProfileDropdown = ({
 
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger className="flex justify-center items-center outline-1 leading-none rounded-full">
+      <DropdownMenu.Trigger className="flex items-center justify-center rounded-full leading-none outline-1">
         <Image
           src={
             userInfo?.image
               ? String(userInfo.image)
               : 'https://github.com/nicholascostadev.png'
           }
-          className="rounded-full h-12 w-12"
+          className="h-12 w-12 rounded-full"
           width={30}
           height={30}
           alt="nicholascostadev"
@@ -61,7 +61,7 @@ export const HeaderProfileDropdown = ({
         <DropdownMenu.Content
           side={'bottom'}
           sideOffset={2}
-          className="shadow-lg border rounded-md bg-white"
+          className="rounded-md border bg-white shadow-lg"
         >
           <DropdownMenu.Label />
           <DropdownMenu.Item />
@@ -108,7 +108,7 @@ export const HeaderProfileDropdown = ({
             </DropdownMenu.Separator>
             <DropdownMenu.Item>
               <button
-                className="dropdownMenuItem rounded-b-md w-full text-md !p-2"
+                className="dropdownMenuItem text-md w-full rounded-b-md !p-2"
                 onClick={() => signOut()}
               >
                 Sair

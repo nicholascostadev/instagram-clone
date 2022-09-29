@@ -18,8 +18,8 @@ export const FeedSuggestion = ({
   followedBy,
 }: SuggestionProps) => {
   return (
-    <div className="flex justify-center items-center gap-2">
-      <div className="border rounded-full flex justify-center items-center">
+    <div className="flex items-center justify-center gap-2">
+      <div className="flex items-center justify-center rounded-full border">
         <Image
           src={image}
           alt=""
@@ -42,7 +42,7 @@ export const FeedSuggestion = ({
           )}
         </p>
       </div>
-      <a href="#" className="ml-auto text-xs text-blue-500 font-bold">
+      <a href="#" className="ml-auto text-xs font-bold text-blue-500">
         Follow
       </a>
     </div>

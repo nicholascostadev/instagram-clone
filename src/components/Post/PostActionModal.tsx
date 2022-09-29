@@ -21,19 +21,19 @@ export const PostActionModal = ({ postId }: PostActionModalProps) => {
 
   return (
     <Dialog.Portal>
-      <Dialog.Overlay className="fixed h-screen inset-0 bg-black/40" />
+      <Dialog.Overlay className="fixed inset-0 h-screen bg-black/40" />
 
       <Dialog.Content
-        className="w-96 rounded-lg bg-white border fixed top-[55%] right-[42.5%] translate-x-[50%] lg:translate-x-[-20%] translate-y-[-50%] grid
+        className="fixed top-[55%] right-[42.5%] grid w-96 translate-x-[50%] translate-y-[-50%] rounded-lg border bg-white lg:translate-x-[-20%]
       "
       >
         <button
-          className={`${PostActionModalButtonBaseStyles} hover:bg-gray-100 rounded-t-lg p-3 text-red-500 font-bold`}
+          className={`${PostActionModalButtonBaseStyles} rounded-t-lg p-3 font-bold text-red-500 hover:bg-gray-100`}
         >
           Report
         </button>
         <button
-          className={`${PostActionModalButtonBaseStyles} hover:bg-gray-100 p-3 text-red-500 font-bold`}
+          className={`${PostActionModalButtonBaseStyles} p-3 font-bold text-red-500 hover:bg-gray-100`}
           onClick={() => handleAction('UNFOLLOW')}
         >
           Unfollow
@@ -54,7 +54,7 @@ export const PostActionModal = ({ postId }: PostActionModalProps) => {
 
         <Dialog.Close asChild>
           <button
-            className={`${PostActionModalButtonBaseStyles} border-b-0 rounded-b-lg`}
+            className={`${PostActionModalButtonBaseStyles} rounded-b-lg border-b-0`}
           >
             Cancelar
           </button>

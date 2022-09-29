@@ -4,8 +4,8 @@ export const NotFound = () => {
   return (
     <>
       <Header />
-      <div className="w-[1200px] mx-auto text-center flex flex-col py-8 gap-8">
-        <h1 className="font-bold text-2xl">
+      <div className="mx-auto flex w-[1200px] flex-col gap-8 py-8 text-center">
+        <h1 className="text-2xl font-bold">
           Sorry, this page isn&apos;t available.
         </h1>
         <p>

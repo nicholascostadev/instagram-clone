@@ -29,11 +29,11 @@ export const PostInfoCommentSection = ({
               height={32}
               className="rounded-full"
             />
-            <div className="text-xs flex-1">
+            <div className="flex-1 text-xs">
               <strong>{comment?.user?.username}</strong>
               <span className="ml-1 md:ml-2 ">{comment?.text}</span>
               <div className="flex gap-2">
-                <span className="text-xs text-gray-400 text-bold">
+                <span className="text-bold text-xs text-gray-400">
                   {formatDistanceToNow(new Date(String(comment.createdAt)), {
                     locale: enUS,
                     includeSeconds: true,
@@ -42,12 +42,12 @@ export const PostInfoCommentSection = ({
                 {comment?.likes.length > 0 && (
                   <span>{formatCommentLikes(comment?.likes.length)}</span>
                 )}
-                <span className="text-gray-400 font-bold text-xs cursor-pointer">
+                <span className="cursor-pointer text-xs font-bold text-gray-400">
                   Reply
                 </span>
               </div>
             </div>
-            <div className="flex justify-center items-center">
+            <div className="flex items-center justify-center">
               <Heart
                 size={12}
                 weight={

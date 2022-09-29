@@ -70,7 +70,7 @@ const Profile = () => {
     return (
       <>
         <Header />
-        <div className="flex justify-center items-center h-[calc(100vh-79px)]">
+        <div className="flex h-[calc(100vh-79px)] items-center justify-center">
           <SpinnerGap size={25} className="animate-spin" />
         </div>
       </>
@@ -82,7 +82,7 @@ const Profile = () => {
         <title>{`${userInfoToShow?.name} (@${username})`}</title>
       </Head>
       <Header />
-      <div className="max-w-6xl mx-auto px-2 mt-10 ">
+      <div className="mx-auto mt-10 max-w-6xl px-2 ">
         <ProfileHeader
           userFollows={userFollows}
           userInfo={userInfoToShow}
