@@ -78,7 +78,7 @@
 
 ## Sobre o projeto
 
-![Instagram Clone screenshot][images/instagram-clone.jpeg]
+![Instagram Clone screenshot][instagram-clone-img]
 
 ### Feito com
 
@@ -87,7 +87,7 @@
 - [TRPC][trpc-url]
 - [Radix][radix-url]
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">Voltar para o topo</a>)</p>
 
 <!-- GETTING STARTED -->
 
@@ -130,7 +130,7 @@ npm run prisma db push
 npm run dev
 ```
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">Voltar para o topo</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 
@@ -140,7 +140,7 @@ Você pode ver os posts na página principal depois de você estar logado. Voce 
 
 Você também pode mudar seu nome de usuário se o desejado estiver disponível.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">Voltar para o topo</a>)</p>
 
 <!-- CONTRIBUTING -->
 
@@ -157,7 +157,7 @@ Não esqueça de dar uma estrela no projeto! Obrigado denovo!
 4. Dê um push para a branch (`git push origin feature/AmazingFeature`)
 5. Abra um pull request
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">Voltar para o topo</a>)</p>
 
 <!-- LICENSE -->
 
@@ -165,7 +165,7 @@ Não esqueça de dar uma estrela no projeto! Obrigado denovo!
 
 Distribuído sob licença MIT. olhe `LICENSE.txt` para mais informações.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">Voltar para o topo</a>)</p>
 
 <!-- CONTACT -->
 
@@ -175,7 +175,7 @@ Nicholas Costa - [@NicholasCosta04](https://twitter.com/your_username) - nichola
 
 Project Link: [https://github.com/nicholascostadev/instagram-clone](https://github.com/nicholascostadev/instagram-clone)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">Voltar para o topo</a>)</p>
 
 <!-- ACKNOWLEDGMENTS -->
 
@@ -186,7 +186,7 @@ Conhecimentos encontrados a partir da criação desse projeto
 - [Prisma many to many relation](https://www.prisma.io/docs/concepts/components/prisma-schema/relations/many-to-many-relations)
 - [Choose an Open Source License](https://choosealicense.com)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">Voltar para o topo</a>)</p>
 
 # TODO
 
@@ -206,7 +206,7 @@ Conhecimentos encontrados a partir da criação desse projeto
 
 ## About The Project
 
-![Instagram Clone screenshot][images/instagram-clone.jpeg]
+![Instagram Clone screenshot][instagram-clone-img]
 
 ### Built With
 
@@ -330,6 +330,7 @@ Use this space to list resources you find helpful and would like to give credit 
 
 [issues-url]: https://github.com/nicholascostadev/issues
 [next-url]: https://nextjs.org/
-[tailwind-url]: "https://tailwindcss.com"
+[tailwind-url]: https://tailwindcss.com
 [trpc-url]: https://trpc.io/
 [radix-url]: https://www.radix-ui.com/
+[instagram-clone-img]: images/instagram-clone.jpeg
