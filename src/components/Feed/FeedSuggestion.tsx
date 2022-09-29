@@ -1,5 +1,6 @@
 import { Follows } from '@prisma/client'
 import Image from 'next/image'
+import Link from 'next/link'
 
 interface SuggestionProps {
   name: string
@@ -16,7 +17,6 @@ export const FeedSuggestion = ({
   image,
   followedBy,
 }: SuggestionProps) => {
-  console.log(followedBy)
   return (
     <div className="flex justify-center items-center gap-2">
       <div className="border rounded-full flex justify-center items-center">
@@ -30,7 +30,9 @@ export const FeedSuggestion = ({
         />
       </div>
       <div>
-        <strong className="text-sm">{name}</strong>
+        <Link href={`/${name}`} passHref>
+          <a className="text-sm font-bold">{name}</a>
+        </Link>
         <p className="text-xs text-gray-400">
           {followedBy.length > 0 && (
             <>
