@@ -8,6 +8,7 @@ export const suggestionsRouter = createProtectedRouter().query('feed', {
     amount: z.number().optional(),
   }),
   async resolve({ input, ctx }) {
+    const amount = input.amount ?? 5
     if (!input.userId) {
       throw new TRPCError({
         code: 'BAD_REQUEST',
@@ -16,7 +17,7 @@ export const suggestionsRouter = createProtectedRouter().query('feed', {
     }
 
     return await ctx.prisma.user.findMany({
-      take: input.amount,
+      take: amount,
       where: {
         id: {
           not: {
