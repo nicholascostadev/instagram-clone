@@ -1,5 +1,6 @@
 import { Comment, Follows, Like, Post, User } from '@prisma/client'
 import { useSession } from 'next-auth/react'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { SpinnerGap } from 'phosphor-react'
 import { useState } from 'react'
@@ -77,6 +78,9 @@ const Profile = () => {
 
   return (
     <>
+      <Head>
+        <title>{`${userInfoToShow?.name} (@${username})`}</title>
+      </Head>
       <Header />
       <div className="max-w-6xl mx-auto px-2 mt-10 ">
         <ProfileHeader
