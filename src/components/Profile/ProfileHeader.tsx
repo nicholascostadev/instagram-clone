@@ -104,8 +104,8 @@ const ProfileHighlight = ({
 
 const ProfileHighlights = () => {
   return (
-    <div className="flex items-center gap-4 mt-20 col-span-full">
-      <div className="flex justify-center items-center gap-12 max-w-full overflow-x-auto mx-auto md:ml-28">
+    <div className="flex items-center gap-4 mt-20 col-span-full ">
+      <div className="flex justify-center items-center gap-12 max-w-full overflow-x-auto mx-auto md:ml-28 scrollbar-hide">
         <ProfileHighlight
           highlightId=""
           highlightImage=""
