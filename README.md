@@ -6,8 +6,10 @@
   <h3 align="center">Instagram Clone</h3>
 
   <p align="center">
-   An Instagrma Clone that I made all by myself with the <a href="https://github.com/t3-oss/create-t3-app">T3 Stack</a>
+      pt-BR ->Um clone do Instagram que eu fiz completamente sozinho utilizando a <a href="https://github.com/t3-oss/create-t3-app" target="_blank" rel="noreferrer">T3 Stack</a>
     <br />
+   en-US -> An Instagram Clone that I made all by myself with the <a href="https://github.com/t3-oss/create-t3-app" target="_blank" rel="noreferrer">T3 Stack</a>
+    <br>
     <a href="https://github.com/nicholascostadev"><strong>Explore the docs »</strong></a>
     <br />
     <br />
@@ -66,8 +68,7 @@
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-  </li>
+  </ol>  </li>
 </details>
 
 <!-- ABOUT THE PROJECT -->
@@ -194,9 +195,9 @@ Recursos que eu achei útil fazendo esse projeto.
 - [x] Criar página de perfil
 - [x] Adicionar funcionalidade de criar um Post
 - [x] Fazer trocar de pagina com as opções do dropdown do header
-- [ ] Fazer com que o usuário possa editar ou adicionar a prórpria descrição
+- [ ] Fazer com que o usuário possa editar ou adicionar a própria descrição
 - [ ] Fazer com que o usuário possa editar ou adicionar o próprio website
-- [ ] Fazer com que os posts tenham uma proporção fixa nas imagens [tailwindcss-aspect-ratio](https://github.com/tailwindlabs/tailwindcss-aspect-ratio)
+- [ ] Fazer com que os posts tenham uma proporção fixa nas imagens usando isso: [tailwindcss-aspect-ratio][tailwind-aspect-ratio-url] ou deixar da maneira que já está(sem problema algum, está bom também)
 
 ---
 
@@ -324,13 +325,14 @@ Resources I found helpfull when doing this project.
 - [x] Make 'Tab' change between options in Header Dropdown
 - [ ] Make user able to change or add his own description
 - [ ] Make user able to change or add his own website
-- [ ] Make Fixed aspect ratio for posts in feed and profile [tailwindcss-aspect-ratio](https://github.com/tailwindlabs/tailwindcss-aspect-ratio)
+- [ ] Make Fixed aspect ratio for posts in feed and profile using this: [tailwindcss-aspect-ratio][tailwind-url] or let the way it is(no problem at all, it's fine)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
 [issues-url]: https://github.com/nicholascostadev/issues
 [next-url]: https://nextjs.org/
 [tailwind-url]: https://tailwindcss.com
+[tailwind-aspect-ratio-url]: https://github.com/tailwindlabs/tailwindcss-aspect-ratio
 [trpc-url]: https://trpc.io/
 [radix-url]: https://www.radix-ui.com/
 [instagram-clone-img]: images/instagram-clone.jpeg
