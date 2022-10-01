@@ -1,5 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import { Image, Smiley, X } from 'phosphor-react'
+import { Image, Smiley, Trash, X } from 'phosphor-react'
 import NextImage from 'next/image'
 import { useState } from 'react'
 import { trpc } from '../../utils/trpc'
@@ -9,11 +9,24 @@ export const CreatePostModal = () => {
   const [imageSrc, setImageSrc] = useState('')
   const [postDescription, setPostDescription] = useState('')
   const postMutation = trpc.useMutation(['post.create'])
+  const { invalidateQueries } = trpc.useContext()
   const { data } = useSession()
 
-  function clearAllInfo() {
-    setImageSrc('')
-    setPostDescription('')
+  function clearInfo(img?: boolean, description?: boolean) {
+    if (!img && !description) {
+      setImageSrc('')
+      setPostDescription('')
+      return
+    }
+
+    if (img && !description) {
+      return setImageSrc('')
+    } else if (description && !img) {
+      return setPostDescription('')
+    } else {
+      setImageSrc('')
+      setPostDescription('')
+    }
   }
 
   async function handleCreatePost() {
@@ -25,8 +38,9 @@ export const CreatePostModal = () => {
       },
       {
         onError: (error) => console.log(error),
-        onSuccess: (data) => {
-          clearAllInfo()
+        onSuccess: () => {
+          clearInfo()
+          invalidateQueries(['post.getAll'])
         },
       },
     )
@@ -115,6 +129,13 @@ export const CreatePostModal = () => {
             <>
               <div className="absolute left-0 top-0 h-[calc(100%-40px)] w-[70%] rounded-lg">
                 {' '}
+                <button onClick={() => clearInfo(true)}>
+                  <Trash
+                    color="red"
+                    className="absolute top-5 right-5 z-10"
+                    size={20}
+                  />
+                </button>
                 <NextImage
                   src={imageSrc}
                   alt="Picture of the author"
