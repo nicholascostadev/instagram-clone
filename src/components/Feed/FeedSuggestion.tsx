@@ -25,7 +25,14 @@ export const FeedSuggestion = ({
   const { invalidateQueries } = trpc.useContext()
   const { mutate: toggleFollow } = trpc.useMutation(['user.toggleFollow'])
 
-  console.log(followedBy)
+  const followedByCopy = [...followedBy].filter(
+    (follower) => follower.followerId !== loggedUser?.user?.id,
+  )
+
+  const followingUser = followedBy.findIndex(
+    (follower) => follower.followerId === loggedUser?.user?.id,
+  )
+  const userFollows = followingUser !== -1
 
   function handleToggleFollow(action: 'follow' | 'unfollow') {
     if (loggedUser?.user?.id) {
@@ -43,10 +50,12 @@ export const FeedSuggestion = ({
     }
   }
 
-  const userFollows =
-    followedBy.findIndex(
-      (followers) => followers.followerId === loggedUser?.user?.id,
-    ) !== -1
+  function formatFollow() {
+    if (followedByCopy.length > 0) {
+      return `Followed by ${followedByCopy[0]?.follower.username}`
+    }
+    return ''
+  }
 
   return (
     <div className="flex items-center justify-center gap-2">
@@ -67,12 +76,9 @@ export const FeedSuggestion = ({
         <p className="text-xs text-gray-400">
           {followedBy.length > 0 && (
             <>
-              Followed by {followedBy[0]?.follower.username}{' '}
-              {followedBy.length > 1
-                ? `+ ${
-                    userFollows ? followedBy.length - 1 : followedBy.length
-                  } more`
-                : ''}
+              {formatFollow()}
+
+              {followedByCopy.length > 1 && ` + ${followedByCopy.length} more`}
             </>
           )}
         </p>
