@@ -27,17 +27,11 @@ export const suggestionsRouter = createProtectedRouter().query('feed', {
       },
       include: {
         followers: {
-          where: {
-            followerId: {
-              not: {
-                equals: input.userId,
-              },
-            },
-          },
           include: {
             follower: {
               select: {
                 username: true,
+                id: true,
               },
             },
           },

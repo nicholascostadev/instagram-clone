@@ -19,6 +19,7 @@ export const FeedFollowSuggestions = () => {
           image={suggestion.image as string}
           name={suggestion.username as string}
           followedBy={suggestion.followers}
+          id={suggestion.id}
         />
       ))}
     </div>
