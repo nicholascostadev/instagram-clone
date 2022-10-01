@@ -1,4 +1,4 @@
-import { useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { trpc } from '../../utils/trpc'
@@ -49,9 +49,12 @@ export const Feed = () => {
                 <p className="text-sm text-gray-400">{userInfo?.name}</p>
               </div>
               <Link href="/" passHref>
-                <a className="ml-auto text-sm font-bold text-blue-500">
+                <button
+                  className="ml-auto text-sm font-bold text-blue-500"
+                  onClick={() => signOut()}
+                >
                   Switch
-                </a>
+                </button>
               </Link>
             </div>
           </div>
