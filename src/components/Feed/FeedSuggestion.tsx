@@ -2,6 +2,7 @@ import { Follows } from '@prisma/client'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 import { trpc } from '../../utils/trpc'
 
 interface SuggestionProps {
@@ -22,7 +23,6 @@ export const FeedSuggestion = ({
   id,
 }: SuggestionProps) => {
   const { data: loggedUser } = useSession()
-  const { invalidateQueries } = trpc.useContext()
   const { mutate: toggleFollow } = trpc.useMutation(['user.toggleFollow'])
 
   const followedByCopy = [...followedBy].filter(
@@ -32,7 +32,7 @@ export const FeedSuggestion = ({
   const followingUser = followedBy.findIndex(
     (follower) => follower.followerId === loggedUser?.user?.id,
   )
-  const userFollows = followingUser !== -1
+  const [userFollows, setUserFollows] = useState(followingUser !== -1)
 
   function handleToggleFollow(action: 'follow' | 'unfollow') {
     if (loggedUser?.user?.id) {
@@ -44,7 +44,13 @@ export const FeedSuggestion = ({
         },
         {
           onError: (err) => console.error(err),
-          onSuccess: () => invalidateQueries(['suggestions.feed']),
+          onSuccess: () => {
+            if (action === 'follow') {
+              setUserFollows(true)
+            } else {
+              setUserFollows(false)
+            }
+          },
         },
       )
     }
