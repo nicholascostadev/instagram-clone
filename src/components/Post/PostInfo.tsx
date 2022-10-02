@@ -128,7 +128,7 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
         {postData?.likes && postData?.likes.length > 0 && (
           <div className="flex items-center gap-2 px-4 py-1">
             <Image
-              src={postData?.author.image || ''}
+              src={postData?.likes[0]?.user?.image || ''}
               alt=""
               layout="fixed"
               width={20}
