@@ -1,14 +1,10 @@
-import { useSession } from 'next-auth/react'
 import { trpc } from '../../utils/trpc'
 import { FeedSuggestion } from './FeedSuggestion'
 
 export const FeedFollowSuggestions = () => {
-  const { data: userSession } = useSession()
   const { data: feedSuggestions } = trpc.useQuery([
     'suggestions.feed',
-    {
-      userId: userSession?.user?.id,
-    },
+    { amount: 5 },
   ])
 
   return (
