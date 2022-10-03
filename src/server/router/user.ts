@@ -1,6 +1,5 @@
 import { createRouter } from './context'
 import { z } from 'zod'
-import { TRPCError } from '@trpc/server'
 
 export const userRouter = createRouter()
   .query('getAll', {
@@ -26,64 +25,43 @@ export const userRouter = createRouter()
     },
   })
   .query('getUserInfo', {
-    input: z.object({
-      username: z.string().optional(),
-      id: z.string().optional(),
-    }),
-    async resolve({ ctx, input: { username, id } }) {
-      if (username) {
-        return await ctx.prisma.user.findUnique({
-          where: {
-            username,
-          },
-          include: {
-            followers: {
-              include: {
-                follower: {
-                  select: {
-                    id: true,
-                    username: true,
-                  },
+    input: z
+      .object({
+        username: z.string().optional(),
+        id: z.string().optional(),
+      })
+      .optional(),
+    async resolve({ ctx, input }) {
+      const id = input?.id ?? ctx?.session?.user?.id
+      return await ctx.prisma.user.findUnique({
+        // Can't use both username and id for query, so I check if I have received
+        // username or id and use it for query
+        where: {
+          [input?.username ? 'username' : 'id']: input?.username
+            ? input?.username
+            : id,
+        },
+        include: {
+          followers: {
+            include: {
+              follower: {
+                select: {
+                  id: true,
+                  username: true,
                 },
               },
             },
-            following: true,
-            posts: {
-              include: {
-                comments: true,
-                likes: true,
-                author: true,
-              },
+          },
+          following: true,
+          posts: {
+            include: {
+              comments: true,
+              likes: true,
+              author: true,
             },
           },
-        })
-      } else {
-        return await ctx.prisma.user.findUnique({
-          where: {
-            id,
-          },
-          include: {
-            followers: {
-              include: {
-                follower: {
-                  select: {
-                    id: true,
-                    username: true,
-                  },
-                },
-              },
-            },
-            following: true,
-            posts: {
-              include: {
-                comments: true,
-                likes: true,
-                author: true,
-              },
-            },
-          },
-        })
-      }
+        },
+      })
     },
   })
   .mutation('getUserInfo', {
@@ -129,43 +107,29 @@ export const userRouter = createRouter()
       }
     },
   })
-  .mutation('changeUsername', {
+  // TODO: Move to protected route
+  .mutation('updateUserInfo', {
     input: z.object({
-      oldUsername: z.string(),
       newUsername: z.string(),
+      description: z.string(),
+      website: z.string(),
+      newName: z.string(),
     }),
-    async resolve({ ctx, input: { oldUsername, newUsername } }) {
-      if (newUsername.trim() === oldUsername)
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: 'Username must be different than last one',
-          cause: newUsername,
-        })
-
-      if (newUsername.trim() === '')
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: 'Invalid username',
-          cause: newUsername,
-        })
-
-      if (newUsername.length > 20)
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: 'Username must have less than 20 characters',
-          cause: newUsername,
-        })
-
+    async resolve({ ctx, input }) {
       return await ctx.prisma.user.update({
         where: {
-          username: oldUsername,
+          id: ctx.session?.user?.id,
         },
         data: {
-          username: newUsername,
+          name: input.newName || undefined,
+          username: input.newUsername || undefined,
+          description: input.description || undefined,
+          website: input.website || undefined,
         },
       })
     },
   })
+  // TODO: Move to protected route
   .mutation('toggleFollow', {
     input: z.object({
       followingId: z.string(),
