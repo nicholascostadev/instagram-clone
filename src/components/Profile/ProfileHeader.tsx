@@ -56,7 +56,7 @@ const ProfileHeaderMainInfo = ({
         </strong>
         {formattedDescription && (
           <p
-            className="w-full"
+            className="scrollbar-hide h-[108px] w-full overflow-x-scroll border-b border-b-gray-200/50"
             dangerouslySetInnerHTML={{ __html: formattedDescription }}
           ></p>
         )}
@@ -69,7 +69,7 @@ const ProfileHeaderMainInfo = ({
       <strong className="font-bold">{userInfo?.name}</strong>
       {formattedDescription && (
         <p
-          className="w-full"
+          className="scrollbar-hide h-[108px] w-full overflow-x-scroll border-b border-b-gray-200/50"
           dangerouslySetInnerHTML={{ __html: formattedDescription }}
         ></p>
       )}

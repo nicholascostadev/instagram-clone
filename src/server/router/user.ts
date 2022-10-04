@@ -131,6 +131,8 @@ export const userRouter = createRouter()
 
       const newUserObject = {
         ...userHistory,
+        description: input.description,
+        website: input.website,
       }
 
       type ErrorObject = {
