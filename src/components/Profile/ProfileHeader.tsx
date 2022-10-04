@@ -56,7 +56,7 @@ const ProfileHeaderMainInfo = ({
         </strong>
         {formattedDescription && (
           <p
-            className="scrollbar-hide h-[108px] w-full overflow-x-scroll border-b border-b-gray-200/50"
+            className="h-[108px] w-full overflow-y-scroll"
             dangerouslySetInnerHTML={{ __html: formattedDescription }}
           ></p>
         )}
@@ -69,7 +69,7 @@ const ProfileHeaderMainInfo = ({
       <strong className="font-bold">{userInfo?.name}</strong>
       {formattedDescription && (
         <p
-          className="scrollbar-hide h-[108px] w-full overflow-x-scroll border-b border-b-gray-200/50"
+          className="h-[108px] w-full overflow-y-scroll"
           dangerouslySetInnerHTML={{ __html: formattedDescription }}
         ></p>
       )}
@@ -167,6 +167,7 @@ export const ProfileHeader = ({
   const router = useRouter()
 
   const followMutation = trpc.useMutation(['user.toggleFollow'])
+  const utils = trpc.useContext()
 
   const toggleFollow = () => {
     if (!sessionData || !sessionData.user || !sessionData?.user.id) return
@@ -183,6 +184,9 @@ export const ProfileHeader = ({
         },
         onSettled: () => {
           toggleUserFollows()
+        },
+        onSuccess: () => {
+          utils.invalidateQueries(['user.getUserInfo'])
         },
       },
     )
