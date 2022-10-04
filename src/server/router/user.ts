@@ -1,6 +1,5 @@
 import { createRouter } from './context'
 import { z } from 'zod'
-import { TRPCError } from '@trpc/server'
 
 export const userRouter = createRouter()
   .query('getAll', {
@@ -26,64 +25,43 @@ export const userRouter = createRouter()
     },
   })
   .query('getUserInfo', {
-    input: z.object({
-      username: z.string().optional(),
-      id: z.string().optional(),
-    }),
-    async resolve({ ctx, input: { username, id } }) {
-      if (username) {
-        return await ctx.prisma.user.findUnique({
-          where: {
-            username,
-          },
-          include: {
-            followers: {
-              include: {
-                follower: {
-                  select: {
-                    id: true,
-                    username: true,
-                  },
+    input: z
+      .object({
+        username: z.string().optional(),
+        id: z.string().optional(),
+      })
+      .optional(),
+    async resolve({ ctx, input }) {
+      const id = input?.id ?? ctx?.session?.user?.id
+      return await ctx.prisma.user.findUnique({
+        // Can't use both username and id for query, so I check if I have received
+        // username or id and use it for query
+        where: {
+          [input?.username ? 'username' : 'id']: input?.username
+            ? input?.username
+            : id,
+        },
+        include: {
+          followers: {
+            include: {
+              follower: {
+                select: {
+                  id: true,
+                  username: true,
                 },
               },
             },
-            following: true,
-            posts: {
-              include: {
-                comments: true,
-                likes: true,
-                author: true,
-              },
+          },
+          following: true,
+          posts: {
+            include: {
+              comments: true,
+              likes: true,
+              author: true,
             },
           },
-        })
-      } else {
-        return await ctx.prisma.user.findUnique({
-          where: {
-            id,
-          },
-          include: {
-            followers: {
-              include: {
-                follower: {
-                  select: {
-                    id: true,
-                    username: true,
-                  },
-                },
-              },
-            },
-            following: true,
-            posts: {
-              include: {
-                comments: true,
-                likes: true,
-                author: true,
-              },
-            },
-          },
-        })
-      }
+        },
+      })
     },
   })
   .mutation('getUserInfo', {
@@ -129,43 +107,94 @@ export const userRouter = createRouter()
       }
     },
   })
-  .mutation('changeUsername', {
+  // TODO: Move to protected route
+  .mutation('updateUserInfo', {
     input: z.object({
-      oldUsername: z.string(),
       newUsername: z.string(),
+      description: z.string(),
+      website: z.string(),
+      newName: z.string(),
     }),
-    async resolve({ ctx, input: { oldUsername, newUsername } }) {
-      if (newUsername.trim() === oldUsername)
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: 'Username must be different than last one',
-          cause: newUsername,
-        })
-
-      if (newUsername.trim() === '')
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: 'Invalid username',
-          cause: newUsername,
-        })
-
-      if (newUsername.length > 20)
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: 'Username must have less than 20 characters',
-          cause: newUsername,
-        })
-
-      return await ctx.prisma.user.update({
+    async resolve({ ctx, input }) {
+      const userHistory = await ctx.prisma.user.findUnique({
         where: {
-          username: oldUsername,
-        },
-        data: {
-          username: newUsername,
+          id: ctx.session?.user?.id,
         },
       })
+
+      const isUsernameChanging = input.newUsername !== userHistory?.username
+      const isNameChanging = input.newName !== userHistory?.name
+
+      const lastUpdatedNameTime = userHistory?.updatedNameAt
+      const lastUpdatedUsernameTime = userHistory?.updatedUsernameAt
+      const fourteenDays = 1000 * 60 * 60 * 24 * 14
+
+      const newUserObject = {
+        ...userHistory,
+        description: input.description,
+        website: input.website,
+      }
+
+      type ErrorObject = {
+        errorName?: string
+        errorUsername?: string
+      }
+
+      const errorObject: ErrorObject = {}
+
+      if (isUsernameChanging) {
+        if (
+          lastUpdatedUsernameTime &&
+          lastUpdatedUsernameTime.getTime() - new Date().getTime() <
+            fourteenDays
+        ) {
+          if (userHistory.updatedUsernameTimes + 1 > 2) {
+            errorObject.errorUsername =
+              "You can't change your username more than 2 times in 14 days"
+          } else {
+            newUserObject.updatedUsernameTimes =
+              userHistory.updatedUsernameTimes + 1
+
+            newUserObject.username = input.newUsername
+          }
+        } else {
+          newUserObject.updatedUsernameTimes = 1
+          newUserObject.username = input.newUsername
+          newUserObject.updatedUsernameAt = new Date()
+        }
+      }
+
+      if (isNameChanging) {
+        if (
+          lastUpdatedNameTime &&
+          lastUpdatedNameTime.getTime() - new Date().getTime() < fourteenDays
+        ) {
+          if (userHistory.updatedNameTimes + 1 > 2) {
+            errorObject.errorName =
+              "You can't change your name more than 2 times in 14 days"
+          } else {
+            newUserObject.updatedNameTimes = userHistory.updatedNameTimes + 1
+            newUserObject.name = input.newName
+          }
+        } else {
+          newUserObject.updatedNameTimes = 1
+          newUserObject.name = input.newName
+          newUserObject.updatedNameAt = new Date()
+        }
+      }
+
+      return {
+        data: await ctx.prisma.user.update({
+          where: {
+            id: ctx.session?.user?.id,
+          },
+          data: newUserObject,
+        }),
+        error: errorObject,
+      }
     },
   })
+  // TODO: Move to protected route
   .mutation('toggleFollow', {
     input: z.object({
       followingId: z.string(),

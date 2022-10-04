@@ -1,4 +1,5 @@
 import { Comment, Follows, Like, Post, User } from '@prisma/client'
+import DOMPurify from 'dompurify'
 import { Session } from 'next-auth'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -43,24 +44,43 @@ const ProfileHeaderMainInfo = ({
   description,
   userInfo,
 }: ProfileHeaderDescriptionProps) => {
+  const formattedDescription = DOMPurify.sanitize(
+    description?.replace(/\n/g, '<br>\n') ?? '',
+  )
+
   if (!websiteURL) {
     return (
       <div>
         <strong className="text-sm font-bold md:text-base">
           {userInfo?.name}
         </strong>
-        {description && <p className="w-full">{description}</p>}
+        {formattedDescription && (
+          <p
+            className="scrollbar-hide h-[108px] w-full overflow-x-scroll border-b border-b-gray-200/50"
+            dangerouslySetInnerHTML={{ __html: formattedDescription }}
+          ></p>
+        )}
       </div>
     )
   }
   const formattedWebsiteURL = websiteURL.split('https://')[1]
   return (
-    <div className="text-sm md:text-base">
+    <div className="flex flex-col text-sm md:text-base">
       <strong className="font-bold">{userInfo?.name}</strong>
-      {description && <p className="w-full">{description}</p>}
+      {formattedDescription && (
+        <p
+          className="scrollbar-hide h-[108px] w-full overflow-x-scroll border-b border-b-gray-200/50"
+          dangerouslySetInnerHTML={{ __html: formattedDescription }}
+        ></p>
+      )}
 
       {websiteURL && (
-        <a href={websiteURL} className="font-bold hover:underline">
+        <a
+          href={websiteURL}
+          className="font-bold hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           {formattedWebsiteURL}
         </a>
       )}
