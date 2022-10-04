@@ -116,17 +116,80 @@ export const userRouter = createRouter()
       newName: z.string(),
     }),
     async resolve({ ctx, input }) {
-      return await ctx.prisma.user.update({
+      const userHistory = await ctx.prisma.user.findUnique({
         where: {
           id: ctx.session?.user?.id,
         },
-        data: {
-          name: input.newName || undefined,
-          username: input.newUsername || undefined,
-          description: input.description || undefined,
-          website: input.website || undefined,
-        },
       })
+
+      const isUsernameChanging = input.newUsername !== userHistory?.username
+      const isNameChanging = input.newName !== userHistory?.name
+
+      const lastUpdatedNameTime = userHistory?.updatedNameAt
+      const lastUpdatedUsernameTime = userHistory?.updatedUsernameAt
+      const fourteenDays = 1000 * 60 * 60 * 24 * 14
+
+      const newUserObject = {
+        ...userHistory,
+      }
+
+      type ErrorObject = {
+        errorName?: string
+        errorUsername?: string
+      }
+
+      const errorObject: ErrorObject = {}
+
+      if (isUsernameChanging) {
+        if (
+          lastUpdatedUsernameTime &&
+          lastUpdatedUsernameTime.getTime() - new Date().getTime() <
+            fourteenDays
+        ) {
+          if (userHistory.updatedUsernameTimes + 1 > 2) {
+            errorObject.errorUsername =
+              "You can't change your username more than 2 times in 14 days"
+          } else {
+            newUserObject.updatedUsernameTimes =
+              userHistory.updatedUsernameTimes + 1
+
+            newUserObject.username = input.newUsername
+          }
+        } else {
+          newUserObject.updatedUsernameTimes = 1
+          newUserObject.username = input.newUsername
+          newUserObject.updatedUsernameAt = new Date()
+        }
+      }
+
+      if (isNameChanging) {
+        if (
+          lastUpdatedNameTime &&
+          lastUpdatedNameTime.getTime() - new Date().getTime() < fourteenDays
+        ) {
+          if (userHistory.updatedNameTimes + 1 > 2) {
+            errorObject.errorName =
+              "You can't change your name more than 2 times in 14 days"
+          } else {
+            newUserObject.updatedNameTimes = userHistory.updatedNameTimes + 1
+            newUserObject.name = input.newName
+          }
+        } else {
+          newUserObject.updatedNameTimes = 1
+          newUserObject.name = input.newName
+          newUserObject.updatedNameAt = new Date()
+        }
+      }
+
+      return {
+        data: await ctx.prisma.user.update({
+          where: {
+            id: ctx.session?.user?.id,
+          },
+          data: newUserObject,
+        }),
+        error: errorObject,
+      }
     },
   })
   // TODO: Move to protected route

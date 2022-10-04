@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '../../components/Input'
 import { SpinnerGap } from 'phosphor-react'
 import isEqual from 'lodash.isequal'
+import { useState } from 'react'
 
 const schema = z.object({
   name: z.string().min(1).max(30).or(z.literal('')),
@@ -17,13 +18,12 @@ const schema = z.object({
 
 type TSettingsFields = z.infer<typeof schema>
 
-const Edit = () => {
-  // const { data: userSession } = useSession()
-  // const { data: userInfo } = trpc.useQuery(
-  //   ['user.getUserInfo', { id: userSession?.user?.id }],
-  //   { staleTime: Infinity },
-  // )
+type ErrorObject = {
+  errorName?: string
+  errorUsername?: string
+}
 
+const Edit = () => {
   const {
     register,
     handleSubmit,
@@ -50,7 +50,10 @@ const Edit = () => {
       setValue('username', data?.username ?? '')
       setValue('websiteUrl', data?.website ?? '')
     },
+    onError: (err) => console.log(err),
   })
+
+  const [error, setError] = useState<ErrorObject>()
 
   // Since it's not possible to update all informations from logged user from
   // the form, we just set the data that is changeable, and after that, we
@@ -77,8 +80,11 @@ const Edit = () => {
         website: data.websiteUrl,
       },
       {
-        onSuccess: () => reset(),
-        onSettled: () => utils.invalidateQueries('user.getUserInfo'),
+        onSuccess: (data) => {
+          setError(data.error)
+          reset()
+        },
+        onSettled: () => utils.invalidateQueries(['user.getUserInfo']),
       },
     )
   }
@@ -109,7 +115,11 @@ const Edit = () => {
                   className="mb-4"
                   {...register('name')}
                 />
-                <p className="mt-2 text-xs text-gray-400">
+                <p
+                  className={`mt-2 text-xs ${
+                    error?.errorName ? 'text-red-500' : 'text-gray-400'
+                  }`}
+                >
                   You can only change your name twice within 14 days.
                 </p>
               </div>
@@ -118,15 +128,25 @@ const Edit = () => {
               <label htmlFor="username" className="w-[100px] text-right">
                 Username
               </label>
-              <Input
-                placeholder="Username"
-                error={errors.username}
-                type="text"
-                defaultValue={loggedUserInfo?.username ?? ''}
-                helperText={`In most cases, you'll be able to change your username back to ${loggedUserInfo?.username} for another 14 days.`}
-                className="mb-4"
-                {...register('username')}
-              />
+              <div className="flex-1">
+                <Input
+                  placeholder="Username"
+                  error={errors.username}
+                  type="text"
+                  defaultValue={loggedUserInfo?.username ?? ''}
+                  className="mb-4"
+                  {...register('username')}
+                />
+                <p
+                  className={`mt-2 text-xs ${
+                    error?.errorUsername ? 'text-red-500' : 'text-gray-400'
+                  }`}
+                >
+                  {!error?.errorUsername &&
+                    `In most cases, you'll be able to change your username back to ${loggedUserInfo?.username} for another 14 days.`}
+                  {error?.errorUsername && error?.errorUsername}
+                </p>
+              </div>
             </div>
 
             <div className="flex w-full items-baseline justify-between gap-8">

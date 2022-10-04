@@ -21,7 +21,6 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
   { name, error, helperText, ...rest },
   ref,
 ) => {
-  console.log(rest.className)
   return (
     <div className="flex flex-1 items-center justify-center">
       <div className="w-full flex-1">

@@ -3,13 +3,12 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint", "abcsize"],
+  "plugins": ["@typescript-eslint"],
   "extends": [
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended",
     "@rocketseat/eslint-config/react",
-    "prettier",
-    "plugin:abcsize/recommended"
+    "prettier"
   ],
   "rules": {
     "@typescript-eslint/no-explicit-any": "off",
