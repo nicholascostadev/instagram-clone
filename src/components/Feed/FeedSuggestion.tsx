@@ -3,6 +3,7 @@ import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
+import { formatFollow } from '../../utils/formatters'
 import { trpc } from '../../utils/trpc'
 
 interface SuggestionProps {
@@ -56,13 +57,6 @@ export const FeedSuggestion = ({
     }
   }
 
-  function formatFollow() {
-    if (followedByCopy.length > 0) {
-      return `Followed by ${followedByCopy[0]?.follower.username}`
-    }
-    return ''
-  }
-
   return (
     <div className="flex items-center justify-center gap-2">
       <div className="flex items-center justify-center rounded-full border">
@@ -82,7 +76,7 @@ export const FeedSuggestion = ({
         <p className="text-xs text-gray-400">
           {followedBy.length > 0 && (
             <>
-              {formatFollow()}
+              {formatFollow(followedByCopy)}
 
               {followedByCopy.length > 1 && ` + ${followedByCopy.length} more`}
             </>
