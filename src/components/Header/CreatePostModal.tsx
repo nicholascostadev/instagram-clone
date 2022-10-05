@@ -4,6 +4,7 @@ import NextImage from 'next/image'
 import { useState } from 'react'
 import { trpc } from '../../utils/trpc'
 import { useSession } from 'next-auth/react'
+import { env } from '../../env/client.mjs'
 
 export const CreatePostModal = () => {
   const [imageSrc, setImageSrc] = useState('')
@@ -49,14 +50,14 @@ export const CreatePostModal = () => {
   async function handleSelectImage(file: FileList | null) {
     if (file) {
       const formData = new FormData()
-
       formData.append('file', file[0] as File)
       formData.append('upload_preset', 'my-uploads')
+      const response = await fetch(env.NEXT_PUBLIC_CLOUDINARY_FOLDER, {
+        method: 'POST',
+        body: formData,
+      })
 
-      const data = await fetch(
-        'https://api.cloudinary.com/v1_1/dk9q7uxls/image/upload',
-        { method: 'POST', body: formData },
-      ).then((response) => response.json())
+      const data = await response.json()
 
       setImageSrc(data.secure_url)
     }

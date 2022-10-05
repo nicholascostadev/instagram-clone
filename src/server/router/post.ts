@@ -113,16 +113,3 @@ export const postsRouter = createProtectedRouter()
       })
     },
   })
-  .mutation('getImageUrl', {
-    input: z.object({
-      file: z.any(),
-    }),
-    async resolve({ input }) {
-      const data = await fetch(
-        'https://api.cloudinary.com/v1_1/dk9q7uxls/image/upload',
-        { method: 'POST', body: input.file },
-      ).then((response) => response.json())
-
-      return data
-    },
-  })
