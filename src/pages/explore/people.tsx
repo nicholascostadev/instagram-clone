@@ -15,7 +15,6 @@ export default function Explore() {
     )
   })
 
-  console.log(filteredData)
   return (
     <>
       <Header />

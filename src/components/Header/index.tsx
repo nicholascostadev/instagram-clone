@@ -78,7 +78,10 @@ export const Header = () => {
           <ChatCircleText className="cursor-pointer" size={30} />
           <Dialog.Root open={modalOpen} onOpenChange={setModalOpen}>
             <Dialog.Trigger asChild>
-              <button className="flex items-center justify-center">
+              <button
+                className="flex items-center justify-center"
+                type="button"
+              >
                 <PlusCircle className="cursor-pointer" size={30} />
               </button>
             </Dialog.Trigger>

@@ -6,7 +6,7 @@ import { NotFound } from '../../components/NotFound'
 import { PostInfo } from '../../components/Post/PostInfo'
 import { trpc } from '../../utils/trpc'
 
-const Post = () => {
+export default function Post() {
   const router = useRouter()
   const { postId } = router.query
 
@@ -49,5 +49,3 @@ const Post = () => {
     </>
   )
 }
-
-export default Post

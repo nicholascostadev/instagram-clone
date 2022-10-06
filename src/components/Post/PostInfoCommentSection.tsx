@@ -17,7 +17,7 @@ export const PostInfoCommentSection = ({
   handleLikeComment,
 }: PostInfoCommentSectionProps) => {
   return (
-    <>
+    <div>
       {postData?.comments.map((comment) => {
         return (
           <div key={comment.id} className="flex gap-2 p-4">
@@ -65,6 +65,6 @@ export const PostInfoCommentSection = ({
           </div>
         )
       })}
-    </>
+    </div>
   )
 }

@@ -110,7 +110,7 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
       <div>
         <div className="flex items-center justify-between px-4 py-2">
           <div className="flex gap-2">
-            <button onClick={handleToggleLikeOnPost}>
+            <button onClick={handleToggleLikeOnPost} type="button">
               <Heart
                 size={25}
                 weight={userHasLiked ? 'fill' : 'regular'}

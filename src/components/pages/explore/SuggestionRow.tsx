@@ -40,7 +40,7 @@ export const SuggestionRow = (props: SuggestionRowProps) => {
         {
           onError: (err) => {
             setFollows((prev) => !prev)
-            console.error(err)
+            throw new Error(err.message)
           },
           onSettled: () => {
             setFollows((prev) => !prev)
@@ -62,7 +62,7 @@ export const SuggestionRow = (props: SuggestionRowProps) => {
           />
         </div>
         <div className="flex flex-1 flex-col text-sm">
-          <Link href={`/${props.username}`}>
+          <Link href={`/${props.username || '/'}`}>
             <a className="text-md font-bold">{props.username}</a>
           </Link>
           <p className="text-gray-500">{props.name}</p>
@@ -70,21 +70,20 @@ export const SuggestionRow = (props: SuggestionRowProps) => {
             <p className="text-gray-400">Follows you</p>
           )}
           {props.recommendationReason === 'followed by' && (
-            <>
-              <p className="text-gray-400">
-                {props.followedByRecommendations[0]?.username}
-                <span>
-                  {props.followedByRecommendations.length > 1 &&
-                    ` + ${props.followedByRecommendations.length - 1} more`}
-                </span>
-              </p>
-            </>
+            <p className="text-gray-400">
+              {props.followedByRecommendations[0]?.username}
+              <span>
+                {props.followedByRecommendations.length > 1 &&
+                  ` + ${props.followedByRecommendations.length - 1} more`}
+              </span>
+            </p>
           )}
         </div>
       </div>
       <button
         className="rounded-md bg-blue-400 py-1 px-6 text-white"
         onClick={() => handleToggleFollow(follows ? 'unfollow' : 'follow')}
+        type="button"
       >
         {follows ? 'Unfolow' : 'Follow'}
       </button>

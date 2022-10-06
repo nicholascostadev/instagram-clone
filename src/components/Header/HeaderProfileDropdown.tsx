@@ -34,6 +34,7 @@ export const HeaderProfileDropdown = ({
         <button
           className="mt-2 rounded-md bg-blue-500 p-1 text-white hover:bg-blue-600"
           onClick={() => signIn('google')}
+          type="button"
         >
           Entrar
         </button>
@@ -104,12 +105,13 @@ export const HeaderProfileDropdown = ({
           </DropdownMenu.Group>
           <DropdownMenu.Group>
             <DropdownMenu.Separator>
-              <hr className="mt-2"></hr>
+              <hr className="mt-2" />
             </DropdownMenu.Separator>
             <DropdownMenu.Item>
               <button
                 className="dropdownMenuItem text-md w-full rounded-b-md !p-2"
                 onClick={() => signOut()}
+                type="button"
               >
                 Sair
               </button>

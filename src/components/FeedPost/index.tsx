@@ -1,10 +1,11 @@
 import { Comment, Like, Post as TPost, User } from '@prisma/client'
 import { formatDistanceToNow } from 'date-fns'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Spinner } from 'phosphor-react'
 import { useState } from 'react'
-import { trpc } from '../../utils/trpc'
+
 import { PostActions } from './PostActions'
 import { PostCommentSection } from './PostCommentSection'
 import { PostHeader } from './PostHeader'
@@ -29,10 +30,7 @@ export type UserHasLiked =
   | undefined
 
 export const Post = ({ isLoading, userId, post }: PostProps) => {
-  const { data } = trpc.useQuery([
-    'user.getUserInfo',
-    { id: String(post?.likes[0]?.userId) },
-  ])
+  const { data: userSession } = useSession()
 
   const [postState, setPostState] = useState(post)
   const [userHasLiked, setUserHasLiked] = useState<UserHasLiked>(
@@ -73,7 +71,7 @@ export const Post = ({ isLoading, userId, post }: PostProps) => {
           setUserHasLiked={setUserHasLiked}
         />
         {postState.likes.length > 0 && (
-          <PostLikedByList userInfo={data} post={postState} />
+          <PostLikedByList post={postState} userSession={userSession} />
         )}
         <div>
           <p className="text-sm">

@@ -75,7 +75,7 @@ const ProfileHeaderMainInfo = ({
           <p
             className="h-[108px] w-full overflow-y-scroll"
             dangerouslySetInnerHTML={{ __html: formattedDescription }}
-          ></p>
+          />
         )}
         {!isProfileOwner && followedByLength > 0 && (
           <p className="my-2 text-sm text-gray-500">
@@ -268,6 +268,7 @@ export const ProfileHeader = ({
                 <button
                   className="rounded-md border px-2 py-1 text-sm font-bold"
                   onClick={() => router.push('/accounts/edit')}
+                  type="button"
                 >
                   Edit Profile
                 </button>
@@ -278,6 +279,7 @@ export const ProfileHeader = ({
                 <button
                   className={`${followButtonStyles} hidden md:flex`}
                   onClick={toggleFollow}
+                  type="button"
                 >
                   {userFollows ? 'Unfollow' : 'Follow'}
                 </button>

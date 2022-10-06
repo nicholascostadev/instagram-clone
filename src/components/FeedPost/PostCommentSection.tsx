@@ -35,7 +35,7 @@ export const PostCommentSection = ({
       },
     )
     setInput('')
-    router.push(`/p/${postId}`)
+    router.push(`/p/${postId || '1'}`)
   }
   return (
     <div className="flex items-center justify-between gap-2 py-3 pl-2 pr-6">

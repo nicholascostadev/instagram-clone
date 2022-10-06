@@ -48,17 +48,19 @@ export const PostActions = ({
   const router = useRouter()
 
   const handleToggleLikeOnPost = () => {
+    if (!data?.user) throw new Error("User isn't logged in")
+
     if (userHasLiked) {
       likeMutation.mutate(
         {
-          postId: Number(post?.id),
-          userId: String(data?.user?.id),
+          postId: post.id,
+          userId: data.user.id,
         },
         {
           onSettled: () => {
             setPostState((prev) => {
-              const newLikes = prev?.likes.filter(
-                (like) => like.userId !== data?.user?.id,
+              const newLikes = prev.likes.filter(
+                (like) => like.userId !== data.user?.id,
               )
 
               return {
@@ -87,7 +89,7 @@ export const PostActions = ({
                     user: data?.user as User,
                     id: Number(Math.floor(Math.random() * 10)),
                     commentId: Number(uuidv4()),
-                    userId: String(data?.user?.id),
+                    userId: data.user?.id as string,
                   },
                 ],
               }
@@ -101,7 +103,7 @@ export const PostActions = ({
   return (
     <div className="mb-2 flex items-center justify-between">
       <div className="flex items-center justify-between gap-5">
-        <button onClick={handleToggleLikeOnPost}>
+        <button onClick={handleToggleLikeOnPost} type="button">
           <Heart
             weight={userHasLiked ? 'fill' : 'regular'}
             size={30}
@@ -112,18 +114,18 @@ export const PostActions = ({
             }`}
           />
         </button>
-        <button>
+        <button type="button">
           <Chat
             size={30}
             className="hover:text-gray-400"
             onClick={() => router.push(`/p/${post?.id}`)}
           />
         </button>
-        <button>
+        <button type="button">
           <PaperPlaneTilt size={30} className="hover:text-gray-400" />
         </button>
       </div>
-      <button>
+      <button type="button">
         <BookmarkSimple
           weight={saved ? 'fill' : 'regular'}
           onClick={() => setSaved((prev) => !prev)}

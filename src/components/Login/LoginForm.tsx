@@ -36,6 +36,7 @@ export const LoginForm = () => {
       <button
         className="mt-2 rounded-md bg-blue-500 p-1 text-white hover:bg-blue-600"
         onClick={() => signIn('google')}
+        type="button"
       >
         Log in
       </button>

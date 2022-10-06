@@ -28,7 +28,7 @@ export const FeedSuggestion = ({
     'protectedUser.toggleFollow',
   ])
 
-  const followedByCopy = [...followedBy].filter(
+  const followedByCopy = followedBy.filter(
     (follower) => follower.followerId !== loggedUser?.user?.id,
   )
 
@@ -46,7 +46,6 @@ export const FeedSuggestion = ({
           followingId: id,
         },
         {
-          onError: (err) => console.error(err),
           onSuccess: () => {
             if (action === 'follow') {
               setUserFollows(true)

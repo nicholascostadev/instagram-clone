@@ -14,31 +14,36 @@ export const FeedPostActionModal = () => {
       >
         <button
           className={`${PostActionModalButtonBaseStyles} rounded-t-lg p-3 font-bold text-red-500 hover:bg-gray-100`}
+          type="button"
         >
           Report
         </button>
         <button
           className={`${PostActionModalButtonBaseStyles} p-3 font-bold text-red-500 hover:bg-gray-100`}
+          type="button"
         >
           Unfollow
         </button>
-        <button className={`${PostActionModalButtonBaseStyles}`}>
+        <button className={`${PostActionModalButtonBaseStyles}`} type="button">
           Add to favorites
         </button>
-        <button className={`${PostActionModalButtonBaseStyles}`}>
+        <button className={`${PostActionModalButtonBaseStyles}`} type="button">
           Go to post
         </button>
-        <button className={`${PostActionModalButtonBaseStyles}`}>
+        <button className={`${PostActionModalButtonBaseStyles}`} type="button">
           Share to...
         </button>
-        <button className={`${PostActionModalButtonBaseStyles}`}>
+        <button className={`${PostActionModalButtonBaseStyles}`} type="button">
           Copy link
         </button>
-        <button className={`${PostActionModalButtonBaseStyles}`}>Embed</button>
+        <button className={`${PostActionModalButtonBaseStyles}`} type="button">
+          Embed
+        </button>
 
         <Dialog.Close asChild>
           <button
             className={`${PostActionModalButtonBaseStyles} rounded-b-lg border-b-0`}
+            type="button"
           >
             Cancelar
           </button>

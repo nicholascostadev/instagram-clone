@@ -134,6 +134,8 @@ export const protectedUserRouter = createProtectedRouter()
               },
             },
           })
+        default:
+          throw new Error('Invalid action')
       }
     },
   })

@@ -20,7 +20,7 @@ export const Feed = () => {
   )
 
   return (
-    <>
+    <div>
       <main className="mx-auto grid h-screen max-w-full grid-cols-1 gap-10 px-2 pt-10 lg:grid-cols-2 xl:max-w-5xl">
         <div className="mx-auto max-w-full lg:max-w-full">
           <Stories />
@@ -52,6 +52,7 @@ export const Feed = () => {
                 <button
                   className="ml-auto text-sm font-bold text-blue-500"
                   onClick={() => signOut()}
+                  type="button"
                 >
                   Switch
                 </button>
@@ -70,6 +71,6 @@ export const Feed = () => {
           <FeedFollowSuggestions />
         </div>
       </main>
-    </>
+    </div>
   )
 }

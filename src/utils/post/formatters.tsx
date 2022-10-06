@@ -1,5 +1,10 @@
 import { Comment, Like, Post, User } from '@prisma/client'
 
+/**
+ * Simple pluralize function, takes an amount an returns either 'like' or 'likes'
+ * @param {number} commentsAmount - number
+ * @returns A function that takes in a number and returns a string.
+ */
 export const formatCommentLikes = (commentsAmount: number) => {
   if (commentsAmount === 1) {
     return `${commentsAmount} like`

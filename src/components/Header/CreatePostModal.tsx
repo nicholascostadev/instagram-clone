@@ -46,29 +46,34 @@ export const CreatePostModal = ({ closeModal }: CreatePostModalProps) => {
     await fetch(env.NEXT_PUBLIC_CLOUDINARY_FOLDER, {
       method: 'POST',
       body: formData,
-    }).catch((err) => {
-      return console.error(err)
     })
-
-    postMutation.mutate(
-      {
-        imageUrl: imageSrc,
-        description: postDescription,
-        userId: data?.user?.id as string,
-      },
-      {
-        onError: (error) => console.log(error),
-        onSuccess: () => {
-          clearInfo()
-          invalidateQueries(['post.getAll'])
-        },
-      },
-    )
-    setLoading(false)
-    closeModal()
+      .then(async (fData) => {
+        const response = await fData.json()
+        postMutation.mutate(
+          {
+            imageUrl: response.secure_url,
+            description: postDescription,
+            userId: data?.user?.id as string,
+          },
+          {
+            onError: (error) => {
+              throw new Error(error.message)
+            },
+            onSuccess: () => {
+              clearInfo()
+              invalidateQueries(['post.getAll'])
+            },
+          },
+        )
+        setLoading(false)
+        closeModal()
+      })
+      .catch(() => {
+        throw new Error('message')
+      })
   }
 
-  async function handleSelectImage(files: FileList | null) {
+  const handleSelectImage = (files: FileList | null) => {
     if (files) {
       setImageSrc(URL.createObjectURL(files[0] as Blob))
       setFile(files[0])
@@ -97,6 +102,7 @@ export const CreatePostModal = ({ closeModal }: CreatePostModalProps) => {
             <button
               className="absolute right-4 text-blue-600"
               onClick={handleCreatePost}
+              type="button"
             >
               {loading ? 'Loading...' : 'Post'}
             </button>
@@ -132,7 +138,7 @@ export const CreatePostModal = ({ closeModal }: CreatePostModalProps) => {
             <>
               <div className="absolute left-0 top-0 h-[calc(100%-40px)] w-[70%] rounded-lg">
                 {' '}
-                <button onClick={() => clearInfo(true)}>
+                <button onClick={() => clearInfo(true)} type="button">
                   <Trash
                     color="red"
                     className="absolute top-5 right-5 z-10"

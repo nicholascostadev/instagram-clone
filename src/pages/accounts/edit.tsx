@@ -50,7 +50,9 @@ const Edit = () => {
       setValue('username', data?.username ?? '')
       setValue('websiteUrl', data?.website ?? '')
     },
-    onError: (err) => console.log(err),
+    onError: () => {
+      throw new Error("Couldn't fetch user info")
+    },
   })
 
   const [error, setError] = useState<ErrorObject>()

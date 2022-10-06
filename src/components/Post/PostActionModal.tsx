@@ -1,10 +1,8 @@
 import * as Dialog from '@radix-ui/react-dialog'
 
-interface PostActionModalProps {
-  postId: number | undefined
-}
-
-export const PostActionModal = ({ postId }: PostActionModalProps) => {
+// TODO: Receive a postId(getting the poster's ID) for the actions as unfollow / follow
+// On the backend, we can get the ctx user and follow / unfollow easily
+export const PostActionModal = () => {
   const PostActionModalButtonBaseStyles =
     'hover:bg-gray-100 p-3 border-b border-solid border-gray-500/30'
 
@@ -29,32 +27,37 @@ export const PostActionModal = ({ postId }: PostActionModalProps) => {
       >
         <button
           className={`${PostActionModalButtonBaseStyles} rounded-t-lg p-3 font-bold text-red-500 hover:bg-gray-100`}
+          type="button"
         >
           Report
         </button>
         <button
           className={`${PostActionModalButtonBaseStyles} p-3 font-bold text-red-500 hover:bg-gray-100`}
           onClick={() => handleAction('UNFOLLOW')}
+          type="button"
         >
           Unfollow
         </button>
-        <button className={`${PostActionModalButtonBaseStyles}`}>
+        <button className={`${PostActionModalButtonBaseStyles}`} type="button">
           Add to favorites
         </button>
-        <button className={`${PostActionModalButtonBaseStyles}`}>
+        <button className={`${PostActionModalButtonBaseStyles}`} type="button">
           Go to post
         </button>
-        <button className={`${PostActionModalButtonBaseStyles}`}>
+        <button className={`${PostActionModalButtonBaseStyles}`} type="button">
           Share to...
         </button>
-        <button className={`${PostActionModalButtonBaseStyles}`}>
+        <button className={`${PostActionModalButtonBaseStyles}`} type="button">
           Copy link
         </button>
-        <button className={`${PostActionModalButtonBaseStyles}`}>Embed</button>
+        <button className={`${PostActionModalButtonBaseStyles}`} type="button">
+          Embed
+        </button>
 
         <Dialog.Close asChild>
           <button
             className={`${PostActionModalButtonBaseStyles} rounded-b-lg border-b-0`}
+            type="button"
           >
             Cancelar
           </button>
