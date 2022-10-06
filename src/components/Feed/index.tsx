@@ -63,9 +63,9 @@ export const Feed = () => {
             <strong className="text-sm text-gray-400">
               Suggestions for you
             </strong>
-            <a href="#" className="text-sm">
-              See All
-            </a>
+            <Link href="/explore/people">
+              <a className="text-sm">See All</a>
+            </Link>
           </div>
           <FeedFollowSuggestions />
         </div>
