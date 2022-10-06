@@ -9,7 +9,7 @@ import { env } from '../../env/client.mjs'
 export const CreatePostModal = () => {
   const [imageSrc, setImageSrc] = useState('')
   const [postDescription, setPostDescription] = useState('')
-  const postMutation = trpc.useMutation(['post.create'])
+  const postMutation = trpc.useMutation(['protectedPost.create'])
   const { invalidateQueries } = trpc.useContext()
   const { data } = useSession()
 

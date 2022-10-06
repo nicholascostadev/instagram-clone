@@ -13,7 +13,7 @@ export const PostCommentSection = ({
   userId,
 }: PostCommentSectionProps) => {
   const [input, setInput] = useState('')
-  const { mutate, isLoading } = trpc.useMutation(['post.comment'])
+  const { mutate, isLoading } = trpc.useMutation(['protectedPost.comment'])
   const disabled = input.length === 0
   const utils = trpc.useContext()
   const router = useRouter()

@@ -13,7 +13,7 @@ export const PostAddCommentSection = ({
   postData,
 }: PostAddCommentSectionProps) => {
   const [input, setInput] = useState('')
-  const { mutate, isLoading } = trpc.useMutation(['post.comment'])
+  const { mutate, isLoading } = trpc.useMutation(['protectedPost.comment'])
 
   const disabled = input.length === 0 || isLoading
 

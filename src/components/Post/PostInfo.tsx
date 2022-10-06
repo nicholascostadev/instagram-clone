@@ -30,13 +30,14 @@ export interface PostInfoProps {
 
 export const PostInfo = ({ postData }: PostInfoProps) => {
   const { data: userSession } = useSession()
-  const like = trpc.useMutation(['post.toggleLike'])
+  const like = trpc.useMutation(['protectedPost.toggleLike'])
   const utils = trpc.useContext()
 
   const userHasLiked = postData?.likes.find(
     (like) => like.userId === userSession?.user?.id,
   )
 
+  // TODO: Make this funcion work(not implemented)
   const handleLikeComment = (commentId: number) => {
     // call api
   }

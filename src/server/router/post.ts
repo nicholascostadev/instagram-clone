@@ -1,7 +1,10 @@
 import { z } from 'zod'
-import { createProtectedRouter } from './protected-router'
+import { createRouter } from './context'
 
-export const postsRouter = createProtectedRouter()
+export const postsRouter = createRouter()
+  // TODO: Routes for getting posts and a specific post, should be public
+  // only creating a post should be protected, because as in Instagram, you
+  // can see posts without being logged in, but you can't create a post
   .query('getSpecificPost', {
     input: z.object({
       id: z.number(),
@@ -28,28 +31,6 @@ export const postsRouter = createProtectedRouter()
       })
     },
   })
-  .mutation('comment', {
-    input: z.object({
-      userId: z.string(),
-      comment: z.string(),
-      postId: z.number(),
-    }),
-    async resolve({ ctx, input: { comment, postId, userId } }) {
-      return await ctx.prisma.post.update({
-        where: {
-          id: postId,
-        },
-        data: {
-          comments: {
-            create: {
-              text: comment,
-              userId,
-            },
-          },
-        },
-      })
-    },
-  })
   .query('getAll', {
     async resolve({ ctx }) {
       return await ctx.prisma.post.findMany({
@@ -64,51 +45,6 @@ export const postsRouter = createProtectedRouter()
               user: true,
             },
           },
-        },
-      })
-    },
-  })
-  .mutation('toggleLike', {
-    input: z.object({
-      userId: z.string(),
-      postId: z.number(),
-    }),
-    async resolve({ ctx, input: { userId, postId } }) {
-      const userHasLiked = await ctx.prisma.like.findFirst({
-        where: {
-          userId,
-          postId,
-        },
-      })
-
-      if (!userHasLiked) {
-        return await ctx.prisma.like.create({
-          data: {
-            userId,
-            postId,
-          },
-        })
-      } else {
-        return await ctx.prisma.like.delete({
-          where: {
-            id: userHasLiked.id,
-          },
-        })
-      }
-    },
-  })
-  .mutation('create', {
-    input: z.object({
-      imageUrl: z.string(),
-      description: z.string(),
-      userId: z.string(),
-    }),
-    async resolve({ input, ctx }) {
-      return await ctx.prisma.post.create({
-        data: {
-          image: input.imageUrl,
-          authorId: input.userId,
-          description: input.description,
         },
       })
     },
