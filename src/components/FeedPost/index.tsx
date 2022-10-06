@@ -12,7 +12,6 @@ import { PostHeader } from './PostHeader'
 import { PostLikedByList } from './PostLikedByList'
 
 interface PostProps {
-  // optional just for testing
   post: TPost & {
     author: User
     comments: Comment[]
@@ -35,6 +34,10 @@ export const Post = ({ isLoading, userId, post }: PostProps) => {
   const [postState, setPostState] = useState(post)
   const [userHasLiked, setUserHasLiked] = useState<UserHasLiked>(
     postState.likes[0],
+  )
+
+  const likedByList = post?.likes.filter(
+    (like) => like.userId !== userSession?.user?.id,
   )
 
   return (
@@ -71,7 +74,7 @@ export const Post = ({ isLoading, userId, post }: PostProps) => {
           setUserHasLiked={setUserHasLiked}
         />
         {postState.likes.length > 0 && (
-          <PostLikedByList post={postState} userSession={userSession} />
+          <PostLikedByList likedByList={likedByList} />
         )}
         <div>
           <p className="text-sm">
