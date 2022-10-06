@@ -99,7 +99,7 @@ const ProfileHeaderMainInfo = ({
         <p
           className="h-[108px] w-full overflow-y-scroll"
           dangerouslySetInnerHTML={{ __html: formattedDescription }}
-        ></p>
+        />
       )}
 
       {!isProfileOwner && followedByLength > 0 && (
