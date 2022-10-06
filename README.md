@@ -195,8 +195,8 @@ Recursos que eu achei útil fazendo esse projeto.
 - [x] Criar página de perfil
 - [x] Adicionar funcionalidade de criar um Post
 - [x] Fazer trocar de pagina com as opções do dropdown do header
-- [ ] Fazer com que o usuário possa editar ou adicionar a própria descrição
-- [ ] Fazer com que o usuário possa editar ou adicionar o próprio website
+- [x] Fazer com que o usuário possa editar ou adicionar a própria descrição
+- [x] Fazer com que o usuário possa editar ou adicionar o próprio website
 - [ ] Fazer com que os posts tenham uma proporção fixa nas imagens usando isso: [tailwindcss-aspect-ratio][tailwind-aspect-ratio-url] ou deixar da maneira que já está(sem problema algum, está bom também)
 
 ---
@@ -323,8 +323,8 @@ Resources I found helpfull when doing this project.
 - [x] Create Profile Page
 - [x] Create Post Page
 - [x] Make 'Tab' change between options in Header Dropdown
-- [ ] Make user able to change or add his own description
-- [ ] Make user able to change or add his own website
+- [x] Make user able to change or add his own description
+- [x] Make user able to change or add his own website
 - [ ] Make Fixed aspect ratio for posts in feed and profile using this: [tailwindcss-aspect-ratio][tailwind-url] or let the way it is(no problem at all, it's fine)
 
 <!-- MARKDOWN LINKS & IMAGES -->
