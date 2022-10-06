@@ -24,7 +24,9 @@ type SuggestionRowProps =
 
 export const SuggestionRow = (props: SuggestionRowProps) => {
   const { data } = useSession()
-  const { mutate: toggleFollow } = trpc.useMutation(['user.toggleFollow'])
+  const { mutate: toggleFollow } = trpc.useMutation([
+    'protectedUser.toggleFollow',
+  ])
   const [follows, setFollows] = useState(false)
 
   const handleToggleFollow = (action: 'follow' | 'unfollow') => {

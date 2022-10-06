@@ -41,7 +41,7 @@ const Edit = () => {
 
   const currentValues = watch()
   const { mutate: updateUserInfo, isLoading } = trpc.useMutation([
-    'user.updateUserInfo',
+    'protectedUser.updateUserInfo',
   ])
   const { data: loggedUserInfo } = trpc.useQuery(['user.getUserInfo'], {
     onSuccess: (data) => {
@@ -75,7 +75,7 @@ const Edit = () => {
     updateUserInfo(
       {
         newName: data.name,
-        newUsername: data.username,
+        newUsername: data.username.replaceAll(' ', '-'), // no spaces for usernames
         description: data.description,
         website: data.websiteUrl,
       },

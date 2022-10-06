@@ -207,7 +207,7 @@ export const ProfileHeader = ({
 }: ProfileHeaderProps) => {
   const router = useRouter()
 
-  const followMutation = trpc.useMutation(['user.toggleFollow'])
+  const followMutation = trpc.useMutation(['protectedUser.toggleFollow'])
   const utils = trpc.useContext()
 
   const toggleFollow = () => {

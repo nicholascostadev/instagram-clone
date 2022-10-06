@@ -24,7 +24,9 @@ export const FeedSuggestion = ({
   id,
 }: SuggestionProps) => {
   const { data: loggedUser } = useSession()
-  const { mutate: toggleFollow } = trpc.useMutation(['user.toggleFollow'])
+  const { mutate: toggleFollow } = trpc.useMutation([
+    'protectedUser.toggleFollow',
+  ])
 
   const followedByCopy = [...followedBy].filter(
     (follower) => follower.followerId !== loggedUser?.user?.id,
