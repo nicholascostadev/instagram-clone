@@ -21,6 +21,7 @@ import Image from 'next/image'
 export const Header = () => {
   const [input, setInput] = useState('')
   const { status, data } = useSession()
+  const [modalOpen, setModalOpen] = useState(false)
   const { data: userInfo } = trpc.useQuery(
     [
       'user.getUserInfo',
@@ -34,6 +35,8 @@ export const Header = () => {
   if (status === 'unauthenticated') {
     router.push('/')
   }
+
+  const closeModal = () => setModalOpen(false)
 
   return (
     <header className="sticky w-full overflow-hidden border-b bg-white py-5 shadow-sm">
@@ -73,13 +76,13 @@ export const Header = () => {
             onClick={() => router.push('/')}
           />
           <ChatCircleText className="cursor-pointer" size={30} />
-          <Dialog.Root>
+          <Dialog.Root open={modalOpen} onOpenChange={setModalOpen}>
             <Dialog.Trigger asChild>
               <button className="flex items-center justify-center">
                 <PlusCircle className="cursor-pointer" size={30} />
               </button>
             </Dialog.Trigger>
-            <CreatePostModal />
+            <CreatePostModal closeModal={closeModal} />
           </Dialog.Root>
 
           <Compass className="cursor-pointer" size={30} />

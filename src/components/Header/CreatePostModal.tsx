@@ -6,9 +6,15 @@ import { trpc } from '../../utils/trpc'
 import { useSession } from 'next-auth/react'
 import { env } from '../../env/client.mjs'
 
-export const CreatePostModal = () => {
+interface CreatePostModalProps {
+  closeModal: () => void
+}
+
+export const CreatePostModal = ({ closeModal }: CreatePostModalProps) => {
   const [imageSrc, setImageSrc] = useState('')
   const [postDescription, setPostDescription] = useState('')
+  const [file, setFile] = useState<File | null>()
+  const [loading, setLoading] = useState(false)
   const postMutation = trpc.useMutation(['protectedPost.create'])
   const { invalidateQueries } = trpc.useContext()
   const { data } = useSession()
@@ -31,6 +37,19 @@ export const CreatePostModal = () => {
   }
 
   async function handleCreatePost() {
+    if (!file) return
+    setLoading(true)
+
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('upload_preset', 'my-uploads')
+    await fetch(env.NEXT_PUBLIC_CLOUDINARY_FOLDER, {
+      method: 'POST',
+      body: formData,
+    }).catch((err) => {
+      return console.error(err)
+    })
+
     postMutation.mutate(
       {
         imageUrl: imageSrc,
@@ -45,33 +64,16 @@ export const CreatePostModal = () => {
         },
       },
     )
+    setLoading(false)
+    closeModal()
   }
 
-  async function handleSelectImage(file: FileList | null) {
-    if (file) {
-      const formData = new FormData()
-      formData.append('file', file[0] as File)
-      formData.append('upload_preset', 'my-uploads')
-      const response = await fetch(env.NEXT_PUBLIC_CLOUDINARY_FOLDER, {
-        method: 'POST',
-        body: formData,
-      })
-
-      const data = await response.json()
-
-      setImageSrc(data.secure_url)
+  async function handleSelectImage(files: FileList | null) {
+    if (files) {
+      setImageSrc(URL.createObjectURL(files[0] as Blob))
+      setFile(files[0])
     }
   }
-
-  // function handleFileUpload() {
-  //   postMutation.mutate(
-  //     { file: image },
-  //     {
-  //       onError: (error) => console.log(error),
-  //       onSuccess: (data) => console.log(data),
-  //     },
-  //   )
-  // }
 
   return (
     <Dialog.Portal>
@@ -96,7 +98,7 @@ export const CreatePostModal = () => {
               className="absolute right-4 text-blue-600"
               onClick={handleCreatePost}
             >
-              Share
+              {loading ? 'Loading...' : 'Post'}
             </button>
           )}
         </div>
