@@ -45,9 +45,8 @@ export const userRouter = createRouter()
           followers: {
             include: {
               follower: {
-                select: {
-                  id: true,
-                  username: true,
+                include: {
+                  followers: true,
                 },
               },
             },

@@ -78,7 +78,8 @@ export const FeedSuggestion = ({
             <>
               {formatFollow(followedByCopy)}
 
-              {followedByCopy.length > 1 && ` + ${followedByCopy.length} more`}
+              {followedByCopy.length > 1 &&
+                ` + ${followedByCopy.length - 1} more`}
             </>
           )}
         </p>

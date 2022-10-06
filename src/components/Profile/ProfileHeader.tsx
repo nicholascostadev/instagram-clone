@@ -26,10 +26,17 @@ type UserInfoProps =
   | null
   | undefined
 
+type TFollower = Follows & {
+  follower: {
+    id: string
+    username: string | null
+  }
+}
 interface ProfileHeaderProps {
   userInfo: UserInfoProps
   sessionData: Session | null
   userFollows: boolean
+  followedBy: TFollower[]
   toggleUserFollows: () => void
 }
 
@@ -37,16 +44,26 @@ interface ProfileHeaderDescriptionProps {
   websiteURL?: string | null
   description?: string | null
   userInfo: UserInfoProps
+  followedBy: TFollower[]
+  userSession: Session | null
 }
 
 const ProfileHeaderMainInfo = ({
   websiteURL,
   description,
   userInfo,
+  followedBy,
+  userSession,
 }: ProfileHeaderDescriptionProps) => {
   const formattedDescription = DOMPurify.sanitize(
     description?.replace(/\n/g, '<br>\n') ?? '',
   )
+
+  const isProfileOwner = userInfo?.id === userSession?.user?.id
+  const filteredFollowedBy = followedBy.filter(
+    (follow) => follow.followerId !== userSession?.user?.id,
+  )
+  const followedByLength = filteredFollowedBy.length
 
   if (!websiteURL) {
     return (
@@ -60,6 +77,17 @@ const ProfileHeaderMainInfo = ({
             dangerouslySetInnerHTML={{ __html: formattedDescription }}
           ></p>
         )}
+        {!isProfileOwner && followedByLength > 0 && (
+          <p className="my-2 text-sm text-gray-500">
+            Followed by{' '}
+            <Link href={`/${filteredFollowedBy[0]?.follower.username}`}>
+              <a className="font-bold text-black">
+                {filteredFollowedBy[0]?.follower.username}
+              </a>
+            </Link>
+            {followedByLength > 1 && ` + ${followedByLength - 1} more`}
+          </p>
+        )}
       </div>
     )
   }
@@ -72,6 +100,18 @@ const ProfileHeaderMainInfo = ({
           className="h-[108px] w-full overflow-y-scroll"
           dangerouslySetInnerHTML={{ __html: formattedDescription }}
         ></p>
+      )}
+
+      {!isProfileOwner && followedByLength > 0 && (
+        <p className="my-2 text-sm text-gray-500">
+          Followed by{' '}
+          <Link href={`/${filteredFollowedBy[0]?.follower.username}`}>
+            <a className="font-bold text-black">
+              {filteredFollowedBy[0]?.follower.username}
+            </a>
+          </Link>
+          {followedByLength > 1 && ` + ${followedByLength - 1} more`}
+        </p>
       )}
 
       {websiteURL && (
@@ -162,6 +202,7 @@ export const ProfileHeader = ({
   userInfo,
   sessionData,
   userFollows,
+  followedBy,
   toggleUserFollows,
 }: ProfileHeaderProps) => {
   const router = useRouter()
@@ -262,6 +303,8 @@ export const ProfileHeader = ({
             websiteURL={userInfo?.website}
             description={userInfo?.description}
             userInfo={userInfo}
+            followedBy={followedBy}
+            userSession={sessionData}
           />
         </div>
       </div>
