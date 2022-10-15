@@ -81,23 +81,23 @@ export const userRouter = createRouter()
             },
           },
         })
-      } else {
-        return await ctx.prisma.user.findUnique({
-          where: {
-            id,
-          },
-          include: {
-            followers: true,
-            following: true,
-            posts: {
-              include: {
-                comments: true,
-                likes: true,
-                author: true,
-              },
+      }
+
+      return await ctx.prisma.user.findUnique({
+        where: {
+          id,
+        },
+        include: {
+          followers: true,
+          following: true,
+          posts: {
+            include: {
+              comments: true,
+              likes: true,
+              author: true,
             },
           },
-        })
-      }
+        },
+      })
     },
   })
