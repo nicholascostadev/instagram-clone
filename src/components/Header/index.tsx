@@ -65,30 +65,32 @@ export const Header = () => {
             className="absolute top-2.5 left-1.5 text-gray-200"
           />
         </div>
-        <div className="flex items-center justify-center gap-4">
-          <House
-            className="cursor-pointer"
-            size={30}
-            weight={router.pathname === '/' ? 'fill' : 'regular'}
-            onClick={() => router.push('/')}
-          />
-          <ChatCircleText className="cursor-pointer" size={30} />
-          <Dialog.Root open={modalOpen} onOpenChange={setModalOpen}>
-            <Dialog.Trigger asChild>
-              <button
-                className="flex items-center justify-center"
-                type="button"
-              >
-                <PlusCircle className="cursor-pointer" size={30} />
-              </button>
-            </Dialog.Trigger>
-            <CreatePostModal closeModal={closeModal} />
-          </Dialog.Root>
+        {data && (
+          <div className="flex items-center justify-center gap-4">
+            <House
+              className="cursor-pointer"
+              size={30}
+              weight={router.pathname === '/' ? 'fill' : 'regular'}
+              onClick={() => router.push('/')}
+            />
+            <ChatCircleText className="cursor-pointer" size={30} />
+            <Dialog.Root open={modalOpen} onOpenChange={setModalOpen}>
+              <Dialog.Trigger asChild>
+                <button
+                  className="flex items-center justify-center"
+                  type="button"
+                >
+                  <PlusCircle className="cursor-pointer" size={30} />
+                </button>
+              </Dialog.Trigger>
+              <CreatePostModal closeModal={closeModal} />
+            </Dialog.Root>
 
-          <Compass className="cursor-pointer" size={30} />
-          <Heart className="cursor-pointer" size={30} />
-          <HeaderProfileDropdown userInfo={userInfo} />
-        </div>
+            <Compass className="cursor-pointer" size={30} />
+            <Heart className="cursor-pointer" size={30} />
+          </div>
+        )}
+        <HeaderProfileDropdown userInfo={userInfo} />
       </nav>
     </header>
   )

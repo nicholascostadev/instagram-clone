@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { CaretDown } from 'phosphor-react'
+import { Footer } from '../Footer'
 import { LoginForm } from './LoginForm'
 
 export const LoginPage = () => {
@@ -47,38 +47,8 @@ export const LoginPage = () => {
             </div>
           </div>
         </div>
+        <Footer />
       </main>
-      <footer className="mx-auto w-full items-center justify-center text-xs text-gray-500 md:w-1/2 ">
-        <div className="mt-6 flex flex-wrap justify-center [&>*]:mx-1 [&>*]:mb-3 [&>*]:px-1">
-          <a href="#">Meta</a>
-          <a href="#">About</a>
-          <a href="#">Blog</a>
-          <a href="#">Jobs</a>
-          <a href="#">Help</a>
-          <a href="#">API</a>
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
-          <a href="#">Top Accounts</a>
-          <a href="#">Hashtags</a>
-          <a href="#">Locations</a>
-          <a href="#">Instagram Lite</a>
-          <a href="#">Contact Uploading & Non-Users</a>
-          <a href="#">Dance</a>
-          <a href="#">Food & Drink</a>
-          <a href="#">Home & Garden</a>
-          <a href="#">Music</a>
-          <a href="#">Visual Arts</a>
-        </div>
-        <div className="my-4 flex justify-center gap-[11px] text-gray-500">
-          <p>
-            English{' '}
-            <span className="inline-flex">
-              <CaretDown size={12} />
-            </span>
-          </p>
-          <p>© 2022 Instagram from Meta</p>
-        </div>
-      </footer>
     </>
   )
 }

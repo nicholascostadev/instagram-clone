@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { SpinnerGap } from 'phosphor-react'
+import { Footer } from '../../components/Footer'
 import { Header } from '../../components/Header'
 import { NotFound } from '../../components/NotFound'
 import { PostInfo } from '../../components/Post/PostInfo'
@@ -47,6 +48,7 @@ export default function Post() {
           <PostInfo postData={postToShow} />
         </div>
       </div>
+      <Footer />
     </>
   )
 }

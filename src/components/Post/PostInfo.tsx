@@ -3,6 +3,7 @@ import { format, formatDistanceToNow } from 'date-fns'
 import { enUS } from 'date-fns/locale'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { BookmarkSimple, Chat, Heart, PaperPlaneTilt } from 'phosphor-react'
 import { formatPostLikes } from '../../utils/post/formatters'
 import { trpc } from '../../utils/trpc'
@@ -108,7 +109,7 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
       </div>
 
       <div>
-        <div className="flex items-center justify-between px-4 py-2">
+        <div className="flex items-center justify-between border-t px-4 py-2">
           <div className="flex gap-2">
             <button onClick={handleToggleLikeOnPost} type="button">
               <Heart
@@ -139,12 +140,27 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
             {formatPostLikes(postData?.likes, postData)}
           </div>
         )}
-        <span className="block px-4 pt-2 text-xs text-gray-400">
+        <span
+          className={`block px-4 pt-2 text-xs text-gray-400 ${
+            !userSession ? 'pb-5' : ''
+          }`}
+        >
           {format(new Date(String(postData?.createdAt)), 'MMMM dd, yyyy')}
         </span>
       </div>
 
-      <PostAddCommentSection postData={postData} userSession={userSession} />
+      {userSession ? (
+        <PostAddCommentSection postData={postData} userSession={userSession} />
+      ) : (
+        <div className="flex max-h-full flex-1 border-t p-4">
+          <p className="text-sm text-gray-400">
+            <Link href="/">
+              <a className="text-blue-700">Log in </a>
+            </Link>
+            to like or comment.
+          </p>
+        </div>
+      )}
     </div>
   )
 }

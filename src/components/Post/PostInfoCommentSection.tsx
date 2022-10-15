@@ -48,16 +48,9 @@ export const PostInfoCommentSection = ({
               </div>
             </div>
             <div className="flex items-center justify-center">
+              {/* TODO: Make liking comment work */}
               <Heart
                 size={12}
-                weight={
-                  postData.likes.findIndex(
-                    (like) => like.userId === userSession?.user?.id,
-                  ) === -1
-                    ? 'regular'
-                    : 'fill'
-                }
-                color="red"
                 className="cursor-pointer"
                 onClick={() => handleLikeComment(comment.id)}
               />
