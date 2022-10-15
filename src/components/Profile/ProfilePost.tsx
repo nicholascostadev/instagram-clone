@@ -23,7 +23,13 @@ export const ProfilePost = ({
     >
       <a className="relative block w-full">
         <div className="relative h-[150px] w-[150px] sm:h-[250px] sm:w-[250px]">
-          <Image src={image} alt="" layout="fill" className="w-auto" />
+          <Image
+            src={image}
+            alt=""
+            layout="fill"
+            className="w-auto"
+            objectFit="cover"
+          />
         </div>
         <div
           className="absolute inset-0 z-10 flex items-center

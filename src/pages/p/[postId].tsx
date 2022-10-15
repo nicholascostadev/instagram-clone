@@ -42,6 +42,7 @@ export default function Post() {
             layout="fixed"
             width={598}
             height={598}
+            objectFit="contain"
           />
           <PostInfo postData={postToShow} />
         </div>
