@@ -61,7 +61,7 @@ export const CreatePostModal = ({ closeModal }: CreatePostModalProps) => {
             },
             onSuccess: () => {
               clearInfo()
-              invalidateQueries(['post.getAll'])
+              invalidateQueries(['protectedPost.getAll'])
             },
           },
         )

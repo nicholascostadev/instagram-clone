@@ -42,7 +42,7 @@ export const FeedPostsContextProvider = ({
 }: {
   children: ReactNode
 }) => {
-  const { data, isLoading } = trpc.useQuery(['post.getAll'])
+  const { data, isLoading } = trpc.useQuery(['protectedPost.getAll'])
   const [feedPosts, setFeedPosts] = useState<PostData>([] as PostData)
 
   useEffect(() => {

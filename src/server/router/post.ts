@@ -2,9 +2,8 @@ import { z } from 'zod'
 import { createRouter } from './context'
 
 export const postsRouter = createRouter()
-  // TODO: Routes for getting posts and a specific post, should be public
-  // only creating a post should be protected, because as in Instagram, you
-  // can see posts without being logged in, but you can't create a post
+  // TODO: profile page should be public info(meaning no auth required) and also
+  // posts should be public info. Feed should be private info.
   .query('getSpecificPost', {
     input: z.object({
       id: z.number(),
@@ -25,24 +24,6 @@ export const postsRouter = createRouter()
             include: {
               user: true,
               likes: true,
-            },
-          },
-        },
-      })
-    },
-  })
-  .query('getAll', {
-    async resolve({ ctx }) {
-      return await ctx.prisma.post.findMany({
-        orderBy: {
-          createdAt: 'desc',
-        },
-        include: {
-          author: true,
-          comments: true,
-          likes: {
-            include: {
-              user: true,
             },
           },
         },

@@ -2,6 +2,24 @@ import { z } from 'zod'
 import { createProtectedRouter } from './protected-router'
 
 export const protectedPostRouter = createProtectedRouter()
+  .query('getAll', {
+    async resolve({ ctx }) {
+      return await ctx.prisma.post.findMany({
+        orderBy: {
+          createdAt: 'desc',
+        },
+        include: {
+          author: true,
+          comments: true,
+          likes: {
+            include: {
+              user: true,
+            },
+          },
+        },
+      })
+    },
+  })
   .mutation('comment', {
     input: z.object({
       userId: z.string(),
