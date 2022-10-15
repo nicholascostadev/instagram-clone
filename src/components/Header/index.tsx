@@ -20,7 +20,7 @@ import Image from 'next/image'
 
 export const Header = () => {
   const [input, setInput] = useState('')
-  const { status, data } = useSession()
+  const { data } = useSession()
   const [modalOpen, setModalOpen] = useState(false)
   const { data: userInfo } = trpc.useQuery(
     [
@@ -32,9 +32,6 @@ export const Header = () => {
     { refetchOnWindowFocus: true },
   )
   const router = useRouter()
-  if (status === 'unauthenticated') {
-    router.push('/')
-  }
 
   const closeModal = () => setModalOpen(false)
 

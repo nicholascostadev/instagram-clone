@@ -30,9 +30,9 @@ export const HeaderProfileDropdown = ({
 }: HeaderProfileDropdownProps) => {
   if (!userInfo) {
     return (
-      <div className="container flex items-center justify-center gap-2 py-3 text-gray-400">
+      <div className="flex items-center justify-center gap-2 text-gray-400">
         <button
-          className="mt-2 rounded-md bg-blue-500 p-1 text-white hover:bg-blue-600"
+          className="rounded-md bg-blue-500 px-2 py-1 font-bold text-white hover:bg-blue-600"
           onClick={() => signIn('google')}
           type="button"
         >
