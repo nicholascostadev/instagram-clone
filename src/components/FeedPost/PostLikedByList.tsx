@@ -9,26 +9,32 @@ interface PostLikedByListProps {
 }
 
 export const PostLikedByList = ({ likedByList }: PostLikedByListProps) => {
-  return (
-    <div className="flex items-center gap-2">
-      <div className="flex rounded-full">
-        <Image
-          src={likedByList[0]?.user?.image || ''}
-          layout="fixed"
-          alt=""
-          height={20}
-          width={20}
-          className="rounded-full "
-        />
-      </div>
+  console.log(likedByList)
 
-      <p className="text-sm">
-        Liked by{' '}
-        <span className="font-bold">{likedByList[0]?.user?.username}</span>{' '}
-        {likedByList.length > 1 && (
-          <span className="font-bold">and {likedByList.length} others</span>
-        )}
-      </p>
-    </div>
-  )
+  if (likedByList.length > 0) {
+    return (
+      <div className="flex items-center gap-2">
+        <div className="flex rounded-full">
+          <Image
+            src={likedByList[0]?.user?.image || ''}
+            layout="fixed"
+            alt=""
+            height={20}
+            width={20}
+            className="rounded-full "
+          />
+        </div>
+
+        <p className="text-sm">
+          Liked by{' '}
+          <span className="font-bold">{likedByList[0]?.user?.username}</span>{' '}
+          {likedByList.length > 1 && (
+            <span className="font-bold">and {likedByList.length} others</span>
+          )}
+        </p>
+      </div>
+    )
+  }
+
+  return null
 }
