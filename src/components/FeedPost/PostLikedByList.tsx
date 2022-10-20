@@ -9,8 +9,6 @@ interface PostLikedByListProps {
 }
 
 export const PostLikedByList = ({ likedByList }: PostLikedByListProps) => {
-  console.log(likedByList)
-
   if (likedByList.length > 0) {
     return (
       <div className="flex items-center gap-2">
