@@ -92,6 +92,13 @@ const Profile = () => {
       </>
     )
 
+  const fNameSName =
+    userInfoToShow?.name?.trimEnd().split(' ').slice(0, 2).join(' ') ?? ''
+  const name =
+    fNameSName.length > 15
+      ? fNameSName.split('').splice(0, 12).join('') + '...'
+      : fNameSName
+
   return (
     <>
       <Head>
