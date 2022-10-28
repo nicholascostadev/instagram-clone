@@ -1,7 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import Router from 'next/router'
 import Image from 'next/image'
-import { CaretLeft, CaretRight } from 'phosphor-react'
+import { CaretLeft, CaretRight, Spinner } from 'phosphor-react'
 import { trpc } from '../../utils/trpc'
 import { PostInfo } from './PostInfo'
 import { useState } from 'react'
@@ -68,12 +68,13 @@ export const PostModal = ({ postId, changePostId }: PostModalProps) => {
         {/* TODO: Position them */}
         <div className="fixed top-[50%] left-[50%] flex h-[95%] w-[75%] translate-x-[-50%] translate-y-[-50%] rounded-tr-lg rounded-br-lg bg-white">
           <div className="relative min-h-full w-[68%]">
-            <Image
-              src={postImage ?? ''}
-              alt=""
-              layout="fill"
-              objectFit="contain"
-            />
+            {postImage ? (
+              <Image src={postImage} alt="" layout="fill" objectFit="contain" />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center">
+                <Spinner size={50} className="animate-spin text-gray-400" />
+              </div>
+            )}
           </div>
           <div className="flex w-full flex-1 flex-col rounded-tr-lg rounded-br-lg">
             <PostInfo postData={posts?.[currentPostIndex]} />
