@@ -55,7 +55,7 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
             (like) => like.userId !== userSession?.user?.id,
           )
 
-          utils.invalidateQueries('post.getSpecificPost')
+          utils.invalidateQueries(['post.getSpecificPost'])
         },
       },
     )
