@@ -91,9 +91,9 @@ export const Header = () => {
 
             <Compass className="cursor-pointer" size={30} />
             <Heart className="cursor-pointer" size={30} />
+            <HeaderProfileDropdown userInfo={userInfo} />
           </div>
         )}
-        <HeaderProfileDropdown userInfo={userInfo} />
       </nav>
     </header>
   )
