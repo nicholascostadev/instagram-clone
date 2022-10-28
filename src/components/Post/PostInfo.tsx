@@ -75,7 +75,7 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
           />
           <p className="text-sm font-bold">{postData?.author.username}</p>
         </div>
-        <PostThreeDotsButton postData={postData} />
+        <PostThreeDotsButton />
       </div>
 
       <div className="flex-1 overflow-y-auto border-l">
