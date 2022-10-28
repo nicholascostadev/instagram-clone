@@ -42,7 +42,10 @@ export const FeedPostsContextProvider = ({
 }: {
   children: ReactNode
 }) => {
-  const { data, isLoading } = trpc.useQuery(['protectedPost.getAll'])
+  const { data, isLoading } = trpc.useQuery(['protectedPost.getAll'], {
+    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 10, // 10 minutes
+  })
   const [feedPosts, setFeedPosts] = useState<PostData>([] as PostData)
 
   useEffect(() => {

@@ -53,6 +53,8 @@ const Edit = () => {
     onError: () => {
       throw new Error("Couldn't fetch user info")
     },
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    refetchOnWindowFocus: false,
   })
 
   const [error, setError] = useState<ErrorObject>()

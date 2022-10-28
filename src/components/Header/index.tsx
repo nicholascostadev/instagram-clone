@@ -29,7 +29,10 @@ export const Header = () => {
         id: data?.user?.id,
       },
     ],
-    { refetchOnWindowFocus: true },
+    {
+      refetchOnWindowFocus: false,
+      staleTime: 1000 * 60 * 5,
+    },
   )
   const router = useRouter()
 

@@ -16,7 +16,7 @@ export const Feed = () => {
         id: data?.user?.id,
       },
     ],
-    { refetchOnWindowFocus: false },
+    { refetchOnWindowFocus: false, staleTime: 1000 * 60 * 5 },
   )
 
   return (
