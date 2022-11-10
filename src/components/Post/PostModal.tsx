@@ -14,6 +14,7 @@ interface PostModalProps {
 export const PostModal = ({ postId, changePostId }: PostModalProps) => {
   const profileUsername = String(Router.query.username)
   const [currentPostIndex, setCurrentPostIndex] = useState(0)
+
   const { data: posts } = trpc.useQuery(
     ['post.postModalInfo', { id: postId, profileUsername }],
     {
@@ -24,8 +25,6 @@ export const PostModal = ({ postId, changePostId }: PostModalProps) => {
       refetchOnWindowFocus: false,
     },
   )
-
-  console.log('Rendered PostModal with Id: ', postId)
 
   const handleGotoPost = (action: 'prev' | 'next') => () => {
     // if no posts, return (shouldn't happen)
@@ -46,10 +45,7 @@ export const PostModal = ({ postId, changePostId }: PostModalProps) => {
     // then decrease the currentPostIndex by 1
     // else increase the currentPostIndex by 1
     const newPostIndex = isPrev ? currentPostIndex - 1 : currentPostIndex + 1
-
     const changeTo = posts[newPostIndex]?.id
-    // set the currentPostIndex to the newPostIndex
-    setCurrentPostIndex(newPostIndex)
 
     // if no id is found then return
     if (!changeTo) return
@@ -65,7 +61,6 @@ export const PostModal = ({ postId, changePostId }: PostModalProps) => {
       <Dialog.Overlay className="fixed inset-0 h-screen w-screen bg-black/40" />
 
       <Dialog.Content className="fixed flex h-full w-full">
-        {/* TODO: Position them */}
         <div className="fixed top-[50%] left-[50%] flex h-[95%] w-[75%] translate-x-[-50%] translate-y-[-50%] rounded-tr-lg rounded-br-lg bg-white">
           <div className="relative min-h-full w-[68%]">
             {postImage ? (
