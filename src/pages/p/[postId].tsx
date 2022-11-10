@@ -15,7 +15,10 @@ export default function Post() {
     data: postData,
     isError,
     isLoading,
-  } = trpc.useQuery(['post.getSpecificPost', { id: Number(postId) }])
+  } = trpc.useQuery(['post.getSpecificPost', { id: Number(postId) }], {
+    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  })
 
   const postToShow = { ...postData } as typeof postData
 

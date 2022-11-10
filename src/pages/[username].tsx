@@ -1,7 +1,8 @@
-import { Comment, Follows, Like, Post, User } from '@prisma/client'
+import { Follows } from '@prisma/client'
+import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
+
 import { SpinnerGap } from 'phosphor-react'
 import { useState } from 'react'
 import { Header } from '../components/Header'
@@ -17,24 +18,11 @@ type TFollower = Follows & {
   }
 }
 
-type TUserInfo =
-  | (User & {
-      followers: TFollower[]
-      following: Follows[]
-      posts: (Post & {
-        author: User
-        comments: Comment[]
-        likes: Like[]
-      })[]
-    })
-  | null
-
 const Profile = () => {
   const { query } = useRouter()
   const { username } = query
 
   const { data: loggedUser } = useSession()
-  const [userInfoToShow, setUserInfoToShow] = useState({} as TUserInfo)
   const [userFollows, setUserFollows] = useState(false)
   const [followedBy, setFollowedBy] = useState<TFollower[]>([] as TFollower[])
 
@@ -64,13 +52,14 @@ const Profile = () => {
         })
 
         setFollowedBy(newFollowers ?? [])
-        setUserInfoToShow(data)
         setUserFollows(
           data?.followers?.findIndex(
             (user) => user.follower.id === loggedUser?.user?.id,
           ) !== -1,
         )
       },
+      refetchOnWindowFocus: false,
+      staleTime: 1000 * 60 * 5, // 5 minutes
     },
   )
 
@@ -92,16 +81,23 @@ const Profile = () => {
       </>
     )
 
+  const fNameSName =
+    userInfo?.name?.trimEnd().split(' ').slice(0, 2).join(' ') ?? ''
+  const name =
+    fNameSName.length > 15
+      ? fNameSName.split('').splice(0, 12).join('') + '...'
+      : fNameSName
+
   return (
     <>
       <Head>
-        <title>{`${userInfoToShow?.name} (@${username})`}</title>
+        <title>{`${name} (@${username})`}</title>
       </Head>
       <Header />
       <div className="mx-auto mt-10 max-w-6xl px-2 ">
         <ProfileHeader
           userFollows={userFollows}
-          userInfo={userInfoToShow}
+          userInfo={userInfo}
           sessionData={loggedUser}
           toggleUserFollows={toggleUserFollows}
           followedBy={followedBy}

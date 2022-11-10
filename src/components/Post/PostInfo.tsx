@@ -34,14 +34,19 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
   const like = trpc.useMutation(['protectedPost.toggleLike'])
   const utils = trpc.useContext()
 
-  const userHasLiked = postData?.likes.find(
-    (like) => like.userId === userSession?.user?.id,
-  )
+  const userHasLiked =
+    postData?.likes.findIndex(
+      (like) => like.userId === userSession?.user?.id,
+    ) !== -1
 
   // TODO: Make this funcion work(not implemented)
   const handleLikeComment = (commentId: number) => {
     // call api
   }
+
+  const likedByList = postData?.likes.filter(
+    (like) => like.userId !== userSession?.user?.id,
+  )
 
   const handleToggleLikeOnPost = () => {
     like.mutate(
@@ -51,19 +56,16 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
       },
       {
         onSettled: () => {
-          postData?.likes.filter(
-            (like) => like.userId !== userSession?.user?.id,
-          )
-
-          utils.invalidateQueries('post.getSpecificPost')
+          utils.invalidateQueries(['post.getSpecificPost'])
+          utils.invalidateQueries(['post.postModalInfo'])
         },
       },
     )
   }
 
   return (
-    <div className="relative flex-1 bg-white">
-      <div className="flex items-center gap-10 border-b p-4">
+    <div className="flex flex-1 flex-col bg-white">
+      <div className="flex items-center gap-10 border-b border-l p-4">
         <div className="flex w-full items-center gap-3">
           <Image
             alt=""
@@ -75,10 +77,10 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
           />
           <p className="text-sm font-bold">{postData?.author.username}</p>
         </div>
-        <PostThreeDotsButton postData={postData} />
+        <PostThreeDotsButton />
       </div>
 
-      <div className="h-[366px] overflow-y-auto">
+      <div className="flex-1 overflow-y-auto border-l">
         <div className="flex gap-2 p-4">
           <Image
             src={postData?.author.image ?? ''}
@@ -93,10 +95,13 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
             <span className="ml-1 md:ml-2 ">{postData?.description}</span>
             <div className="flex gap-2">
               <span className="text-bold text-xs text-gray-400">
-                {formatDistanceToNow(new Date(String(postData?.createdAt)), {
-                  locale: enUS,
-                  includeSeconds: true,
-                })}
+                {formatDistanceToNow(
+                  new Date(String(postData?.createdAt ?? new Date())),
+                  {
+                    locale: enUS,
+                    includeSeconds: true,
+                  },
+                )}
               </span>
             </div>
           </div>
@@ -109,7 +114,7 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
       </div>
 
       <div>
-        <div className="flex items-center justify-between border-t px-4 py-2">
+        <div className="flex items-center justify-between border-t border-l px-4 py-2">
           <div className="flex gap-2">
             <button onClick={handleToggleLikeOnPost} type="button">
               <Heart
@@ -127,32 +132,35 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
           </div>
           <BookmarkSimple size={25} className="cursor-pointer" />
         </div>
-        {postData?.likes && postData?.likes.length > 0 && (
-          <div className="flex items-center gap-2 px-4 py-1">
+        {postData && likedByList && likedByList.length > 0 && (
+          <div className="flex items-center gap-2 border-l px-4 py-1">
             <Image
-              src={postData?.likes[0]?.user?.image || ''}
+              src={likedByList[0]?.user?.image || ''}
               alt=""
               layout="fixed"
               width={20}
               height={20}
               className="rounded-full"
             />
-            {formatPostLikes(postData?.likes, postData)}
+            {formatPostLikes(likedByList, postData)}
           </div>
         )}
         <span
-          className={`block px-4 pt-2 text-xs text-gray-400 ${
+          className={`block border-l px-4 pt-2 text-xs text-gray-400 ${
             !userSession ? 'pb-5' : ''
           }`}
         >
-          {format(new Date(String(postData?.createdAt)), 'MMMM dd, yyyy')}
+          {format(
+            new Date(String(postData?.createdAt ?? new Date())),
+            'MMMM dd, yyyy',
+          )}
         </span>
       </div>
 
       {userSession ? (
         <PostAddCommentSection postData={postData} userSession={userSession} />
       ) : (
-        <div className="flex max-h-full flex-1 border-t p-4">
+        <div className="flex max-h-full flex-1 border-t border-l p-4">
           <p className="text-sm text-gray-400">
             <Link href="/">
               <a className="text-blue-700">Log in </a>

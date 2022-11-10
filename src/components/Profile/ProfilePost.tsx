@@ -1,5 +1,5 @@
+import * as Dialog from '@radix-ui/react-dialog'
 import Image from 'next/image'
-import Link from 'next/link'
 import { Chat, Heart } from 'phosphor-react'
 
 interface ProfilePostProps {
@@ -7,6 +7,7 @@ interface ProfilePostProps {
   commentsAmount: number
   image: string
   postId: number
+  changePostId: (postId: number) => void
 }
 
 export const ProfilePost = ({
@@ -14,14 +15,15 @@ export const ProfilePost = ({
   likesAmount,
   postId,
   image,
+  changePostId,
 }: ProfilePostProps) => {
+  const handlePostClick = () => {
+    changePostId(postId)
+  }
+
   return (
-    <Link
-      href={`/p/${postId}`}
-      passHref
-      className="w-auto md:h-[250px] md:w-[250px]"
-    >
-      <a className="relative block w-full">
+    <Dialog.Trigger asChild onClick={handlePostClick}>
+      <div className="relative block w-auto cursor-pointer md:h-[250px] md:w-[250px]">
         <div className="relative h-[150px] w-[150px] sm:h-[250px] sm:w-[250px]">
           <Image
             src={image}
@@ -46,7 +48,7 @@ export const ProfilePost = ({
             <p>{commentsAmount}</p>
           </div>
         </div>
-      </a>
-    </Link>
+      </div>
+    </Dialog.Trigger>
   )
 }

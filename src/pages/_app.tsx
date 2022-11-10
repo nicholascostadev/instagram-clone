@@ -3,7 +3,6 @@ import { withTRPC } from '@trpc/next'
 import { SessionProvider } from 'next-auth/react'
 import type { AppType } from 'next/dist/shared/lib/utils'
 import superjson from 'superjson'
-import { FeedPostsContextProvider } from '../contexts/FeedPostsContext'
 import { UsernameContextProvider } from '../contexts/usernameContext'
 import type { AppRouter } from '../server/router'
 import '../styles/globals.css'
@@ -14,11 +13,9 @@ const MyApp: AppType = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <FeedPostsContextProvider>
-        <UsernameContextProvider>
-          <Component {...pageProps} />
-        </UsernameContextProvider>
-      </FeedPostsContextProvider>
+      <UsernameContextProvider>
+        <Component {...pageProps} />
+      </UsernameContextProvider>
     </SessionProvider>
   )
 }

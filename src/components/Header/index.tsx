@@ -11,7 +11,7 @@ import {
   MagnifyingGlass,
   PlusCircle,
 } from 'phosphor-react'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { trpc } from '../../utils/trpc'
 import { CreatePostModal } from './CreatePostModal'
 import { HeaderProfileDropdown } from './HeaderProfileDropdown'
@@ -29,11 +29,14 @@ export const Header = () => {
         id: data?.user?.id,
       },
     ],
-    { refetchOnWindowFocus: true },
+    {
+      refetchOnWindowFocus: false,
+      staleTime: 1000 * 60 * 5,
+    },
   )
   const router = useRouter()
 
-  const closeModal = () => setModalOpen(false)
+  const closeModal = useMemo(() => setModalOpen(false), [])
 
   return (
     <header className="sticky w-full overflow-hidden border-b bg-white py-5 shadow-sm">
@@ -83,14 +86,14 @@ export const Header = () => {
                   <PlusCircle className="cursor-pointer" size={30} />
                 </button>
               </Dialog.Trigger>
-              <CreatePostModal closeModal={closeModal} />
+              <CreatePostModal closeModal={() => closeModal} />
             </Dialog.Root>
 
             <Compass className="cursor-pointer" size={30} />
             <Heart className="cursor-pointer" size={30} />
+            <HeaderProfileDropdown userInfo={userInfo} />
           </div>
         )}
-        <HeaderProfileDropdown userInfo={userInfo} />
       </nav>
     </header>
   )

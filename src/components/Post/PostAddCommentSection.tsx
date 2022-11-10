@@ -38,7 +38,7 @@ export const PostAddCommentSection = ({
   }
 
   return (
-    <div className="flex items-center justify-between self-end justify-self-end border-t p-4 py-6 text-sm">
+    <div className="flex w-full items-center justify-between self-end justify-self-end border-t border-l p-4 py-6 text-sm">
       <Smiley size={25} className="cursor-pointer" />
       <form
         onSubmit={handleAddComment}
