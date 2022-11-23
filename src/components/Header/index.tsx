@@ -22,13 +22,10 @@ export const Header = () => {
   const [input, setInput] = useState('')
   const { data } = useSession()
   const [modalOpen, setModalOpen] = useState(false)
-  const { data: userInfo } = trpc.useQuery(
-    [
-      'user.getUserInfo',
-      {
-        id: data?.user?.id,
-      },
-    ],
+  const { data: userInfo } = trpc.user.getUserInfo.useQuery(
+    {
+      id: data?.user?.id,
+    },
     {
       refetchOnWindowFocus: false,
       staleTime: 1000 * 60 * 5,
@@ -42,16 +39,11 @@ export const Header = () => {
     <header className="sticky w-full overflow-hidden border-b bg-white py-5 shadow-sm">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-2">
         <div className="flex items-center justify-center gap-2">
-          <Link href="/" passHref>
-            <a className="mt-2 flex items-center justify-center text-xl">
-              <Image
-                src={InstagramLogo}
-                alt=""
-                layout="fixed"
-                width={100}
-                height={30}
-              />
-            </a>
+          <Link
+            href="/"
+            className="mt-2 flex items-center justify-center text-xl"
+          >
+            <Image src={InstagramLogo} alt="" width={100} height={30} />
           </Link>
           <CaretDown size={15} weight="bold" className="cursor-pointer" />
         </div>

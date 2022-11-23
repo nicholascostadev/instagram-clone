@@ -3,13 +3,10 @@ import { trpc } from '../../utils/trpc'
 import { Post } from '../FeedPost'
 
 export const FeedPosts = () => {
-  const { data: feedPosts, isLoading } = trpc.useQuery(
-    ['protectedPost.getAll'],
-    {
-      refetchOnWindowFocus: false,
-      staleTime: 1000 * 60 * 10, // 10 minutes
-    },
-  )
+  const { data: feedPosts, isLoading } = trpc.post?.getAll.useQuery(undefined, {
+    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 10, // 10 minutes
+  })
 
   const { data: userSession } = useSession()
   const userId = userSession?.user?.id

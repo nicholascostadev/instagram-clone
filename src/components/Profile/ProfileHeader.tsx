@@ -80,10 +80,11 @@ const ProfileHeaderMainInfo = ({
         {!isProfileOwner && followedByLength > 0 && (
           <p className="my-2 text-sm text-gray-500">
             Followed by{' '}
-            <Link href={`/${filteredFollowedBy[0]?.follower.username}`}>
-              <a className="font-bold text-black">
-                {filteredFollowedBy[0]?.follower.username}
-              </a>
+            <Link
+              href={`/${filteredFollowedBy[0]?.follower.username}`}
+              className="font-bold text-black"
+            >
+              {filteredFollowedBy[0]?.follower.username}
             </Link>
             {followedByLength > 1 && ` + ${followedByLength - 1} more`}
           </p>
@@ -105,10 +106,11 @@ const ProfileHeaderMainInfo = ({
       {!isProfileOwner && followedByLength > 0 && (
         <p className="my-2 text-sm text-gray-500">
           Followed by{' '}
-          <Link href={`/${filteredFollowedBy[0]?.follower.username}`}>
-            <a className="font-bold text-black">
-              {filteredFollowedBy[0]?.follower.username}
-            </a>
+          <Link
+            href={`/${filteredFollowedBy[0]?.follower.username}`}
+            className="font-bold text-black"
+          >
+            {filteredFollowedBy[0]?.follower.username}
           </Link>
           {followedByLength > 1 && ` + ${followedByLength - 1} more`}
         </p>
@@ -141,25 +143,23 @@ const ProfileHighlight = ({
     <Link
       href={`/stories/highlights/${highlightId}`}
       passHref
-      className="max-w-[119px]"
+      className="flex w-full max-w-[119px] flex-col items-center justify-center gap-2"
     >
-      <a className="flex w-full flex-col items-center justify-center gap-2">
-        <div className="flex items-center justify-center rounded-full border border-red-500 p-1">
-          <Image
-            src={highlightImage || 'https://github.com/nicholascostadev.png'}
-            alt=""
-            layout="fixed"
-            width={77}
-            height={77}
-            className="rounded-full"
-          />
-        </div>
-        <p className="overflow-hidden" aria-valuetext={highlightName}>
-          {highlightName.length > 12
-            ? `${highlightName.slice(0, 9)}...`
-            : highlightName}
-        </p>
-      </a>
+      <div className="flex items-center justify-center rounded-full border border-red-500 p-1">
+        <Image
+          src={highlightImage || 'https://github.com/nicholascostadev.png'}
+          alt=""
+          layout="fixed"
+          width={77}
+          height={77}
+          className="rounded-full"
+        />
+      </div>
+      <p className="overflow-hidden" aria-valuetext={highlightName}>
+        {highlightName.length > 12
+          ? `${highlightName.slice(0, 9)}...`
+          : highlightName}
+      </p>
     </Link>
   )
 }
@@ -207,7 +207,7 @@ export const ProfileHeader = ({
 }: ProfileHeaderProps) => {
   const router = useRouter()
 
-  const followMutation = trpc.useMutation(['protectedUser.toggleFollow'])
+  const followMutation = trpc.user.toggleFollow.useMutation()
   const utils = trpc.useContext()
 
   const toggleFollow = () => {
@@ -227,7 +227,7 @@ export const ProfileHeader = ({
           toggleUserFollows()
         },
         onSuccess: () => {
-          utils.invalidateQueries(['user.getUserInfo'])
+          utils.user.getUserInfo.invalidate()
         },
       },
     )

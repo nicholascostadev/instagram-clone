@@ -15,8 +15,11 @@ export const PostModal = ({ postId, changePostId }: PostModalProps) => {
   const profileUsername = String(Router.query.username)
   const [currentPostIndex, setCurrentPostIndex] = useState(0)
 
-  const { data: posts } = trpc.useQuery(
-    ['post.postModalInfo', { id: postId, profileUsername }],
+  const { data: posts } = trpc.post.postModalInfo.useQuery(
+    {
+      id: postId,
+      profileUsername,
+    },
     {
       onSuccess: (data) => {
         setCurrentPostIndex(data.findIndex((post) => post.id === postId))

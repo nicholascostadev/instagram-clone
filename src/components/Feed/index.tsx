@@ -9,14 +9,11 @@ import { FeedFollowSuggestions } from './FollowSuggestions'
 export const Feed = () => {
   const { data } = useSession()
 
-  const { data: userInfo } = trpc.useQuery(
-    [
-      'user.getUserInfo',
-      {
-        id: data?.user?.id,
-      },
-    ],
-    { refetchOnWindowFocus: false, staleTime: 1000 * 60 * 5 },
+  const { data: userInfo } = trpc.user.getUserInfo.useQuery(
+    {
+              id: data?.user?.id,
+            },
+      { refetchOnWindowFocus: false, staleTime: 1000 * 60 * 5 },
   )
 
   return (
@@ -30,21 +27,25 @@ export const Feed = () => {
         <div className="hidden max-w-xs lg:block">
           <div className="flex h-[107px] w-full items-center">
             <div className="flex w-full items-center gap-4">
-              <Link href={`/${userInfo?.username}`} passHref>
-                <a className="flex items-center rounded-full border">
-                  <Image
-                    src={userInfo?.image || ''}
-                    alt=""
-                    layout="fixed"
-                    width={60}
-                    height={60}
-                    className="rounded-full"
-                  />
-                </a>
+              <Link
+                href={`/${userInfo?.username}`}
+                className="flex items-center rounded-full border"
+              >
+                <Image
+                  src={userInfo?.image || ''}
+                  alt=""
+                  layout="fixed"
+                  width={60}
+                  height={60}
+                  className="rounded-full"
+                />
               </Link>
               <div>
-                <Link href={`${userInfo?.username}`} passHref>
-                  <a className="text-sm font-bold">{userInfo?.username}</a>
+                <Link
+                  href={`${userInfo?.username}`}
+                  className="text-sm font-bold"
+                >
+                  {userInfo?.username}
                 </Link>
                 <p className="text-sm text-gray-400">{userInfo?.name}</p>
               </div>
@@ -64,8 +65,8 @@ export const Feed = () => {
             <strong className="text-sm text-gray-400">
               Suggestions for you
             </strong>
-            <Link href="/explore/people">
-              <a className="text-sm">See All</a>
+            <Link href="/explore/people" className="text-sm">
+              See All
             </Link>
           </div>
           <FeedFollowSuggestions />

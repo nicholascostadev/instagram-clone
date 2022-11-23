@@ -15,7 +15,7 @@ export const CreatePostModal = ({ closeModal }: CreatePostModalProps) => {
   const [postDescription, setPostDescription] = useState('')
   const [file, setFile] = useState<File | null>()
   const [loading, setLoading] = useState(false)
-  const postMutation = trpc.useMutation(['protectedPost.create'])
+  const postMutation = trpc.protectedPost.create.useMutation()
   const { invalidateQueries } = trpc.useContext()
   const { data } = useSession()
 

@@ -2,10 +2,10 @@ import { trpc } from '../../utils/trpc'
 import { FeedSuggestion } from './FeedSuggestion'
 
 export const FeedFollowSuggestions = () => {
-  const { data: feedSuggestions } = trpc.useQuery(
-    ['suggestions.feed', { amount: 5 }],
+  const { data: feedSuggestions } = trpc.suggestions.feed.useQuery(
+    { amount: 5 },
     // Added
-    { refetchOnWindowFocus: false },
+      { refetchOnWindowFocus: false },
   )
 
   return (

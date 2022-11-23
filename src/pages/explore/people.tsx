@@ -3,10 +3,10 @@ import { SuggestionRow } from '../../components/pages/explore/SuggestionRow'
 import { trpc } from '../../utils/trpc'
 
 export default function Explore() {
-  const { data } = trpc.useQuery(['suggestions.explore', { amount: 10 }], {
-    refetchOnWindowFocus: false,
-    staleTime: 1000 * 60 * 5, // 5 minutes
-  })
+    const { data } = trpc.suggestions.explore.useQuery({ amount: 10 }, {
+        refetchOnWindowFocus: false,
+        staleTime: 1000 * 60 * 5, // 5 minutes
+    })
 
   const filteredData = data?.filter((item) => {
     return (

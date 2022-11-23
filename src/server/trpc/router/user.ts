@@ -1,17 +1,122 @@
 import { z } from 'zod'
-import { createProtectedRouter } from './protected-router'
+import { protectedProcedure, publicProcedure, router } from '../trpc'
 
-export const protectedUserRouter = createProtectedRouter()
-  .mutation('updateUserInfo', {
-    input: z.object({
-      newUsername: z.string(),
-      description: z.string(),
-      website: z.string(),
-      newName: z.string(),
+export const userRouter = router({
+  create: publicProcedure
+    .input(
+      z.object({
+        email: z.string().min(1).max(20),
+        password: z.string().min(1, 'password is required'),
+      }),
+    )
+    .mutation(async ({ input, ctx }) => {
+      const response = await ctx.prisma.user.create({
+        data: {
+          email: input.email,
+        },
+      })
+      return {
+        response,
+        greeting: `Hello ${input?.email ?? 'world'}`,
+      }
     }),
-    async resolve({ ctx, input }) {
+  getUserInfo: publicProcedure
+    .input(
+      z
+        .object({
+          username: z.string().optional(),
+          id: z.string().optional(),
+        })
+        .optional(),
+    )
+    .query(async ({ ctx, input }) => {
+      const id = input?.id ?? ctx?.session?.user?.id
+      return await ctx.prisma.user.findUnique({
+        // Can't use both username and id for query, so I check if I have received
+        // username or id and use it for query
+        where: {
+          [input?.username ? 'username' : 'id']: input?.username
+            ? input?.username
+            : id,
+        },
+        include: {
+          followers: {
+            include: {
+              follower: {
+                include: {
+                  followers: true,
+                },
+              },
+            },
+          },
+          following: true,
+          posts: {
+            include: {
+              comments: true,
+              likes: true,
+              author: true,
+            },
+          },
+        },
+      })
+    }),
+  protectedGetUserInfo: protectedProcedure
+    .input(
+      z.object({
+        username: z.string().optional(),
+        id: z.string().optional(),
+      }),
+    )
+    .mutation(async ({ ctx, input: { username, id } }) => {
+      if (username) {
+        return await ctx.prisma.user.findUnique({
+          where: {
+            username,
+          },
+          include: {
+            followers: true,
+            following: true,
+            posts: {
+              include: {
+                comments: true,
+                likes: true,
+                author: true,
+              },
+            },
+          },
+        })
+      }
+
+      return await ctx.prisma.user.findUnique({
+        where: {
+          id,
+        },
+        include: {
+          followers: true,
+          following: true,
+          posts: {
+            include: {
+              comments: true,
+              likes: true,
+              author: true,
+            },
+          },
+        },
+      })
+    }),
+
+  updateUserInfo: protectedProcedure
+    .input(
+      z.object({
+        newUsername: z.string(),
+        description: z.string(),
+        website: z.string(),
+        newName: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
       // Pick user data for checking his info
-      const userHistory = await ctx.prisma.user.findUnique({
+      const userHistory: any = await ctx.prisma.user.findUnique({
         where: {
           id: ctx.session?.user?.id,
         },
@@ -108,15 +213,16 @@ export const protectedUserRouter = createProtectedRouter()
         }),
         error: errorObject,
       }
-    },
-  })
-  .mutation('toggleFollow', {
-    input: z.object({
-      followingId: z.string(),
-      followerId: z.string(),
-      action: z.enum(['follow', 'unfollow']),
     }),
-    async resolve({ input, ctx }) {
+  toggleFollow: protectedProcedure
+    .input(
+      z.object({
+        followingId: z.string(),
+        followerId: z.string(),
+        action: z.enum(['follow', 'unfollow']),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
       switch (input.action) {
         case 'follow':
           return await ctx.prisma.follows.create({
@@ -137,5 +243,5 @@ export const protectedUserRouter = createProtectedRouter()
         default:
           throw new Error('Invalid action')
       }
-    },
-  })
+    }),
+})
