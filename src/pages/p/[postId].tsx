@@ -15,10 +15,15 @@ export default function Post() {
     data: postData,
     isError,
     isLoading,
-  } = trpc.useQuery(['post.getSpecificPost', { id: Number(postId) }], {
-    refetchOnWindowFocus: false,
-    staleTime: 1000 * 60 * 5, // 5 minutes
-  })
+  } = trpc.post.getSpecificPost.useQuery(
+    {
+      id: Number(postId),
+    },
+    {
+      refetchOnWindowFocus: false,
+      staleTime: 1000 * 60 * 5, // 5 minutes
+    },
+  )
 
   const postToShow = { ...postData } as typeof postData
 
@@ -38,15 +43,14 @@ export default function Post() {
   return (
     <>
       <Header />
-      <div className="mt-10 flex w-full flex-col items-center justify-center ">
+      <div className="mt-10 flex w-full flex-col items-center justify-center">
         <div className="flex w-[933px] border">
           <Image
             src={postData?.image ?? ''}
             alt=""
-            layout="fixed"
             width={598}
             height={598}
-            objectFit="contain"
+            style={{ objectFit: 'contain' }}
           />
           <PostInfo postData={postToShow} />
         </div>

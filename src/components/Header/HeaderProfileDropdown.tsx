@@ -51,7 +51,7 @@ export const HeaderProfileDropdown = ({
               ? String(userInfo.image)
               : 'https://github.com/nicholascostadev.png'
           }
-          className="h-12 w-12 rounded-full"
+          className="h-8 w-8 rounded-full"
           width={30}
           height={30}
           alt="nicholascostadev"
@@ -69,37 +69,32 @@ export const HeaderProfileDropdown = ({
 
           <DropdownMenu.Group className="w-64 text-sm">
             <DropdownMenu.Item>
-              <Link href={`/${userInfo?.username}`} passHref>
-                <a href="#" className="dropdownMenuItem rounded-t-md">
-                  <UserCircle size={25} />
-                  Profile
-                </a>
+              <Link
+                href={`/${userInfo?.username}`}
+                className="dropdownMenuItem rounded-t-md"
+              >
+                <UserCircle size={25} />
+                Profile
               </Link>
               <DropdownMenu.Separator />
             </DropdownMenu.Item>
             <DropdownMenu.Item>
-              <Link href="/feed" passHref>
-                <a href="#" className="dropdownMenuItem">
-                  <Bookmark size={25} />
-                  Saved
-                </a>
+              <Link href="/feed" className="dropdownMenuItem">
+                <Bookmark size={25} />
+                Saved
               </Link>
               <DropdownMenu.Separator />
             </DropdownMenu.Item>
             <DropdownMenu.Item>
-              <Link href="/accounts/edit" passHref>
-                <a className="dropdownMenuItem">
-                  <Gear size={25} />
-                  Settings
-                </a>
+              <Link href="/accounts/edit" className="dropdownMenuItem">
+                <Gear size={25} />
+                Settings
               </Link>
             </DropdownMenu.Item>
             <DropdownMenu.Item>
-              <Link href="/" passHref>
-                <a className="dropdownMenuItem">
-                  <ArrowsCounterClockwise size={25} />
-                  Change Account
-                </a>
+              <Link href="/" className="dropdownMenuItem">
+                <ArrowsCounterClockwise size={25} />
+                Change Account
               </Link>
             </DropdownMenu.Item>
           </DropdownMenu.Group>

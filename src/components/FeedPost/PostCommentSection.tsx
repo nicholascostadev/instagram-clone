@@ -13,7 +13,7 @@ export const PostCommentSection = ({
   userId,
 }: PostCommentSectionProps) => {
   const [input, setInput] = useState('')
-  const { mutate, isLoading } = trpc.useMutation(['protectedPost.comment'])
+  const { mutate, isLoading } = trpc.post.comment.useMutation()
   const disabled = input.length === 0
   const utils = trpc.useContext()
   const router = useRouter()
@@ -30,7 +30,7 @@ export const PostCommentSection = ({
       {
         onSuccess: () => {
           setInput('')
-          utils.invalidateQueries()
+          utils.post.invalidate()
         },
       },
     )

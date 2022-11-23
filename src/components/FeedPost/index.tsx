@@ -83,11 +83,9 @@ export const Post = ({ isLoading, userId, post }: PostProps) => {
           </p>
         </div>
         <div>
-          <Link href={`/p/${postState?.id}`} passHref>
-            <a className="text-sm text-gray-400">
-              {postState?.comments.length > 0 &&
-                `See all ${postState?.comments.length} comments`}
-            </a>
+          <Link href={`/p/${postState?.id}`} className="text-sm text-gray-400">
+            {postState?.comments.length > 0 &&
+              `See all ${postState?.comments.length} comments`}
           </Link>
         </div>
         <div>
