@@ -54,7 +54,7 @@ export const HeaderProfileDropdown = ({
           className="h-8 w-8 rounded-full"
           width={30}
           height={30}
-          alt="nicholascostadev"
+          alt="Profile image dropdown menu"
         />
       </DropdownMenu.Trigger>
 
@@ -71,6 +71,7 @@ export const HeaderProfileDropdown = ({
             <DropdownMenu.Item>
               <Link
                 href={`/${userInfo?.username}`}
+                passHref
                 className="dropdownMenuItem rounded-t-md"
               >
                 <UserCircle size={25} />
@@ -79,20 +80,20 @@ export const HeaderProfileDropdown = ({
               <DropdownMenu.Separator />
             </DropdownMenu.Item>
             <DropdownMenu.Item>
-              <Link href="/feed" className="dropdownMenuItem">
+              <Link href="/feed" passHref className="dropdownMenuItem">
                 <Bookmark size={25} />
                 Saved
               </Link>
               <DropdownMenu.Separator />
             </DropdownMenu.Item>
             <DropdownMenu.Item>
-              <Link href="/accounts/edit" className="dropdownMenuItem">
+              <Link href="/accounts/edit" passHref className="dropdownMenuItem">
                 <Gear size={25} />
                 Settings
               </Link>
             </DropdownMenu.Item>
             <DropdownMenu.Item>
-              <Link href="/" className="dropdownMenuItem">
+              <Link href="/" passHref className="dropdownMenuItem">
                 <ArrowsCounterClockwise size={25} />
                 Change Account
               </Link>

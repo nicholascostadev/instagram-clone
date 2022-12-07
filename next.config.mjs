@@ -24,6 +24,7 @@ export default defineNextConfig({
       'instagram.fsdu6-1.fna.fbcdn.net',
       'instagram.fsdu7-1.fna.fbcdn.net',
       'res.cloudinary.com',
+      'picsum.photos',
     ],
   },
 })

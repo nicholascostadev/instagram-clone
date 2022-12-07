@@ -15,8 +15,7 @@ export const Storie = ({ username, image }: StorieProps) => {
           src={image ?? 'https://github.com/nicholascostadev.png'}
           width={50}
           height={50}
-          layout="fixed"
-          className="rounded-full outline-red-300"
+          className="h-[50px] w-[50px] rounded-full outline-red-300"
           alt=""
         />
       </button>

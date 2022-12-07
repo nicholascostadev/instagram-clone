@@ -52,10 +52,10 @@ export const SuggestionRow = (props: SuggestionRowProps) => {
       <div className="flex items-center justify-center gap-4">
         <div className="relative h-12 w-12">
           <Image
-            objectFit="contain"
+            style={{ objectFit: 'contain' }}
             src={props.image ?? ''}
             alt=""
-            layout="fill"
+            fill
             className="rounded-full"
           />
         </div>

@@ -18,10 +18,10 @@ export const UsernameContextProvider = ({
   const { data: userInfo } = useSession()
   const { data } = trpc.user.getUserInfo.useQuery(
     { id: userInfo?.user?.id },
-      {
-          staleTime: 1000 * 60 * 60, // 1 hour
-          refetchOnWindowFocus: false,
-      },
+    {
+      staleTime: 1000 * 60 * 60, // 1 hour
+      refetchOnWindowFocus: false,
+    },
   )
 
   const username = String(data?.username)

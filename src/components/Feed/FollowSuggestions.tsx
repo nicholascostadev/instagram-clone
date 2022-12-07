@@ -5,7 +5,7 @@ export const FeedFollowSuggestions = () => {
   const { data: feedSuggestions } = trpc.suggestions.feed.useQuery(
     { amount: 5 },
     // Added
-      { refetchOnWindowFocus: false },
+    { refetchOnWindowFocus: false },
   )
 
   return (

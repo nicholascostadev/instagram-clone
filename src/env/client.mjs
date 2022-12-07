@@ -8,6 +8,7 @@ export const formatErrors = (
   errors,
 ) =>
   Object.entries(errors)
+    // eslint-disable-next-line array-callback-return
     .map(([name, value]) => {
       if (value && '_errors' in value)
         return `${name}: ${value._errors.join(', ')}\n`

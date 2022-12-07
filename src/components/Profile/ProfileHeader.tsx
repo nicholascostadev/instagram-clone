@@ -149,10 +149,9 @@ const ProfileHighlight = ({
         <Image
           src={highlightImage || 'https://github.com/nicholascostadev.png'}
           alt=""
-          layout="fixed"
           width={77}
           height={77}
-          className="rounded-full"
+          className="h-[77px] w-[77px] rounded-full"
         />
       </div>
       <p className="overflow-hidden" aria-valuetext={highlightName}>

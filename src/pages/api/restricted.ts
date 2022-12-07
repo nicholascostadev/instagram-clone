@@ -1,23 +1,17 @@
-// Example of a restricted endpoint that only authenticated users can access from https://next-auth.js.org/getting-started/example
+import { createNextApiHandler } from '@trpc/server/adapters/next'
 
-import { NextApiRequest, NextApiResponse } from 'next'
-import { unstable_getServerSession as getServerSession } from 'next-auth'
-import { authOptions as nextAuthOptions } from './auth/[...nextauth]'
+import { env } from '../../env/server.mjs'
+import { createContext } from '../../server/trpc/context'
+import { appRouter } from '../../server/trpc/router/_app'
 
-const restricted = async (req: NextApiRequest, res: NextApiResponse) => {
-  const session = await getServerSession(req, res, nextAuthOptions)
-
-  if (session) {
-    res.send({
-      content:
-        'This is protected content. You can access this content because you are signed in.',
-    })
-  } else {
-    res.send({
-      error:
-        'You must be signed in to view the protected content on this page.',
-    })
-  }
-}
-
-export default restricted
+// export API handler
+export default createNextApiHandler({
+  router: appRouter,
+  createContext,
+  onError:
+    env.NODE_ENV === 'development'
+      ? ({ path, error }) => {
+          console.error(`❌ tRPC failed on ${path}: ${error}`)
+        }
+      : undefined,
+})

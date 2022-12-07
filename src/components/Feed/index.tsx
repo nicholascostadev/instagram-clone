@@ -1,6 +1,7 @@
 import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
+
 import { trpc } from '../../utils/trpc'
 import { Stories } from '../Stories'
 import { FeedPosts } from './FeedPosts'
@@ -11,9 +12,9 @@ export const Feed = () => {
 
   const { data: userInfo } = trpc.user.getUserInfo.useQuery(
     {
-              id: data?.user?.id,
-            },
-      { refetchOnWindowFocus: false, staleTime: 1000 * 60 * 5 },
+      id: data?.user?.id,
+    },
+    { refetchOnWindowFocus: false, staleTime: 1000 * 60 * 5 },
   )
 
   return (
@@ -29,12 +30,12 @@ export const Feed = () => {
             <div className="flex w-full items-center gap-4">
               <Link
                 href={`/${userInfo?.username}`}
+                passHref
                 className="flex items-center rounded-full border"
               >
                 <Image
                   src={userInfo?.image || ''}
                   alt=""
-                  layout="fixed"
                   width={60}
                   height={60}
                   className="rounded-full"
@@ -43,6 +44,7 @@ export const Feed = () => {
               <div>
                 <Link
                   href={`${userInfo?.username}`}
+                  passHref
                   className="text-sm font-bold"
                 >
                   {userInfo?.username}

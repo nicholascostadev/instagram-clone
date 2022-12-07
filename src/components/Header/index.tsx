@@ -41,9 +41,16 @@ export const Header = () => {
         <div className="flex items-center justify-center gap-2">
           <Link
             href="/"
+            passHref
             className="mt-2 flex items-center justify-center text-xl"
           >
-            <Image src={InstagramLogo} alt="" width={100} height={30} />
+            <Image
+              src={InstagramLogo}
+              alt="Instagram Logo"
+              width={96}
+              height={32}
+              className="h-8 w-24"
+            />
           </Link>
           <CaretDown size={15} weight="bold" className="cursor-pointer" />
         </div>

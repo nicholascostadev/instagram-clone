@@ -1,6 +1,6 @@
 import { User } from '@prisma/client'
 import { z } from 'zod'
-import { protectedProcedure, publicProcedure, router } from '../trpc'
+import { protectedProcedure, router } from '../trpc'
 
 export const suggestionsRouter = router({
   feed: protectedProcedure

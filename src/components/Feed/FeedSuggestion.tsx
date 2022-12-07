@@ -69,7 +69,7 @@ export const FeedSuggestion = ({
         />
       </div>
       <div>
-        <Link href={`/${name}`} className="text-sm font-bold">
+        <Link href={`/${name}`} passHref className="text-sm font-bold">
           {name}
         </Link>
         <p className="text-xs text-gray-400">

@@ -1,13 +1,11 @@
 import { router } from '../trpc'
-import { authRouter } from './auth'
-import { postRouter } from './post'
-import { suggestionsRouter } from './suggestions'
-import { userRouter } from './user'
+import { postRouter } from './postRouter'
+import { suggestionsRouter } from './suggestionsRouter'
+import { userRouter } from './userRouter'
 
 export const appRouter = router({
-  auth: authRouter,
-  post: postRouter,
   user: userRouter,
+  post: postRouter,
   suggestions: suggestionsRouter,
 })
 

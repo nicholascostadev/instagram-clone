@@ -28,9 +28,9 @@ export const ProfilePost = ({
           <Image
             src={image}
             alt=""
-            layout="fill"
+            fill
             className="w-auto"
-            objectFit="cover"
+            style={{ objectFit: 'cover' }}
           />
         </div>
         <div

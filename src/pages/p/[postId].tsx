@@ -16,9 +16,7 @@ export default function Post() {
     isError,
     isLoading,
   } = trpc.post.getSpecificPost.useQuery(
-    {
-      id: Number(postId),
-    },
+    { id: Number(postId) },
     {
       refetchOnWindowFocus: false,
       staleTime: 1000 * 60 * 5, // 5 minutes
@@ -44,13 +42,14 @@ export default function Post() {
     <>
       <Header />
       <div className="mt-10 flex w-full flex-col items-center justify-center">
-        <div className="flex w-[933px] border">
+        <div className="flex h-[598px] w-[933px] border">
           <Image
             src={postData?.image ?? ''}
             alt=""
             width={598}
             height={598}
             style={{ objectFit: 'contain' }}
+            className="h-[598px] w-[598px]"
           />
           <PostInfo postData={postToShow} />
         </div>

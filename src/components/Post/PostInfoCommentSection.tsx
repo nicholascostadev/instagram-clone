@@ -1,19 +1,16 @@
 import { formatDistanceToNow } from 'date-fns'
 import { enUS } from 'date-fns/locale'
-import { Session } from 'next-auth'
 import Image from 'next/image'
 import { Heart } from 'phosphor-react'
 import { formatCommentLikes } from '../../utils/post/formatters'
 import { PostInfoProps } from './PostInfo'
 
 interface PostInfoCommentSectionProps extends PostInfoProps {
-  userSession: Session | null
   handleLikeComment: (commentId: number) => void
 }
 
 export const PostInfoCommentSection = ({
   postData,
-  userSession,
   handleLikeComment,
 }: PostInfoCommentSectionProps) => {
   return (

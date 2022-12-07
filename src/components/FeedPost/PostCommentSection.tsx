@@ -30,7 +30,7 @@ export const PostCommentSection = ({
       {
         onSuccess: () => {
           setInput('')
-          utils.post.invalidate()
+          utils.post.getSpecificPost.invalidate()
         },
       },
     )

@@ -42,6 +42,7 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
   // TODO: Make this funcion work(not implemented)
   const handleLikeComment = (commentId: number) => {
     // call api
+    return commentId
   }
 
   const likedByList = postData?.likes.filter(
@@ -64,7 +65,7 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
   }
 
   return (
-    <div className="flex flex-1 flex-col bg-white">
+    <div className="flex h-full flex-1 flex-col bg-white">
       <div className="flex items-center gap-10 border-b border-l p-4">
         <div className="flex w-full items-center gap-3">
           <Image
@@ -72,7 +73,7 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
             src={postData?.author.image || ''}
             width={32}
             height={32}
-            className="rounded-full"
+            className="h-8 w-8 rounded-full"
           />
           <p className="text-sm font-bold">{postData?.author.username}</p>
         </div>
@@ -83,10 +84,10 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
         <div className="flex gap-2 p-4">
           <Image
             src={postData?.author.image ?? ''}
-            alt="author image"
-            width={32}
+            alt=""
             height={32}
-            className="h-8 w-8 rounded-full"
+            width={32}
+            className="h-8 h-8 w-8 w-8 rounded-full"
           />
           <div className="flex-1 text-xs">
             <strong>{postData?.author.username}</strong>
@@ -106,7 +107,6 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
         </div>
         <PostInfoCommentSection
           handleLikeComment={handleLikeComment}
-          userSession={userSession}
           postData={postData}
         />
       </div>

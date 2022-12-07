@@ -15,8 +15,8 @@ export const CreatePostModal = ({ closeModal }: CreatePostModalProps) => {
   const [postDescription, setPostDescription] = useState('')
   const [file, setFile] = useState<File | null>()
   const [loading, setLoading] = useState(false)
-  const postMutation = trpc.protectedPost.create.useMutation()
-  const { invalidateQueries } = trpc.useContext()
+  const { mutate: createPost } = trpc.post.create.useMutation()
+  const utils = trpc.useContext()
   const { data } = useSession()
 
   function clearInfo(img?: boolean, description?: boolean) {
@@ -36,6 +36,8 @@ export const CreatePostModal = ({ closeModal }: CreatePostModalProps) => {
     }
   }
 
+  // TODO: Maybe transfer this function to backend? I guess it's the best option
+  // for security (using TRPC route)
   async function handleCreatePost() {
     if (!file) return
     setLoading(true)
@@ -49,7 +51,7 @@ export const CreatePostModal = ({ closeModal }: CreatePostModalProps) => {
     })
       .then(async (fData) => {
         const response = await fData.json()
-        postMutation.mutate(
+        createPost(
           {
             imageUrl: response.secure_url,
             description: postDescription,
@@ -61,7 +63,7 @@ export const CreatePostModal = ({ closeModal }: CreatePostModalProps) => {
             },
             onSuccess: () => {
               clearInfo()
-              invalidateQueries(['protectedPost.getAll'])
+              utils.post.postModalInfo.invalidate()
             },
           },
         )
@@ -148,8 +150,8 @@ export const CreatePostModal = ({ closeModal }: CreatePostModalProps) => {
                 <NextImage
                   src={imageSrc}
                   alt="Picture of the author"
-                  layout="fill" // required
-                  objectFit="cover" // change to suit your needs
+                  fill
+                  style={{ objectFit: 'contain' }}
                   className="rounded-xl"
                 />
               </div>

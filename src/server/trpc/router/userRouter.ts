@@ -1,25 +1,8 @@
 import { z } from 'zod'
+
 import { protectedProcedure, publicProcedure, router } from '../trpc'
 
 export const userRouter = router({
-  create: publicProcedure
-    .input(
-      z.object({
-        email: z.string().min(1).max(20),
-        password: z.string().min(1, 'password is required'),
-      }),
-    )
-    .mutation(async ({ input, ctx }) => {
-      const response = await ctx.prisma.user.create({
-        data: {
-          email: input.email,
-        },
-      })
-      return {
-        response,
-        greeting: `Hello ${input?.email ?? 'world'}`,
-      }
-    }),
   getUserInfo: publicProcedure
     .input(
       z
@@ -59,6 +42,25 @@ export const userRouter = router({
           },
         },
       })
+    }),
+
+  create: publicProcedure
+    .input(
+      z.object({
+        email: z.string().min(1).max(20),
+        password: z.string().min(1, 'password is required'),
+      }),
+    )
+    .mutation(async ({ input, ctx }) => {
+      const response = await ctx.prisma.user.create({
+        data: {
+          email: input.email,
+        },
+      })
+      return {
+        response,
+        greeting: `Hello ${input?.email ?? 'world'}`,
+      }
     }),
   protectedGetUserInfo: protectedProcedure
     .input(
@@ -104,7 +106,6 @@ export const userRouter = router({
         },
       })
     }),
-
   updateUserInfo: protectedProcedure
     .input(
       z.object({

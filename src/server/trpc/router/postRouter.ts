@@ -1,5 +1,6 @@
 import { z } from 'zod'
-import { protectedProcedure, publicProcedure, router } from '../trpc'
+
+import { publicProcedure, router, protectedProcedure } from '../trpc'
 
 export const postRouter = router({
   getSpecificPost: publicProcedure
@@ -67,6 +68,7 @@ export const postRouter = router({
           index - 1 === postIndex,
       )
     }),
+
   getAll: protectedProcedure.query(async ({ ctx }) => {
     return await ctx.prisma.post.findMany({
       orderBy: {
@@ -83,6 +85,7 @@ export const postRouter = router({
       },
     })
   }),
+
   comment: protectedProcedure
     .input(
       z.object({
@@ -91,7 +94,7 @@ export const postRouter = router({
         postId: z.number(),
       }),
     )
-    .mutation(async ({ ctx, input: { postId, comment, userId } }) => {
+    .mutation(async ({ ctx, input: { comment, postId, userId } }) => {
       return await ctx.prisma.post.update({
         where: {
           id: postId,
@@ -106,6 +109,7 @@ export const postRouter = router({
         },
       })
     }),
+
   toggleLike: protectedProcedure
     .input(
       z.object({
@@ -113,7 +117,7 @@ export const postRouter = router({
         postId: z.number(),
       }),
     )
-    .mutation(async ({ ctx, input: { postId, userId } }) => {
+    .mutation(async ({ ctx, input: { userId, postId } }) => {
       const userHasLiked = await ctx.prisma.like.findFirst({
         where: {
           userId,
@@ -136,6 +140,7 @@ export const postRouter = router({
         })
       }
     }),
+
   create: protectedProcedure
     .input(
       z.object({

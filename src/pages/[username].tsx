@@ -32,32 +32,32 @@ const Profile = () => {
     isLoading,
   } = trpc.user.getUserInfo.useQuery(
     {
-                  username: String(username),
-                },
-      {
-          onSuccess: (data) => {
-              // What's happening is: We want to show recommendations to the user
-              // based on who he follows, so for example: user A follows user B, and user B follows user C
-              // so we want to recommend user C to user A, because he follows user B, who follows user C
-              // basically only recommend users that the other users he follows, follows too
-              const newFollowers = data?.followers.filter((user) => {
-                  return (
-                      user.follower.followers.findIndex(
-                          (follower) => follower.followerId === loggedUser?.user?.id,
-                      ) !== -1
-                  )
-              })
+      username: String(username),
+    },
+    {
+      onSuccess: (data) => {
+        // What's happening is: We want to show recommendations to the user
+        // based on who he follows, so for example: user A follows user B, and user B follows user C
+        // so we want to recommend user C to user A, because he follows user B, who follows user C
+        // basically only recommend users that the other users he follows, follows too
+        const newFollowers = data?.followers.filter((user) => {
+          return (
+            user.follower.followers.findIndex(
+              (follower) => follower.followerId === loggedUser?.user?.id,
+            ) !== -1
+          )
+        })
 
-              setFollowedBy(newFollowers ?? [])
-              setUserFollows(
-                  data?.followers?.findIndex(
-                      (user) => user.follower.id === loggedUser?.user?.id,
-                  ) !== -1,
-              )
-          },
-          refetchOnWindowFocus: false,
-          staleTime: 1000 * 60 * 5, // 5 minutes
+        setFollowedBy(newFollowers ?? [])
+        setUserFollows(
+          data?.followers?.findIndex(
+            (user) => user.follower.id === loggedUser?.user?.id,
+          ) !== -1,
+        )
       },
+      refetchOnWindowFocus: false,
+      staleTime: 1000 * 60 * 5, // 5 minutes
+    },
   )
 
   const toggleUserFollows = () => {
