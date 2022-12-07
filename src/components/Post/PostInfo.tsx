@@ -87,7 +87,7 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
             alt=""
             height={32}
             width={32}
-            className="h-8 h-8 w-8 w-8 rounded-full"
+            className="h-8 w-8 rounded-full"
           />
           <div className="flex-1 text-xs">
             <strong>{postData?.author.username}</strong>
