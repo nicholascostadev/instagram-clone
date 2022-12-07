@@ -13,7 +13,7 @@ export const PostAddCommentSection = ({
   postData,
 }: PostAddCommentSectionProps) => {
   const [input, setInput] = useState('')
-  const { mutate, isLoading } = trpc.useMutation(['protectedPost.comment'])
+  const { mutate: addComment, isLoading } = trpc.post.comment.useMutation()
 
   const disabled = input.length === 0 || isLoading
 
@@ -22,7 +22,7 @@ export const PostAddCommentSection = ({
   const handleAddComment = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    mutate(
+    addComment(
       {
         comment: input,
         postId: Number(postData?.id),
@@ -31,7 +31,8 @@ export const PostAddCommentSection = ({
       {
         onSuccess: () => {
           setInput('')
-          utils.invalidateQueries()
+          utils.post.postModalInfo.invalidate()
+          utils.post.getSpecificPost.invalidate()
         },
       },
     )

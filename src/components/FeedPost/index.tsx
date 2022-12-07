@@ -51,8 +51,8 @@ export const Post = ({ isLoading, userId, post }: PostProps) => {
       <div className="relative h-[470px] w-full border-y">
         {postState?.image && (
           <Image
-            objectFit="contain"
-            layout="fill"
+            style={{ objectFit: 'contain' }}
+            fill
             src={
               postState?.image ??
               'https://instagram.fsdu6-1.fna.fbcdn.net/v/t51.2885-15/300057970_811470696932602_5375264863153378571_n.jpg?stp=dst-jpg_e0_s480x480&cb=9ad74b5e-b94cae63&_nc_ht=instagram.fsdu6-1.fna.fbcdn.net&_nc_cat=110&_nc_ohc=1InzZCrD2pUAX9H17Sn&tn=jEdauWXTd9iECMi_&edm=AJ9x6zYBAAAA&ccb=7-5&ig_cache_key=MjkwOTMwMjk4NTA1NDc3MzcwNw%3D%3D.2-ccb7-5&oh=00_AT-Ud4g9kweKg7y9TgB7Kl9OH4GcWvSyla3hWT6t4BxzqQ&oe=630B4460&_nc_sid=cff2a4'
@@ -83,11 +83,13 @@ export const Post = ({ isLoading, userId, post }: PostProps) => {
           </p>
         </div>
         <div>
-          <Link href={`/p/${postState?.id}`} passHref>
-            <a className="text-sm text-gray-400">
-              {postState?.comments.length > 0 &&
-                `See all ${postState?.comments.length} comments`}
-            </a>
+          <Link
+            href={`/p/${postState?.id}`}
+            passHref
+            className="text-sm text-gray-400"
+          >
+            {postState?.comments.length > 0 &&
+              `See all ${postState?.comments.length} comments`}
           </Link>
         </div>
         <div>

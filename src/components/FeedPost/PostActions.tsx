@@ -37,7 +37,7 @@ export const PostActions = ({
   userHasLiked,
 }: PostActionsProps) => {
   const [saved, setSaved] = useState(false)
-  const likeMutation = trpc.useMutation(['protectedPost.toggleLike'])
+  const likeMutation = trpc.post.toggleLike.useMutation()
 
   const { data } = useSession()
 

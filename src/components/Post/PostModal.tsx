@@ -15,8 +15,8 @@ export const PostModal = ({ postId, changePostId }: PostModalProps) => {
   const profileUsername = String(Router.query.username)
   const [currentPostIndex, setCurrentPostIndex] = useState(0)
 
-  const { data: posts } = trpc.useQuery(
-    ['post.postModalInfo', { id: postId, profileUsername }],
+  const { data: posts } = trpc.post.postModalInfo.useQuery(
+    { id: postId, profileUsername },
     {
       onSuccess: (data) => {
         setCurrentPostIndex(data.findIndex((post) => post.id === postId))
@@ -64,7 +64,12 @@ export const PostModal = ({ postId, changePostId }: PostModalProps) => {
         <div className="fixed top-[50%] left-[50%] flex h-[95%] w-[75%] translate-x-[-50%] translate-y-[-50%] rounded-tr-lg rounded-br-lg bg-white">
           <div className="relative min-h-full w-[68%]">
             {postImage ? (
-              <Image src={postImage} alt="" layout="fill" objectFit="contain" />
+              <Image
+                src={postImage}
+                alt=""
+                fill
+                style={{ objectFit: 'contain' }}
+              />
             ) : (
               <div className="flex h-full w-full items-center justify-center">
                 <Spinner size={50} className="animate-spin text-gray-400" />

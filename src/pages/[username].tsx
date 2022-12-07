@@ -30,13 +30,10 @@ const Profile = () => {
     data: userInfo,
     isError,
     isLoading,
-  } = trpc.useQuery(
-    [
-      'user.getUserInfo',
-      {
-        username: String(username),
-      },
-    ],
+  } = trpc.user.getUserInfo.useQuery(
+    {
+      username: String(username),
+    },
     {
       onSuccess: (data) => {
         // What's happening is: We want to show recommendations to the user

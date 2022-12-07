@@ -24,9 +24,7 @@ type SuggestionRowProps =
 
 export const SuggestionRow = (props: SuggestionRowProps) => {
   const { data } = useSession()
-  const { mutate: toggleFollow } = trpc.useMutation([
-    'protectedUser.toggleFollow',
-  ])
+  const { mutate: toggleFollow } = trpc.user.toggleFollow.useMutation()
   const [follows, setFollows] = useState(false)
 
   const handleToggleFollow = (action: 'follow' | 'unfollow') => {
@@ -54,16 +52,19 @@ export const SuggestionRow = (props: SuggestionRowProps) => {
       <div className="flex items-center justify-center gap-4">
         <div className="relative h-12 w-12">
           <Image
-            objectFit="contain"
+            style={{ objectFit: 'contain' }}
             src={props.image ?? ''}
             alt=""
-            layout="fill"
+            fill
             className="rounded-full"
           />
         </div>
         <div className="flex flex-1 flex-col text-sm">
-          <Link href={`/${props.username || '/'}`}>
-            <a className="text-md font-bold">{props.username}</a>
+          <Link
+            href={`/${props.username || '/'}`}
+            className="text-md font-bold"
+          >
+            {props.username}
           </Link>
           <p className="text-gray-500">{props.name}</p>
           {props.recommendationReason === 'follows you' && (

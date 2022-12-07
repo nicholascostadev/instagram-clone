@@ -31,7 +31,7 @@ export interface PostInfoProps {
 
 export const PostInfo = ({ postData }: PostInfoProps) => {
   const { data: userSession } = useSession()
-  const like = trpc.useMutation(['protectedPost.toggleLike'])
+  const like = trpc.post.toggleLike.useMutation()
   const utils = trpc.useContext()
 
   const userHasLiked =
@@ -42,6 +42,7 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
   // TODO: Make this funcion work(not implemented)
   const handleLikeComment = (commentId: number) => {
     // call api
+    return commentId
   }
 
   const likedByList = postData?.likes.filter(
@@ -56,24 +57,23 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
       },
       {
         onSettled: () => {
-          utils.invalidateQueries(['post.getSpecificPost'])
-          utils.invalidateQueries(['post.postModalInfo'])
+          utils.post.getSpecificPost.invalidate()
+          utils.post.postModalInfo.invalidate()
         },
       },
     )
   }
 
   return (
-    <div className="flex flex-1 flex-col bg-white">
+    <div className="flex h-full flex-1 flex-col bg-white">
       <div className="flex items-center gap-10 border-b border-l p-4">
         <div className="flex w-full items-center gap-3">
           <Image
             alt=""
             src={postData?.author.image || ''}
-            layout="fixed"
             width={32}
             height={32}
-            className="rounded-full"
+            className="h-8 w-8 rounded-full"
           />
           <p className="text-sm font-bold">{postData?.author.username}</p>
         </div>
@@ -85,10 +85,9 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
           <Image
             src={postData?.author.image ?? ''}
             alt=""
-            layout="fixed"
-            width={32}
             height={32}
-            className="rounded-full"
+            width={32}
+            className="h-8 w-8 rounded-full"
           />
           <div className="flex-1 text-xs">
             <strong>{postData?.author.username}</strong>
@@ -108,7 +107,6 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
         </div>
         <PostInfoCommentSection
           handleLikeComment={handleLikeComment}
-          userSession={userSession}
           postData={postData}
         />
       </div>
@@ -137,10 +135,9 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
             <Image
               src={likedByList[0]?.user?.image || ''}
               alt=""
-              layout="fixed"
               width={20}
               height={20}
-              className="rounded-full"
+              className="h-5 w-5 rounded-full"
             />
             {formatPostLikes(likedByList, postData)}
           </div>
@@ -162,8 +159,8 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
       ) : (
         <div className="flex max-h-full flex-1 border-t border-l p-4">
           <p className="text-sm text-gray-400">
-            <Link href="/">
-              <a className="text-blue-700">Log in </a>
+            <Link href="/" className="text-blue-700">
+              Log in
             </Link>
             to like or comment.
           </p>

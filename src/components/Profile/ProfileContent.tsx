@@ -19,20 +19,20 @@ interface ProfileContentProps {
 
 export const ProfileContent = ({ posts }: ProfileContentProps) => {
   const username = String(Router.query.username)
-  const { refetchQueries } = trpc.useContext()
+  const utils = trpc.useContext()
   const [currentPostId, setCurrentPostId] = useState<number>()
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleChangePostId = useCallback(
     (newPostId: number) => {
       setCurrentPostId(newPostId)
-      refetchQueries(['post.postModalInfo'])
+      utils.post.postModalInfo.invalidate()
 
       Router.push(`/${username}?postId=${newPostId}`, undefined, {
         shallow: true,
       })
     },
-    [username, refetchQueries],
+    [username],
   )
 
   useEffect(() => {

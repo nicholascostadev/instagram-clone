@@ -15,28 +15,21 @@ export const PostHeader = ({ postOwner, postOwnerImage }: PostHeaderProps) => {
       <div className="flex items-center gap-2">
         {postOwnerImage ? (
           <Link href={`/${postOwner}`} passHref>
-            <a>
-              <div className="flex rounded-full border-2 border-purple-300">
-                <Image
-                  src={postOwnerImage ?? ''}
-                  alt=""
-                  layout="fixed"
-                  width={40}
-                  height={40}
-                  className="rounded-full outline-red-300 ring-offset-1"
-                />
-              </div>
-            </a>
+            <div className="flex rounded-full border-2 border-purple-300">
+              <Image
+                src={postOwnerImage ?? ''}
+                alt=""
+                width={40}
+                height={40}
+                className="h-10 w-10 rounded-full outline-red-300 ring-offset-1"
+              />
+            </div>
           </Link>
         ) : (
           <SpinnerGap size={40} className="animate-spin" />
         )}
         <Link href={`/${postOwner}`} passHref>
-          <a href="">
-            <p className="text-sm font-bold">
-              {postOwner ?? 'nicholascostadev'}
-            </p>
-          </a>
+          <p className="text-sm font-bold">{postOwner ?? 'nicholascostadev'}</p>
         </Link>
       </div>
       <PostThreeDotsButton />

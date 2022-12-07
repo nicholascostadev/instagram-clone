@@ -40,10 +40,9 @@ const Edit = () => {
   const utils = trpc.useContext()
 
   const currentValues = watch()
-  const { mutate: updateUserInfo, isLoading } = trpc.useMutation([
-    'protectedUser.updateUserInfo',
-  ])
-  const { data: loggedUserInfo } = trpc.useQuery(['user.getUserInfo'], {
+  const { mutate: updateUserInfo, isLoading } =
+    trpc.user.updateUserInfo.useMutation()
+  const { data: loggedUserInfo } = trpc.user.getUserInfo.useQuery(undefined, {
     onSuccess: (data) => {
       setValue('description', data?.description ?? '')
       setValue('name', data?.name ?? '')
@@ -88,7 +87,7 @@ const Edit = () => {
           setError(data.error)
           reset()
         },
-        onSettled: () => utils.invalidateQueries(['user.getUserInfo']),
+        onSettled: () => utils.user.getUserInfo.invalidate(),
       },
     )
   }

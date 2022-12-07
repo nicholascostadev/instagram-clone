@@ -15,11 +15,10 @@ export const PostLikedByList = ({ likedByList }: PostLikedByListProps) => {
         <div className="flex rounded-full">
           <Image
             src={likedByList[0]?.user?.image || ''}
-            layout="fixed"
             alt=""
             height={20}
             width={20}
-            className="rounded-full "
+            className="h-5 w-5 rounded-full"
           />
         </div>
 

@@ -3,12 +3,17 @@ import { SuggestionRow } from '../../components/pages/explore/SuggestionRow'
 import { trpc } from '../../utils/trpc'
 
 export default function Explore() {
-  const { data } = trpc.useQuery(['suggestions.explore', { amount: 10 }], {
-    refetchOnWindowFocus: false,
-    staleTime: 1000 * 60 * 5, // 5 minutes
-  })
+  const { data } = trpc.suggestions.explore.useQuery(
+    { amount: 10 },
+    {
+      refetchOnWindowFocus: false,
+      staleTime: 1000 * 60 * 5, // 5 minutes
+    },
+  )
 
   const filteredData = data?.filter((item) => {
+    // recommending only users that follow you or your friends(people you follow),
+    // follow too
     return (
       (item.recommendationReason === 'followed by' &&
         item.followedByRecommendations.length > 0) ||
@@ -23,7 +28,7 @@ export default function Explore() {
         <div className="mx-auto w-[600px] max-w-full">
           <h1>Suggested</h1>
           <div className="mt-2 flex flex-col gap-4 rounded-sm bg-white p-4">
-            {data?.length === 0 && (
+            {filteredData?.length === 0 && (
               <div>
                 <p className="text-gray-500">
                   No suggestions for you right now :D

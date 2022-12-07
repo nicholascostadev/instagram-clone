@@ -32,16 +32,15 @@ export const LoginPage = () => {
                 <Image
                   src="https://instagram.com/static/images/appstore-install-badges/badge_ios_portuguese-brazilian-pt_br.png/68006a2bb372.png"
                   alt=""
-                  layout="fixed"
                   height={40}
-                  width={140}
+                  className="h-10 w-36"
                 />
                 <Image
                   src="https://instagram.com/static/images/appstore-install-badges/badge_android_portuguese_brazilian-pt_BR.png/2f2a0c05b2f3.png"
                   alt=""
-                  layout="fixed"
                   height={40}
                   width={140}
+                  className="h-10 w-36"
                 />
               </div>
             </div>
