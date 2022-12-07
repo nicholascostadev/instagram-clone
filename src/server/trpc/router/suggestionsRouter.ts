@@ -1,5 +1,4 @@
 import { User } from '@prisma/client'
-import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import { protectedProcedure, router } from '../trpc'
 
@@ -12,13 +11,6 @@ export const suggestionsRouter = router({
     )
     .query(async ({ ctx, input }) => {
       const amount = input.amount ?? 5
-      if (!ctx.session.user.id) {
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: 'No userId received',
-        })
-      }
-
       // pegar usuarios que o usuario logado nao segue
       return await ctx.prisma.user.findMany({
         take: amount,
@@ -48,7 +40,6 @@ export const suggestionsRouter = router({
         },
       })
     }),
-
   explore: protectedProcedure
     .input(
       z.object({

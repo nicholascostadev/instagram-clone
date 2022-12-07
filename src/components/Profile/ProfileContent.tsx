@@ -32,7 +32,7 @@ export const ProfileContent = ({ posts }: ProfileContentProps) => {
         shallow: true,
       })
     },
-    [username],
+    [username, utils.post.postModalInfo],
   )
 
   useEffect(() => {

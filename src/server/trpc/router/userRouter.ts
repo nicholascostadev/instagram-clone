@@ -44,7 +44,25 @@ export const userRouter = router({
       })
     }),
 
-  getUserInfoMut: publicProcedure
+  create: publicProcedure
+    .input(
+      z.object({
+        email: z.string().min(1).max(20),
+        password: z.string().min(1, 'password is required'),
+      }),
+    )
+    .mutation(async ({ input, ctx }) => {
+      const response = await ctx.prisma.user.create({
+        data: {
+          email: input.email,
+        },
+      })
+      return {
+        response,
+        greeting: `Hello ${input?.email ?? 'world'}`,
+      }
+    }),
+  protectedGetUserInfo: protectedProcedure
     .input(
       z.object({
         username: z.string().optional(),
@@ -99,7 +117,7 @@ export const userRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       // Pick user data for checking his info
-      const userHistory = await ctx.prisma.user.findUnique({
+      const userHistory: any = await ctx.prisma.user.findUnique({
         where: {
           id: ctx.session?.user?.id,
         },
@@ -197,7 +215,6 @@ export const userRouter = router({
         error: errorObject,
       }
     }),
-
   toggleFollow: protectedProcedure
     .input(
       z.object({
