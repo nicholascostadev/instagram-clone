@@ -50,9 +50,6 @@ export const HeaderProfileDropdown = ({
             className="AvatarImage flex items-center justify-center rounded-full object-cover"
             src={userInfo?.image as string}
             alt={`${userInfo?.name} profile picture`}
-            onLoadingStatusChange={(status) => {
-              console.log('Status: ', status)
-            }}
           />
 
           <Avatar.Fallback
