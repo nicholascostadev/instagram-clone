@@ -1,18 +1,8 @@
-import * as Avatar from '@radix-ui/react-avatar'
-import Link from 'next/link'
 import { MagnifyingGlass } from 'phosphor-react'
 import { useState } from 'react'
 import { useDebounce } from 'use-debounce'
 import { trpc } from '../../utils/trpc'
-
-const getUserInitials = (name: string | null): string => {
-  if (!name) return ''
-
-  return name
-    .split(' ')
-    .map((name) => name[0])
-    .join('')
-}
+import { SearchResult } from './SearchResult'
 
 export const Search = () => {
   const [searchQuery, setSearchQuery] = useState('')
@@ -56,31 +46,12 @@ export const Search = () => {
           )}
           {!isPending &&
             searchResults?.map((user) => (
-              <li key={user.name}>
-                <Link
-                  href={`/${user.username}`}
-                  className="flex items-center gap-2"
-                >
-                  <Avatar.Root className="AvatarRoot flex h-8 w-8 items-center justify-center rounded-full">
-                    <Avatar.Image
-                      className="AvatarImage flex items-center justify-center rounded-full object-cover"
-                      src={user.image ?? ''}
-                      alt={`${user?.name ?? ''} profile picture`}
-                    />
-
-                    <Avatar.Fallback
-                      className="AvatarFallback flex h-8 w-8 items-center justify-center rounded-full bg-fuchsia-500 p-1 text-sm text-white"
-                      delayMs={600}
-                    >
-                      {getUserInitials(user.name)}
-                    </Avatar.Fallback>
-                  </Avatar.Root>
-                  <div>
-                    <strong>{user.username}</strong>
-                    <p className="text-sm">{user.name}</p>
-                  </div>
-                </Link>
-              </li>
+              <SearchResult
+                key={user.name}
+                userImage={user.image}
+                userName={user.name}
+                username={user.username}
+              />
             ))}
           <p className="text-center text-xs text-gray-500">
             Showing only at max 5 people
