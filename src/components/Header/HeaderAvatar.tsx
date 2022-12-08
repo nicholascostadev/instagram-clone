@@ -12,7 +12,7 @@ export const HeaderAvatar = ({ userImage, userName }: HeaderAvatarProps) => {
       <Avatar.Image
         className="AvatarImage flex items-center justify-center rounded-full object-cover"
         src={userImage as string}
-        alt={`${userName} profile picture`}
+        alt={`${userName ?? ''} profile picture`}
       />
 
       <Avatar.Fallback
