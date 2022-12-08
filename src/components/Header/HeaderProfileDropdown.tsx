@@ -1,5 +1,4 @@
 import { Comment, Follows, Like, Post, User } from '@prisma/client'
-import * as Avatar from '@radix-ui/react-avatar'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { signIn, signOut } from 'next-auth/react'
 import Link from 'next/link'
@@ -9,6 +8,7 @@ import {
   Gear,
   UserCircle,
 } from 'phosphor-react'
+import { HeaderAvatar } from './HeaderAvatar'
 
 interface HeaderProfileDropdownProps {
   userInfo:
@@ -45,24 +45,7 @@ export const HeaderProfileDropdown = ({
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger className="flex items-center justify-center rounded-full leading-none outline-1">
-        <Avatar.Root className="AvatarRoot flex h-8 w-8 items-center justify-center rounded-full">
-          <Avatar.Image
-            className="AvatarImage flex items-center justify-center rounded-full object-cover"
-            src={userInfo?.image as string}
-            alt={`${userInfo?.name} profile picture`}
-          />
-
-          <Avatar.Fallback
-            className="AvatarFallback flex h-8 w-8 items-center justify-center rounded-full bg-fuchsia-500 p-1 text-sm text-white"
-            delayMs={600}
-          >
-            {userInfo?.name &&
-              userInfo.name
-                .split(' ')
-                .map((name) => name[0])
-                .join('')}
-          </Avatar.Fallback>
-        </Avatar.Root>
+        <HeaderAvatar userName={userInfo.name} userImage={userInfo.image} />
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>
