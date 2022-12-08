@@ -12,7 +12,6 @@ import {
   PlusCircle,
 } from 'phosphor-react'
 import { useMemo, useState } from 'react'
-import { useDebounce } from 'use-debounce'
 import InstagramLogo from '../../assets/instagram-logo.png'
 import { trpc } from '../../utils/trpc'
 import { CreatePostModal } from './CreatePostModal'

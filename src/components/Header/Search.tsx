@@ -56,7 +56,7 @@ export const Search = () => {
           )}
           {!isPending &&
             searchResults?.map((user) => (
-              <li>
+              <li key={user.name}>
                 <Link
                   href={`/${user.username}`}
                   className="flex items-center gap-2"
