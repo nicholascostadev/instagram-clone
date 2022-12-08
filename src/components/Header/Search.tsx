@@ -5,6 +5,15 @@ import { useState } from 'react'
 import { useDebounce } from 'use-debounce'
 import { trpc } from '../../utils/trpc'
 
+const getUserInitials = (name: string | null): string => {
+  if (!name) return ''
+
+  return name
+    .split(' ')
+    .map((name) => name[0])
+    .join('')
+}
+
 export const Search = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const [search, queryUtils] = useDebounce(searchQuery, 300)
@@ -35,7 +44,7 @@ export const Search = () => {
       />
       <div
         className={`absolute top-[38px] z-40 w-full rounded-lg border bg-white ${
-          searchModalOpen ? 'flex' : 'hidden '
+          searchModalOpen ? 'flex' : 'hidden'
         } `}
       >
         <ul className="flex w-full flex-col gap-2 [&_li]:w-full [&_li]:px-2 [&_li]:py-1 [&_li:hover]:bg-gray-200 [&_li:first-child]:rounded-t-md [&_li:last-child]:rounded-b-md">
@@ -63,11 +72,7 @@ export const Search = () => {
                       className="AvatarFallback flex h-8 w-8 items-center justify-center rounded-full bg-fuchsia-500 p-1 text-sm text-white"
                       delayMs={600}
                     >
-                      {user?.name &&
-                        user.name
-                          .split(' ')
-                          .map((name) => name[0])
-                          .join('')}
+                      {getUserInitials(user.name)}
                     </Avatar.Fallback>
                   </Avatar.Root>
                   <div>
