@@ -1,5 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { useSession } from 'next-auth/react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import {
@@ -8,20 +9,19 @@ import {
   Compass,
   Heart,
   House,
-  MagnifyingGlass,
   PlusCircle,
 } from 'phosphor-react'
 import { useMemo, useState } from 'react'
+import InstagramLogo from '../../assets/instagram-logo.png'
 import { trpc } from '../../utils/trpc'
 import { CreatePostModal } from './CreatePostModal'
 import { HeaderProfileDropdown } from './HeaderProfileDropdown'
-import InstagramLogo from '../../assets/instagram-logo.png'
-import Image from 'next/image'
+import { Search } from './Search'
 
 export const Header = () => {
-  const [input, setInput] = useState('')
   const { data } = useSession()
-  const [modalOpen, setModalOpen] = useState(false)
+  const [profileModalOpen, setProfileModalOpen] = useState(false)
+
   const { data: userInfo } = trpc.user.getUserInfo.useQuery(
     {
       id: data?.user?.id,
@@ -31,12 +31,13 @@ export const Header = () => {
       staleTime: 1000 * 60 * 5,
     },
   )
-  const router = useRouter()
 
-  const closeModal = useMemo(() => setModalOpen(false), [])
+  const { pathname } = useRouter()
+
+  const closeModal = useMemo(() => setProfileModalOpen(false), [])
 
   return (
-    <header className="sticky w-full overflow-hidden border-b bg-white py-5 shadow-sm">
+    <header className="sticky z-10 w-full overflow-visible border-b bg-white py-5 shadow-sm">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-2">
         <div className="flex items-center justify-center gap-2">
           <Link
@@ -54,29 +55,23 @@ export const Header = () => {
           </Link>
           <CaretDown size={15} weight="bold" className="cursor-pointer" />
         </div>
-        <div className="relative hidden items-center justify-center gap-4 lg:flex ">
-          <input
-            placeholder="Search"
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            className="w-32 rounded-lg bg-gray-100 pt-3 pb-1.5 pl-8 text-sm font-thin sm:w-64"
-          />
-          <MagnifyingGlass
-            size={20}
-            className="absolute top-2.5 left-1.5 text-gray-200"
-          />
+        <div className="relative hidden items-center justify-center gap-4 overflow-visible lg:flex">
+          <Search />
         </div>
         {data && (
           <div className="flex items-center justify-center gap-4">
-            <House
-              className="cursor-pointer"
-              size={30}
-              weight={router.pathname === '/' ? 'fill' : 'regular'}
-              onClick={() => router.push('/')}
-            />
+            <Link href="/">
+              <House
+                className="cursor-pointer"
+                size={30}
+                weight={pathname === '/' ? 'fill' : 'regular'}
+              />
+            </Link>
             <ChatCircleText className="cursor-pointer" size={30} />
-            <Dialog.Root open={modalOpen} onOpenChange={setModalOpen}>
+            <Dialog.Root
+              open={profileModalOpen}
+              onOpenChange={setProfileModalOpen}
+            >
               <Dialog.Trigger asChild>
                 <button
                   className="flex items-center justify-center"
