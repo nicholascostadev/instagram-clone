@@ -19,3 +19,12 @@ export function formatFollow(followedByArr: TFollowedByArr) {
   }
   return ''
 }
+
+export const getUserInitials = (name: string | null): string => {
+  if (!name) return ''
+
+  return name
+    .split(' ')
+    .map((name) => name[0])
+    .join('')
+}
