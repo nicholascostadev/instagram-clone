@@ -33,6 +33,7 @@ export const LoginPage = () => {
                   src="https://instagram.com/static/images/appstore-install-badges/badge_ios_portuguese-brazilian-pt_br.png/68006a2bb372.png"
                   alt=""
                   height={40}
+                  width={144}
                   className="h-10 w-36"
                 />
                 <Image

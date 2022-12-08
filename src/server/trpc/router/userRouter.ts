@@ -245,4 +245,32 @@ export const userRouter = router({
           throw new Error('Invalid action')
       }
     }),
+  search: protectedProcedure
+    .input(
+      z.object({
+        query: z.string(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.user.findMany({
+        where: {
+          OR: [
+            {
+              name: {
+                not: ctx.session?.user?.name,
+                contains: input.query,
+              },
+            },
+            {
+              name: {
+                not: ctx.session.user.name,
+              },
+              username: {
+                contains: input.query,
+              },
+            },
+          ],
+        },
+      })
+    }),
 })

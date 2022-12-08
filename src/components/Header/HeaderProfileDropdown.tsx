@@ -1,7 +1,7 @@
 import { Comment, Follows, Like, Post, User } from '@prisma/client'
+import * as Avatar from '@radix-ui/react-avatar'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { signIn, signOut } from 'next-auth/react'
-import Image from 'next/image'
 import Link from 'next/link'
 import {
   ArrowsCounterClockwise,
@@ -45,24 +45,34 @@ export const HeaderProfileDropdown = ({
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger className="flex items-center justify-center rounded-full leading-none outline-1">
-        <Image
-          src={
-            userInfo?.image
-              ? String(userInfo.image)
-              : 'https://github.com/nicholascostadev.png'
-          }
-          className="h-8 w-8 rounded-full"
-          width={30}
-          height={30}
-          alt="Profile image dropdown menu"
-        />
+        <Avatar.Root className="AvatarRoot flex h-8 w-8 items-center justify-center rounded-full">
+          <Avatar.Image
+            className="AvatarImage flex items-center justify-center rounded-full object-cover"
+            src={userInfo?.image as string}
+            alt={`${userInfo?.name} profile picture`}
+            onLoadingStatusChange={(status) => {
+              console.log('Status: ', status)
+            }}
+          />
+
+          <Avatar.Fallback
+            className="AvatarFallback flex h-8 w-8 items-center justify-center rounded-full bg-fuchsia-500 p-1 text-sm text-white"
+            delayMs={600}
+          >
+            {userInfo?.name &&
+              userInfo.name
+                .split(' ')
+                .map((name) => name[0])
+                .join('')}
+          </Avatar.Fallback>
+        </Avatar.Root>
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content
           side={'bottom'}
           sideOffset={2}
-          className="rounded-md border bg-white shadow-lg"
+          className="z-40 rounded-md border bg-white shadow-lg"
         >
           <DropdownMenu.Label />
           <DropdownMenu.Item />
