@@ -1,9 +1,9 @@
 import { Header } from '../../components/Header'
 import { SuggestionRow } from '../../components/pages/explore/SuggestionRow'
-import { trpc } from '../../utils/trpc'
+import { api } from '../../utils/api'
 
 export default function Explore() {
-  const { data } = trpc.suggestions.explore.useQuery(
+  const { data } = api.suggestions.explore.useQuery(
     { amount: 10 },
     {
       refetchOnWindowFocus: false,

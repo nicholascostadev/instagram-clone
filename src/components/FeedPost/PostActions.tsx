@@ -3,7 +3,7 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { BookmarkSimple, Chat, Heart, PaperPlaneTilt } from 'phosphor-react'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { trpc } from '../../utils/trpc'
+import { api } from '../../utils/api'
 import { v4 as uuidv4 } from 'uuid'
 import { UserHasLiked } from '.'
 
@@ -37,7 +37,7 @@ export const PostActions = ({
   userHasLiked,
 }: PostActionsProps) => {
   const [saved, setSaved] = useState(false)
-  const likeMutation = trpc.post.toggleLike.useMutation()
+  const likeMutation = api.post.toggleLike.useMutation()
 
   const { data } = useSession()
 

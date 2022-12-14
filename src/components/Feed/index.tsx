@@ -2,7 +2,7 @@ import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { trpc } from '../../utils/trpc'
+import { api } from '../../utils/api'
 import { Stories } from '../Stories'
 import { FeedPosts } from './FeedPosts'
 import { FeedFollowSuggestions } from './FollowSuggestions'
@@ -10,7 +10,7 @@ import { FeedFollowSuggestions } from './FollowSuggestions'
 export const Feed = () => {
   const { data } = useSession()
 
-  const { data: userInfo } = trpc.user.getUserInfo.useQuery(
+  const { data: userInfo } = api.user.getUserInfo.useQuery(
     {
       id: data?.user?.id,
     },

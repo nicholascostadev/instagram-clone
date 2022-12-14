@@ -1,8 +1,8 @@
-import { trpc } from '../../utils/trpc'
+import { api } from '../../utils/api'
 import { FeedSuggestion } from './FeedSuggestion'
 
 export const FeedFollowSuggestions = () => {
-  const { data: feedSuggestions } = trpc.suggestions.feed.useQuery(
+  const { data: feedSuggestions } = api.suggestions.feed.useQuery(
     { amount: 5 },
     // Added
     { refetchOnWindowFocus: false },

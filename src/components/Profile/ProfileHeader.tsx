@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { DotsThree, Gear, User as UserIcon } from 'phosphor-react'
 
-import { trpc } from '../../utils/trpc'
+import { api } from '../../utils/api'
 
 type UserInfoProps =
   | (User & {
@@ -206,8 +206,8 @@ export const ProfileHeader = ({
 }: ProfileHeaderProps) => {
   const router = useRouter()
 
-  const followMutation = trpc.user.toggleFollow.useMutation()
-  const utils = trpc.useContext()
+  const followMutation = api.user.toggleFollow.useMutation()
+  const utils = api.useContext()
 
   const toggleFollow = () => {
     if (!sessionData || !sessionData.user || !sessionData?.user.id) return

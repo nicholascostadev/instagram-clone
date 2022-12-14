@@ -3,7 +3,7 @@ import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
-import { trpc } from '../../../utils/trpc'
+import { api } from '../../../utils/api'
 
 type SuggestionRowProps =
   | {
@@ -24,7 +24,7 @@ type SuggestionRowProps =
 
 export const SuggestionRow = (props: SuggestionRowProps) => {
   const { data } = useSession()
-  const { mutate: toggleFollow } = trpc.user.toggleFollow.useMutation()
+  const { mutate: toggleFollow } = api.user.toggleFollow.useMutation()
   const [follows, setFollows] = useState(false)
 
   const handleToggleFollow = (action: 'follow' | 'unfollow') => {

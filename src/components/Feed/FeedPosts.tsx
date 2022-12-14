@@ -1,10 +1,10 @@
 import { useSession } from 'next-auth/react'
 
-import { trpc } from '../../utils/trpc'
+import { api } from '../../utils/api'
 import { Post } from '../FeedPost'
 
 export const FeedPosts = () => {
-  const { data: feedPosts, isLoading } = trpc.post.getAll.useQuery(undefined, {
+  const { data: feedPosts, isLoading } = api.post.getAll.useQuery(undefined, {
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60 * 10, // 10 minutes
   })

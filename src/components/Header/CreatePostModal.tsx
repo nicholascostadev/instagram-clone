@@ -2,7 +2,7 @@ import * as Dialog from '@radix-ui/react-dialog'
 import { Image, Smiley, Trash, X } from 'phosphor-react'
 import NextImage from 'next/image'
 import { useState } from 'react'
-import { trpc } from '../../utils/trpc'
+import { api } from '../../utils/api'
 import { useSession } from 'next-auth/react'
 import { env } from '../../env/client.mjs'
 
@@ -15,8 +15,8 @@ export const CreatePostModal = ({ closeModal }: CreatePostModalProps) => {
   const [postDescription, setPostDescription] = useState('')
   const [file, setFile] = useState<File | null>()
   const [loading, setLoading] = useState(false)
-  const { mutate: createPost } = trpc.post.create.useMutation()
-  const utils = trpc.useContext()
+  const { mutate: createPost } = api.post.create.useMutation()
+  const utils = api.useContext()
   const { data } = useSession()
 
   function clearInfo(img?: boolean, description?: boolean) {

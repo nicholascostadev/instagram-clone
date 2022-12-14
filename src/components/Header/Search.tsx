@@ -1,7 +1,7 @@
 import { MagnifyingGlass } from 'phosphor-react'
 import { useState } from 'react'
 import { useDebounce } from 'use-debounce'
-import { trpc } from '../../utils/trpc'
+import { api } from '../../utils/api'
 import { SearchResult } from './SearchResult'
 
 export const Search = () => {
@@ -9,7 +9,7 @@ export const Search = () => {
   const [search, queryUtils] = useDebounce(searchQuery, 300)
   const searchModalOpen = searchQuery.length > 0
   const isPending = queryUtils.isPending()
-  const { data: searchResults, isLoading } = trpc.user.search.useQuery(
+  const { data: searchResults, isLoading } = api.user.search.useQuery(
     {
       query: search,
     },

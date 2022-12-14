@@ -2,7 +2,7 @@ import * as Dialog from '@radix-ui/react-dialog'
 import Router from 'next/router'
 import Image from 'next/image'
 import { CaretLeft, CaretRight, Spinner } from 'phosphor-react'
-import { trpc } from '../../utils/trpc'
+import { api } from '../../utils/api'
 import { PostInfo } from './PostInfo'
 import { useState } from 'react'
 
@@ -15,7 +15,7 @@ export const PostModal = ({ postId, changePostId }: PostModalProps) => {
   const profileUsername = String(Router.query.username)
   const [currentPostIndex, setCurrentPostIndex] = useState(0)
 
-  const { data: posts } = trpc.post.postModalInfo.useQuery(
+  const { data: posts } = api.post.postModalInfo.useQuery(
     { id: postId, profileUsername },
     {
       onSuccess: (data) => {

@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import { formatFollow } from '../../utils/formatters'
-import { trpc } from '../../utils/trpc'
+import { api } from '../../utils/api'
 
 interface SuggestionProps {
   name: string
@@ -24,7 +24,7 @@ export const FeedSuggestion = ({
   id,
 }: SuggestionProps) => {
   const { data: loggedUser } = useSession()
-  const { mutate: toggleFollow } = trpc.user.toggleFollow.useMutation()
+  const { mutate: toggleFollow } = api.user.toggleFollow.useMutation()
 
   const followedByCopy = followedBy.filter(
     (follower) => follower.followerId !== loggedUser?.user?.id,

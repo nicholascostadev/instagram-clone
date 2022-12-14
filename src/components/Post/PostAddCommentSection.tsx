@@ -1,7 +1,7 @@
 import { Session } from 'next-auth'
 import { Smiley, SpinnerGap } from 'phosphor-react'
 import { FormEvent, useState } from 'react'
-import { trpc } from '../../utils/trpc'
+import { api } from '../../utils/api'
 import { PostInfoProps } from './PostInfo'
 
 interface PostAddCommentSectionProps extends PostInfoProps {
@@ -13,11 +13,11 @@ export const PostAddCommentSection = ({
   postData,
 }: PostAddCommentSectionProps) => {
   const [input, setInput] = useState('')
-  const { mutate: addComment, isLoading } = trpc.post.comment.useMutation()
+  const { mutate: addComment, isLoading } = api.post.comment.useMutation()
 
   const disabled = input.length === 0 || isLoading
 
-  const utils = trpc.useContext()
+  const utils = api.useContext()
 
   const handleAddComment = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()

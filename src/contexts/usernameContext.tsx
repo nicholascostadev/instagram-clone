@@ -1,6 +1,6 @@
 import { useSession } from 'next-auth/react'
 import { createContext, ReactNode } from 'react'
-import { trpc } from '../utils/trpc'
+import { api } from '../utils/api'
 
 interface UsernameContextProps {
   username: string
@@ -16,7 +16,7 @@ export const UsernameContextProvider = ({
   children: ReactNode
 }) => {
   const { data: userInfo } = useSession()
-  const { data } = trpc.user.getUserInfo.useQuery(
+  const { data } = api.user.getUserInfo.useQuery(
     { id: userInfo?.user?.id },
     {
       staleTime: 1000 * 60 * 60, // 1 hour

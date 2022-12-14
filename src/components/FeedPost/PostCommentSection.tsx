@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { Smiley, Spinner } from 'phosphor-react'
 import { FormEvent, useState } from 'react'
-import { trpc } from '../../utils/trpc'
+import { api } from '../../utils/api'
 
 interface PostCommentSectionProps {
   postId: number | null
@@ -13,9 +13,9 @@ export const PostCommentSection = ({
   userId,
 }: PostCommentSectionProps) => {
   const [input, setInput] = useState('')
-  const { mutate, isLoading } = trpc.post.comment.useMutation()
+  const { mutate, isLoading } = api.post.comment.useMutation()
   const disabled = input.length === 0
-  const utils = trpc.useContext()
+  const utils = api.useContext()
   const router = useRouter()
 
   const handleAddComment = (e: FormEvent<HTMLFormElement>) => {

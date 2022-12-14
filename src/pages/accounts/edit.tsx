@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { z } from 'zod'
 import { Header } from '../../components/Header'
-import { trpc } from '../../utils/trpc'
+import { api } from '../../utils/api'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '../../components/Input'
@@ -37,12 +37,12 @@ const Edit = () => {
     mode: 'onChange',
   })
 
-  const utils = trpc.useContext()
+  const utils = api.useContext()
 
   const currentValues = watch()
   const { mutate: updateUserInfo, isLoading } =
-    trpc.user.updateUserInfo.useMutation()
-  const { data: loggedUserInfo } = trpc.user.getUserInfo.useQuery(undefined, {
+    api.user.updateUserInfo.useMutation()
+  const { data: loggedUserInfo } = api.user.getUserInfo.useQuery(undefined, {
     onSuccess: (data) => {
       setValue('description', data?.description ?? '')
       setValue('name', data?.name ?? '')

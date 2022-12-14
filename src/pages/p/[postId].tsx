@@ -5,7 +5,7 @@ import { Footer } from '../../components/Footer'
 import { Header } from '../../components/Header'
 import { NotFound } from '../../components/NotFound'
 import { PostInfo } from '../../components/Post/PostInfo'
-import { trpc } from '../../utils/trpc'
+import { api } from '../../utils/api'
 
 export default function Post() {
   const router = useRouter()
@@ -15,7 +15,7 @@ export default function Post() {
     data: postData,
     isError,
     isLoading,
-  } = trpc.post.getSpecificPost.useQuery(
+  } = api.post.getSpecificPost.useQuery(
     { id: Number(postId) },
     {
       refetchOnWindowFocus: false,

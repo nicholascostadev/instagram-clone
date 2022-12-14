@@ -9,7 +9,7 @@ import { Header } from '../components/Header'
 import { NotFound } from '../components/NotFound'
 import { ProfileContent } from '../components/Profile/ProfileContent'
 import { ProfileHeader } from '../components/Profile/ProfileHeader'
-import { trpc } from '../utils/trpc'
+import { api } from '../utils/api'
 
 type TFollower = Follows & {
   follower: {
@@ -30,7 +30,7 @@ const Profile = () => {
     data: userInfo,
     isError,
     isLoading,
-  } = trpc.user.getUserInfo.useQuery(
+  } = api.user.getUserInfo.useQuery(
     {
       username: String(username),
     },

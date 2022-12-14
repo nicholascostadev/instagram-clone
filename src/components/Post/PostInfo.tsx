@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { BookmarkSimple, Chat, Heart, PaperPlaneTilt } from 'phosphor-react'
 import { formatPostLikes } from '../../utils/post/formatters'
-import { trpc } from '../../utils/trpc'
+import { api } from '../../utils/api'
 import { PostAddCommentSection } from './PostAddCommentSection'
 import { PostInfoCommentSection } from './PostInfoCommentSection'
 import { PostThreeDotsButton } from './ThreeDotsButton'
@@ -31,8 +31,8 @@ export interface PostInfoProps {
 
 export const PostInfo = ({ postData }: PostInfoProps) => {
   const { data: userSession } = useSession()
-  const like = trpc.post.toggleLike.useMutation()
-  const utils = trpc.useContext()
+  const like = api.post.toggleLike.useMutation()
+  const utils = api.useContext()
 
   const userHasLiked =
     postData?.likes.findIndex(

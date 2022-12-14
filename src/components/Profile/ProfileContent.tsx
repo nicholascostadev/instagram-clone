@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { PostModal } from '../Post/PostModal'
 import { ProfilePost } from './ProfilePost'
 import Router from 'next/router'
-import { trpc } from '../../utils/trpc'
+import { api } from '../../utils/api'
 
 export type TPost = Post & {
   comments: Comment[]
@@ -19,7 +19,7 @@ interface ProfileContentProps {
 
 export const ProfileContent = ({ posts }: ProfileContentProps) => {
   const username = String(Router.query.username)
-  const utils = trpc.useContext()
+  const utils = api.useContext()
   const [currentPostId, setCurrentPostId] = useState<number>()
   const [isModalOpen, setIsModalOpen] = useState(false)
 

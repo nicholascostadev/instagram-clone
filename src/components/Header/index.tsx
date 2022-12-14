@@ -13,7 +13,7 @@ import {
 } from 'phosphor-react'
 import { useMemo, useState } from 'react'
 import InstagramLogo from '../../assets/instagram-logo.png'
-import { trpc } from '../../utils/trpc'
+import { api } from '../../utils/api'
 import { CreatePostModal } from './CreatePostModal'
 import { HeaderProfileDropdown } from './HeaderProfileDropdown'
 import { Search } from './Search'
@@ -22,7 +22,7 @@ export const Header = () => {
   const { data } = useSession()
   const [profileModalOpen, setProfileModalOpen] = useState(false)
 
-  const { data: userInfo } = trpc.user.getUserInfo.useQuery(
+  const { data: userInfo } = api.user.getUserInfo.useQuery(
     {
       id: data?.user?.id,
     },
