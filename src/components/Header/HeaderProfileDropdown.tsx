@@ -35,8 +35,9 @@ export const HeaderProfileDropdown = ({
           className="rounded-md bg-blue-500 px-2 py-1 font-bold text-white hover:bg-blue-600"
           onClick={() => signIn('google')}
           type="button"
+          aria-label="Sign in"
         >
-          Entrar
+          Sign in
         </button>
       </div>
     )
@@ -45,6 +46,7 @@ export const HeaderProfileDropdown = ({
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger className="flex items-center justify-center rounded-full leading-none outline-1">
+        <span className="sr-only">Profile icon</span>
         <HeaderAvatar userName={userInfo.name} userImage={userInfo.image} />
       </DropdownMenu.Trigger>
 

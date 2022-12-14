@@ -61,6 +61,7 @@ export const Header = () => {
         {data && (
           <div className="flex items-center justify-center gap-4">
             <Link href="/">
+              <span className="sr-only">Go to home</span>
               <House
                 className="cursor-pointer"
                 size={30}
