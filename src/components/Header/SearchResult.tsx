@@ -15,7 +15,10 @@ export const SearchResult = ({
 }: SearchResultProps) => {
   return (
     <li>
-      <Link href={`/${username}`} className="flex items-center gap-2">
+      <Link
+        href={`/${username}`}
+        className="flex w-full items-center gap-2 px-2 py-1"
+      >
         <Avatar.Root className="AvatarRoot flex h-8 w-8 items-center justify-center rounded-full">
           <Avatar.Image
             className="AvatarImage flex items-center justify-center rounded-full object-cover"
