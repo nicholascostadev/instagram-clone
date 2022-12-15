@@ -46,7 +46,7 @@ export const Search = () => {
           searchModalOpen ? 'flex' : 'hidden'
         } `}
       >
-        <ul className="flex w-full flex-col gap-2 [&_li]:w-full [&_li:hover]:bg-gray-200 [&_li:first-child]:rounded-t-md [&_li:last-child]:rounded-b-md">
+        <ul className="flex w-full flex-col [&_li]:w-full [&_li:hover]:bg-gray-200 [&_li:first-child]:rounded-t-md [&_li:last-child]:rounded-b-md">
           {(isLoading || isPending) && (
             <p className="p-2 text-center text-sm text-gray-500">Loading...</p>
           )}
