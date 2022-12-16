@@ -25,7 +25,7 @@
 <details>
   <summary>Tabela de Conteúdos | Table of Contents</summary>
   <ul>
-  <li><a href="#portugues">Portugues</a>
+  <li><a href="#português">Portugues</a>
     <ol>
     <li>
       <a href="#sobre-o-projeto">Sobre o projeto</a>
@@ -73,7 +73,7 @@
 
 <!-- ABOUT THE PROJECT -->
 
-## Portugues
+## Português
 
 ---
 
@@ -189,7 +189,7 @@ Recursos que eu achei útil fazendo esse projeto.
 
 <p align="right">(<a href="#readme-top">Voltar para o topo</a>)</p>
 
-# TODO
+## TODO-PT
 
 - [x] Traduzir página de login para inglês
 - [x] Criar página de perfil
@@ -197,7 +197,6 @@ Recursos que eu achei útil fazendo esse projeto.
 - [x] Fazer trocar de pagina com as opções do dropdown do header
 - [x] Fazer com que o usuário possa editar ou adicionar a própria descrição
 - [x] Fazer com que o usuário possa editar ou adicionar o próprio website
-- [ ] Fazer com que os posts tenham uma proporção fixa nas imagens usando isso: [tailwindcss-aspect-ratio][tailwind-aspect-ratio-url] ou deixar da maneira que já está(sem problema algum, está bom também)
 
 ---
 
@@ -317,7 +316,7 @@ Resources I found helpfull when doing this project.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-# TODO
+## TODO-EN
 
 - [x] Translate Login page to English
 - [x] Create Profile Page
@@ -325,14 +324,11 @@ Resources I found helpfull when doing this project.
 - [x] Make 'Tab' change between options in Header Dropdown
 - [x] Make user able to change or add his own description
 - [x] Make user able to change or add his own website
-- [ ] Make Fixed aspect ratio for posts in feed and profile using this: [tailwindcss-aspect-ratio][tailwind-url] or let the way it is(no problem at all, it's fine)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
-[issues-url]: https://github.com/nicholascostadev/issues
 [next-url]: https://nextjs.org/
 [tailwind-url]: https://tailwindcss.com
-[tailwind-aspect-ratio-url]: https://github.com/tailwindlabs/tailwindcss-aspect-ratio
 [trpc-url]: https://trpc.io/
 [radix-url]: https://www.radix-ui.com/
 [instagram-clone-img]: images/instagram-clone.jpeg
