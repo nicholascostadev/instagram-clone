@@ -12,7 +12,9 @@ export const authOptions: NextAuthOptions = {
       if (session.user) {
         session.user.id = user.id
       }
-      return session
+
+      // TODO: Change all userInfo.(info) to session data
+      return { ...session, user }
     },
   },
   // Configure one or more authentication providers
