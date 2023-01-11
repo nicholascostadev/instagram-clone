@@ -32,7 +32,6 @@ export const Search = () => {
         placeholder="Search"
         type="text"
         value={searchQuery}
-        ref={searchRef}
         onChange={(e) => setSearchQuery(e.target.value)}
         className="w-32 rounded-lg bg-gray-100 pt-3 pb-1.5 pl-8 text-sm font-thin sm:w-64"
         aria-label="Search for people"
@@ -45,6 +44,7 @@ export const Search = () => {
         className={`absolute top-[38px] z-40 w-full rounded-lg border bg-white ${
           searchModalOpen ? 'flex' : 'hidden'
         } `}
+        ref={searchRef}
       >
         <ul className="flex w-full flex-col [&_li]:w-full [&_li:hover]:bg-gray-200 [&_li:first-child]:rounded-t-md [&_li:last-child]:rounded-b-md">
           {(isLoading || isPending) && (
