@@ -1,9 +1,12 @@
+// eslint-disable-next-line import/no-duplicates
 import { formatDistanceToNow } from 'date-fns'
-import { enUS } from 'date-fns/locale'
+// eslint-disable-next-line import/no-duplicates
+import enUS from 'date-fns/locale/en-US'
 import Image from 'next/image'
 import { Heart } from 'phosphor-react'
 import { formatCommentLikes } from '../../utils/post/formatters'
 import { PostInfoProps } from './PostInfo'
+import Link from 'next/link'
 
 interface PostInfoCommentSectionProps extends PostInfoProps {
   handleLikeComment: (commentId: number) => void
@@ -26,7 +29,12 @@ export const PostInfoCommentSection = ({
               className="h-8 w-8 rounded-full"
             />
             <div className="flex-1 text-xs">
-              <strong>{comment?.user?.username}</strong>
+              <Link
+                href={`/${comment?.user?.username}`}
+                className="font-medium"
+              >
+                {comment?.user?.username}
+              </Link>
               <span className="ml-1 md:ml-2 ">{comment?.text}</span>
               <div className="flex gap-2">
                 <span className="text-bold text-xs text-gray-400">

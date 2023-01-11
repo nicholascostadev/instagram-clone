@@ -70,14 +70,19 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
     <div className="flex h-full flex-1 flex-col bg-white">
       <div className="flex items-center gap-10 border-b border-l p-4">
         <div className="flex w-full items-center gap-3">
-          <Image
-            alt=""
-            src={postData?.author.image || ''}
-            width={32}
-            height={32}
-            className="h-8 w-8 rounded-full"
-          />
-          <p className="text-sm font-bold">{postData?.author.username}</p>
+          <Link
+            href={`/${postData?.author.username}`}
+            className="flex items-center justify-center gap-2"
+          >
+            <Image
+              alt=""
+              src={postData?.author.image || ''}
+              width={32}
+              height={32}
+              className="h-8 w-8 rounded-full"
+            />
+            <p className="text-sm font-bold">{postData?.author.username}</p>
+          </Link>
         </div>
         <PostThreeDotsButton
           postId={postData?.id}
@@ -95,7 +100,12 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
             className="h-8 w-8 rounded-full"
           />
           <div className="flex-1 text-xs">
-            <strong>{postData?.author.username}</strong>
+            <Link
+              href={`/${postData?.author.username}`}
+              className="font-medium"
+            >
+              {postData?.author.username}
+            </Link>
             <span className="ml-1 md:ml-2 ">{postData?.description}</span>
             <div className="flex gap-2">
               <span className="text-bold text-xs text-gray-400">

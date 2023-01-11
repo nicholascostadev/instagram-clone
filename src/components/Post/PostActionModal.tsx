@@ -16,7 +16,7 @@ export const PostActionModal = ({ userId, postId }: PostActionModalProps) => {
     'hover:bg-gray-100 p-3 border-b border-solid border-gray-500/30'
 
   const { mutate: deletePost } = api.post.delete.useMutation()
-  const { setIsModalOpen } = usePostModalState()
+  const { isModalOpen, setIsModalOpen } = usePostModalState()
   const utils = api.useContext()
 
   const handleAction = (action: string) => {
@@ -44,7 +44,7 @@ export const PostActionModal = ({ userId, postId }: PostActionModalProps) => {
       utils.user.getUserInfo.invalidate(),
     ])
 
-    setIsModalOpen(false)
+    if (isModalOpen) setIsModalOpen(false)
   }
 
   return (
