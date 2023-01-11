@@ -85,7 +85,12 @@ export const HeaderProfileDropdown = ({
               </Link>
             </DropdownMenu.Item>
             <DropdownMenu.Item>
-              <Link href="/" passHref className="dropdownMenuItem">
+              <Link
+                href="/"
+                passHref
+                className="dropdownMenuItem"
+                onClick={() => signOut()}
+              >
                 <ArrowsCounterClockwise size={25} />
                 Change Account
               </Link>
