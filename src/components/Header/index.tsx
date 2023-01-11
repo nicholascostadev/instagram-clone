@@ -37,7 +37,7 @@ export const Header = () => {
   const closeModal = useMemo(() => setProfileModalOpen(false), [])
 
   return (
-    <header className="sticky z-10 w-full overflow-visible border-b bg-white py-5 shadow-sm">
+    <header className="sticky w-full overflow-visible border-b bg-white py-5 shadow-sm">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-2">
         <div className="flex items-center justify-center gap-2">
           <Link

@@ -5,6 +5,7 @@ import { api } from '../utils/api'
 
 import '../styles/globals.css'
 import { type AppType } from 'next/app'
+import { ProfilePostModalStateContextProvider } from '../contexts/profilePostModalStateContext'
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -12,7 +13,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+      <ProfilePostModalStateContextProvider>
+        <Component {...pageProps} />
+      </ProfilePostModalStateContextProvider>
     </SessionProvider>
   )
 }

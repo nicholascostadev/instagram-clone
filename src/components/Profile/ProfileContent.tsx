@@ -7,6 +7,7 @@ import { PostModal } from '../Post/PostModal'
 import { ProfilePost } from './ProfilePost'
 import Router from 'next/router'
 import { api } from '../../utils/api'
+import { usePostModalState } from '../../hooks/usePostModalState'
 
 export type TPost = Post & {
   comments: Comment[]
@@ -21,7 +22,7 @@ export const ProfileContent = ({ posts }: ProfileContentProps) => {
   const username = String(Router.query.username)
   const utils = api.useContext()
   const [currentPostId, setCurrentPostId] = useState<number>()
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const { isModalOpen, setIsModalOpen } = usePostModalState()
 
   const handleChangePostId = useCallback(
     (newPostId: number) => {

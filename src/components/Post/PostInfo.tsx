@@ -1,6 +1,8 @@
 import { Comment, Like, Post as TPost, User } from '@prisma/client'
+// eslint-disable-next-line import/no-duplicates
 import { format, formatDistanceToNow } from 'date-fns'
-import { enUS } from 'date-fns/locale'
+// eslint-disable-next-line import/no-duplicates
+import enUS from 'date-fns/locale/en-US'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -77,7 +79,10 @@ export const PostInfo = ({ postData }: PostInfoProps) => {
           />
           <p className="text-sm font-bold">{postData?.author.username}</p>
         </div>
-        <PostThreeDotsButton />
+        <PostThreeDotsButton
+          postId={postData?.id}
+          userId={postData?.authorId}
+        />
       </div>
 
       <div className="flex-1 overflow-y-auto border-l">

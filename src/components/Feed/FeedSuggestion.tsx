@@ -64,7 +64,6 @@ export const FeedSuggestion = ({
           alt=""
           width={30}
           height={30}
-          layout="fixed"
           className="rounded-full"
         />
       </div>

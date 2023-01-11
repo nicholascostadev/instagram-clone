@@ -30,21 +30,23 @@ export const PostModal = ({ postId, changePostId }: PostModalProps) => {
     // if no posts, return (shouldn't happen)
     if (!posts) return
 
-    const isPrev = action === 'prev'
+    const isGoingToPrev = action === 'prev'
 
     // if the current post is the first post and the user wants to go to the previous post
     // or if the current post is the last post and the user wants to go to the next post
     // then return
     if (
-      (isPrev && currentPostIndex === 0) ||
-      (!isPrev && currentPostIndex === posts.length - 1)
+      (isGoingToPrev && currentPostIndex === 0) ||
+      (!isGoingToPrev && currentPostIndex === posts.length - 1)
     )
       return
 
     // if the user wants to go to the previous post
     // then decrease the currentPostIndex by 1
     // else increase the currentPostIndex by 1
-    const newPostIndex = isPrev ? currentPostIndex - 1 : currentPostIndex + 1
+    const newPostIndex = isGoingToPrev
+      ? currentPostIndex - 1
+      : currentPostIndex + 1
     const changeTo = posts[newPostIndex]?.id
 
     // if no id is found then return

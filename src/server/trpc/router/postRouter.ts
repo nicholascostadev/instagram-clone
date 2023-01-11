@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 import { publicProcedure, router, protectedProcedure } from '../trpc'
+import { TRPCError } from '@trpc/server'
 
 export const postRouter = router({
   getSpecificPost: publicProcedure
@@ -155,6 +156,33 @@ export const postRouter = router({
           image: input.imageUrl,
           authorId: input.userId,
           description: input.description,
+        },
+      })
+    }),
+
+  delete: protectedProcedure
+    .input(
+      z.object({
+        postId: z.number(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const postToDelete = await ctx.prisma.post.findUnique({
+        where: {
+          id: input.postId,
+        },
+      })
+
+      if (ctx.session.user.id !== postToDelete?.authorId)
+        throw new TRPCError({
+          code: 'UNAUTHORIZED',
+          cause: "You're not the author of the post you're trying to delete",
+          message: 'You are not authorized to delete this post',
+        })
+
+      return await ctx.prisma.post.delete({
+        where: {
+          id: input.postId,
         },
       })
     }),

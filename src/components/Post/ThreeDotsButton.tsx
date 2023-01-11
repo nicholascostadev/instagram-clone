@@ -3,7 +3,16 @@ import { DotsThree } from 'phosphor-react'
 import { PostActionModal } from './PostActionModal'
 
 // TODO: Make this work
-export const PostThreeDotsButton = () => {
+
+type PostThreeDotsButtonProps = {
+  userId: string | undefined
+  postId: number | undefined
+}
+
+export const PostThreeDotsButton = ({
+  postId,
+  userId,
+}: PostThreeDotsButtonProps) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
@@ -11,7 +20,7 @@ export const PostThreeDotsButton = () => {
           <DotsThree size={25} className="cursor-pointer" />
         </button>
       </Dialog.Trigger>
-      <PostActionModal />
+      <PostActionModal userId={userId} postId={postId} />
     </Dialog.Root>
   )
 }

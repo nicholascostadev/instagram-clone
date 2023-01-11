@@ -61,11 +61,15 @@ export const CreatePostModal = ({ closeModal }: CreatePostModalProps) => {
             onError: (error) => {
               throw new Error(error.message)
             },
-            onSuccess: () => {
+            onSuccess: async () => {
               clearInfo()
-              utils.post.postModalInfo.invalidate()
-              utils.post.getAll.invalidate()
-              utils.post.getSpecificPost.invalidate()
+
+              await Promise.all([
+                utils.post.getAll.invalidate(),
+                utils.post.getSpecificPost.invalidate(),
+                utils.post.postModalInfo.invalidate(),
+                utils.user.getUserInfo.invalidate(),
+              ])
             },
           },
         )
