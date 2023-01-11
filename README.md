@@ -198,6 +198,8 @@ Recursos que eu achei útil fazendo esse projeto.
 - [x] Fazer com que o usuário possa editar ou adicionar a própria descrição
 - [x] Fazer com que o usuário possa editar ou adicionar o próprio website
 - [ ] Mudar todos lugares em que to usando userInfo.(info) para usar a sessionData do próprio nextAuth
+- [ ] Adicionar funcionalidade de adicionar um post aos favoritos
+- [ ] Adicionar página de posts que usuário deu like, caso esteja vendo o próprio perfil
 
 ---
 
@@ -326,6 +328,8 @@ Resources I found helpfull when doing this project.
 - [x] Make user able to change or add his own description
 - [x] Make user able to change or add his own website
 - [ ] Change all userInfo.(info) to session data
+- [ ] Add add to favorite functionality
+- [ ] Add liked post page when user is seeing its own profile
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
