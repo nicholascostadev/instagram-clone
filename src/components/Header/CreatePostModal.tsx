@@ -64,6 +64,8 @@ export const CreatePostModal = ({ closeModal }: CreatePostModalProps) => {
             onSuccess: () => {
               clearInfo()
               utils.post.postModalInfo.invalidate()
+              utils.post.getAll.invalidate()
+              utils.post.getSpecificPost.invalidate()
             },
           },
         )
