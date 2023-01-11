@@ -26,40 +26,40 @@ export const Feed = () => {
         </div>
 
         <div className="hidden max-w-xs lg:block">
-          <div className="flex h-[107px] w-full items-center">
-            <div className="flex w-full items-center gap-4">
-              <Link
-                href={`/${userInfo?.username}`}
-                passHref
-                className="flex items-center rounded-full border"
-              >
-                <Image
-                  src={userInfo?.image || ''}
-                  alt=""
-                  width={60}
-                  height={60}
-                  className="rounded-full"
-                />
-              </Link>
-              <div>
+          <div className="flex h-[90px] w-full items-center">
+            <div className="flex w-full items-center justify-between">
+              <div className="flex w-full items-center gap-4">
                 <Link
-                  href={`${userInfo?.username}`}
+                  href={`/${userInfo?.username}`}
                   passHref
-                  className="text-sm font-bold"
+                  className="flex items-center rounded-full border"
                 >
-                  {userInfo?.username}
+                  <Image
+                    src={userInfo?.image || ''}
+                    alt=""
+                    width={60}
+                    height={60}
+                    className="rounded-full"
+                  />
                 </Link>
-                <p className="text-sm text-gray-400">{userInfo?.name}</p>
+                <div>
+                  <Link
+                    href={`${userInfo?.username}`}
+                    passHref
+                    className="text-sm font-bold"
+                  >
+                    {userInfo?.username}
+                  </Link>
+                  <p className="text-sm text-gray-400">{userInfo?.name}</p>
+                </div>
               </div>
-              <Link href="/" passHref>
-                <button
-                  className="ml-auto text-sm font-bold text-blue-500"
-                  onClick={() => signOut()}
-                  type="button"
-                >
-                  Switch
-                </button>
-              </Link>
+              <button
+                className="ml-auto text-sm font-bold text-blue-500"
+                onClick={() => signOut()}
+                type="button"
+              >
+                Switch
+              </button>
             </div>
           </div>
 
