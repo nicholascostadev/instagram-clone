@@ -22,16 +22,6 @@ export const Header = () => {
   const { data } = useSession()
   const [profileModalOpen, setProfileModalOpen] = useState(false)
 
-  const { data: userInfo } = api.user.getUserInfo.useQuery(
-    {
-      id: data?.user?.id,
-    },
-    {
-      refetchOnWindowFocus: false,
-      staleTime: 1000 * 60 * 5,
-    },
-  )
-
   const { pathname } = useRouter()
 
   const closeModal = useMemo(() => setProfileModalOpen(false), [])

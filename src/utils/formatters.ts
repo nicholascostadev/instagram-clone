@@ -21,7 +21,7 @@ export function formatFollow(followedByArr: TFollowedByArr) {
   return ''
 }
 
-export const getUserInitials = (name: string | null): string => {
+export const getUserInitials = (name: string | null | undefined): string => {
   if (!name) return ''
 
   return name

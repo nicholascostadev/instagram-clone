@@ -10,13 +10,6 @@ import { FeedFollowSuggestions } from './FollowSuggestions'
 export const Feed = () => {
   const { data } = useSession()
 
-  const { data: userInfo } = api.user.getUserInfo.useQuery(
-    {
-      id: data?.user?.id,
-    },
-    { refetchOnWindowFocus: false, staleTime: 1000 * 60 * 5 },
-  )
-
   return (
     <div>
       <main className="mx-auto grid h-screen max-w-full grid-cols-1 gap-10 px-2 pt-10 lg:grid-cols-2 xl:max-w-5xl">
@@ -30,12 +23,12 @@ export const Feed = () => {
             <div className="flex w-full items-center justify-between">
               <div className="flex w-full items-center gap-4">
                 <Link
-                  href={`/${userInfo?.username}`}
+                href={`/${data?.user?.username}`}
                   passHref
                   className="flex items-center rounded-full border"
                 >
                   <Image
-                    src={userInfo?.image || ''}
+                  src={data?.user?.image || ''}
                     alt=""
                     width={60}
                     height={60}
@@ -44,13 +37,13 @@ export const Feed = () => {
                 </Link>
                 <div>
                   <Link
-                    href={`${userInfo?.username}`}
+                  href={`${data?.user?.username}`}
                     passHref
                     className="text-sm font-bold"
                   >
-                    {userInfo?.username}
+                  {data?.user?.username}
                   </Link>
-                  <p className="text-sm text-gray-400">{userInfo?.name}</p>
+                <p className="text-sm text-gray-400">{data?.user?.name}</p>
                 </div>
               </div>
               <button

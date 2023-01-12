@@ -8,13 +8,21 @@ import { env } from '../../../env/server.mjs'
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
   callbacks: {
-    session({ session, user }) {
+    async session({ session, user }) {
+      const userInfo = await prisma.user.findUnique({
+        where: {
+          id: user.id,
+        },
+        select: {
+          username: true,
+        },
+      })
+
       if (session.user) {
         session.user.id = user.id
       }
 
-      // TODO: Change all userInfo.(info) to session data
-      return { ...session, user }
+      return { ...session, user: { ...user, username: userInfo?.username } }
     },
   },
   // Configure one or more authentication providers

@@ -2,8 +2,8 @@ import * as Avatar from '@radix-ui/react-avatar'
 import { getUserInitials } from '../../utils/formatters'
 
 type HeaderAvatarProps = {
-  userImage: string | null
-  userName: string | null
+  userImage: string | null | undefined
+  userName: string | null | undefined
 }
 
 export const HeaderAvatar = ({ userImage, userName }: HeaderAvatarProps) => {

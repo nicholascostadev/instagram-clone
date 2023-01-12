@@ -1,6 +1,5 @@
-import { Comment, Follows, Like, Post, User } from '@prisma/client'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-import { signIn, signOut } from 'next-auth/react'
+import { signIn, signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import {
   ArrowsCounterClockwise,
@@ -10,25 +9,10 @@ import {
 } from 'phosphor-react'
 import { HeaderAvatar } from './HeaderAvatar'
 
-interface HeaderProfileDropdownProps {
-  userInfo:
-    | (User & {
-        followers: Follows[]
-        following: Follows[]
-        posts: (Post & {
-          author: User
-          likes: Like[]
-          comments: Comment[]
-        })[]
-      })
-    | null
-    | undefined
-}
+export const HeaderProfileDropdown = () => {
+  const { data } = useSession()
 
-export const HeaderProfileDropdown = ({
-  userInfo,
-}: HeaderProfileDropdownProps) => {
-  if (!userInfo) {
+  if (!data) {
     return (
       <div className="flex items-center justify-center gap-2 text-gray-400">
         <button
@@ -47,7 +31,7 @@ export const HeaderProfileDropdown = ({
     <DropdownMenu.Root>
       <DropdownMenu.Trigger className="flex items-center justify-center rounded-full leading-none outline-1">
         <span className="sr-only">Profile icon</span>
-        <HeaderAvatar userName={userInfo.name} userImage={userInfo.image} />
+        <HeaderAvatar userName={data.user?.name} userImage={data.user?.image} />
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>
@@ -62,7 +46,7 @@ export const HeaderProfileDropdown = ({
           <DropdownMenu.Group className="w-64 text-sm">
             <DropdownMenu.Item>
               <Link
-                href={`/${userInfo?.username}`}
+                href={`/${data.user?.username}`}
                 passHref
                 className="dropdownMenuItem rounded-t-md"
               >
