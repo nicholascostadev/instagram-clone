@@ -9,11 +9,7 @@ import { api } from '../../utils/api'
 interface SuggestionProps {
   name: string
   image: string
-  followedBy: (Follows & {
-    follower: {
-      username: string | null
-    }
-  })[]
+  followedBy: Follows[]
   id: string
 }
 
@@ -25,12 +21,15 @@ export const FeedSuggestion = ({
 }: SuggestionProps) => {
   const { data: loggedUser } = useSession()
   const { mutate: toggleFollow } = api.user.toggleFollow.useMutation()
+  const { data } = api.suggestions.getByFollowersId.useQuery({
+    followerId: followedBy?.map((follower) => follower.followerId),
+  })
 
-  const followedByCopy = followedBy.filter(
-    (follower) => follower.followerId !== loggedUser?.user?.id,
+  const followedByCopy = data?.filter(
+    (user) => user.followerId !== loggedUser?.user?.id,
   )
 
-  const followingUser = followedBy.findIndex(
+  const followingUser = followedBy?.findIndex(
     (follower) => follower.followerId === loggedUser?.user?.id,
   )
   const [userFollows, setUserFollows] = useState(followingUser !== -1)
@@ -72,7 +71,7 @@ export const FeedSuggestion = ({
           {name}
         </Link>
         <p className="text-xs text-gray-400">
-          {followedBy.length > 0 && (
+          {followedByCopy && followedByCopy.length > 0 && (
             <>
               {formatFollow(followedByCopy)}
 

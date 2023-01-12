@@ -1,10 +1,10 @@
-import { Follows } from '@prisma/client'
+import { Follows, User } from '@prisma/client'
 
-export type TFollowedByArr = (Follows & {
-  follower: {
-    username: string | null
-  }
-})[]
+export type TFollowedByArr =
+  | (Follows & {
+      following: User
+      follower: User
+    })[]
 
 /**
  * It takes an array of followedBy objects and returns a string that says "Followed
@@ -17,6 +17,7 @@ export function formatFollow(followedByArr: TFollowedByArr) {
   if (followedByArr.length > 0) {
     return `Followed by ${followedByArr[0]?.follower.username}`
   }
+
   return ''
 }
 

@@ -1,26 +1,18 @@
-import { User } from '@prisma/client'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import { api } from '../../../utils/api'
+import { User } from '@prisma/client'
 
-type SuggestionRowProps =
-  | {
-      image: string | null
-      userId: string
-      username: string | null
-      name: string | null
-      recommendationReason: 'follows you'
-    }
-  | {
-      image: string | null
-      userId: string
-      username: string | null
-      name: string | null
-      recommendationReason: 'followed by'
-      followedByRecommendations: User[]
-    }
+type SuggestionRowProps = {
+  image: string | null
+  userId: string
+  username: string | null
+  name: string | null
+  recommendationReason: 'follows you' | 'followed by'
+  followedByRecommendation?: User
+}
 
 export const SuggestionRow = (props: SuggestionRowProps) => {
   const { data } = useSession()
@@ -72,11 +64,7 @@ export const SuggestionRow = (props: SuggestionRowProps) => {
           )}
           {props.recommendationReason === 'followed by' && (
             <p className="text-gray-400">
-              {props.followedByRecommendations[0]?.username}
-              <span>
-                {props.followedByRecommendations.length > 1 &&
-                  ` + ${props.followedByRecommendations.length - 1} more`}
-              </span>
+              Followed by {props.followedByRecommendation?.username ?? ''}
             </p>
           )}
         </div>

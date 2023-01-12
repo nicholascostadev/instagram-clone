@@ -11,15 +11,19 @@ export default function Explore() {
     },
   )
 
-  const filteredData = data?.filter((item) => {
-    // recommending only users that follow you or your friends(people you follow),
-    // follow too
-    return (
-      (item.recommendationReason === 'followed by' &&
-        item.followedByRecommendations.length > 0) ||
-      item.recommendationReason === 'follows you'
-    )
-  })
+  const followsLoggedUser = data?.followsLoggedUser
+  const followsSomeoneYouFollow = data?.followsSomeoneYouFollow
+
+  const filteredData = [followsLoggedUser, followsSomeoneYouFollow]
+    .flat()
+    .filter((user, index, self) => {
+      return (
+        index ===
+        self.findIndex((t) => {
+          return t?.user.id === user?.user.id
+        })
+      )
+    }) as typeof followsLoggedUser | typeof followsSomeoneYouFollow
 
   return (
     <>
@@ -37,30 +41,29 @@ export default function Explore() {
             )}
             {filteredData &&
               filteredData?.map((suggestion) => {
-                if (suggestion.recommendationReason === 'followed by') {
+                if (!suggestion) return null
+                if (suggestion?.recommendationReason === 'followed by') {
                   return (
                     <SuggestionRow
-                      key={suggestion.id}
+                      key={suggestion.user.id}
                       recommendationReason="followed by"
-                      image={suggestion.image}
-                      userId={suggestion.id}
-                      username={suggestion.username}
-                      name={suggestion.name}
-                      followedByRecommendations={
-                        suggestion.followedByRecommendations
-                      }
+                      image={suggestion.user.image}
+                      userId={suggestion.user.id}
+                      username={suggestion.user.username}
+                      name={suggestion.user.name}
+                      followedByRecommendation={suggestion.followedByUser}
                     />
                   )
                 }
 
                 return (
                   <SuggestionRow
-                    key={suggestion.id}
+                    key={suggestion.user.id}
                     recommendationReason="follows you"
-                    image={suggestion.image}
-                    userId={suggestion.id}
-                    username={suggestion.username}
-                    name={suggestion.name}
+                    image={suggestion.user.image}
+                    userId={suggestion.user.id}
+                    username={suggestion.user.username}
+                    name={suggestion.user.name}
                   />
                 )
               })}

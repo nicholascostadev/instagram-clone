@@ -160,7 +160,8 @@ export const userRouter = router({
         ) {
           if (userHistory.updatedUsernameTimes + 1 > 2) {
             // If the user has updated their username more than 2 times in the
-            // last 14 days, we will throw an error
+            // last 14 days, we will save the error to an object, because we don't
+            // want to stop the current flow of the application
             errorObject.errorUsername =
               "You can't change your username more than 2 times in 14 days"
           } else {
@@ -185,7 +186,8 @@ export const userRouter = router({
         ) {
           if (userHistory.updatedNameTimes + 1 > 2) {
             // If the user has updated their name more than 2 times in the
-            // last 14 days, we will throw an error
+            // last 14 days, we will save the error to an object, because we don't
+            // want to stop the current flow of the application
             errorObject.errorName =
               "You can't change your name more than 2 times in 14 days"
           } else {
@@ -205,6 +207,8 @@ export const userRouter = router({
       // statements, now we have everything that we need to update, as
       // the number of times he updated his username and name + the new
       // data
+      // We return the error object so we can check if there were any errors
+      // without any possibility of breaking anything
       return {
         data: await ctx.prisma.user.update({
           where: {
