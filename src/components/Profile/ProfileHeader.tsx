@@ -145,13 +145,12 @@ const ProfileHighlight = ({
       passHref
       className="flex w-full max-w-[119px] flex-col items-center justify-center gap-2"
     >
-      <div className="flex items-center justify-center rounded-full border border-red-500 p-1">
+      <div className="relative flex h-[77px] w-[77px] items-center justify-center rounded-full border border-red-500 p-1">
         <Image
           src={highlightImage || 'https://github.com/nicholascostadev.png'}
           alt=""
-          width={77}
-          height={77}
-          className="h-[77px] w-[77px] rounded-full"
+          fill
+          className="rounded-full"
         />
       </div>
       <p className="overflow-hidden" aria-valuetext={highlightName}>
@@ -237,7 +236,7 @@ export const ProfileHeader = ({
     : 'px-3 py-1 rounded-md bg-blue-600 text-white font-bold'
 
   return (
-    <header className="flex max-w-4xl flex-col">
+    <header className="flex max-w-4xl flex-col p-2">
       <div className="flex">
         <div className="flex h-48 w-32 max-w-full items-start justify-start md:w-96 md:items-center md:justify-center">
           {userInfo?.image ? (
